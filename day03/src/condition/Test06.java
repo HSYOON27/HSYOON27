@@ -21,8 +21,16 @@ public class Test06 {
         
         int addPricePerMinute = addPrice/10; 
         
-        int totalPrice = ((usageTime-60) * addPricePerMinute) + basicPrice;
         
+        int totalPrice = ((usageTime-60) * addPricePerMinute) + basicPrice;
+        // 이거 틀린거다 10분당이니까 ((usageTime-60)/term(10분))*addPrice+basicPrice; 이거당
+        
+        // int price;
+        // if(usageTime<=60){ price = bagicPrice; }
+        // else(usageTime>=60){price = bagicPrice+addPricePerMinute;}
+        
+        
+        //출력
         System.out.println("총 요금은 " + totalPrice + "원 입니다.");
         
   

@@ -8,7 +8,7 @@ public class Test08 {
 		//입력
 		int people= 3;
 		int day = 5;
-		int month = 7;
+		int month = 8;
 		int rate = 25;
 		int originPrice = 100000;
 		int price;

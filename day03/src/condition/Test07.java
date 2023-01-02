@@ -7,11 +7,13 @@ public class Test07 {
 		//입력
 		int fine;
 		int limit = 50;        
-	    int speed = 70;
-	    
+	    int speed = 51;
+	    int basicFine = 30000;
+	    int addFine = 10000;//만원
+	    int term = 10;//10km당
       
 	    if(speed>limit) {
-        	fine = 30000 + ((speed-limit)/10 * 10000);
+        	fine = basicFine + ((speed-limit)/term * addFine);
         	System.out.println("벌금은 " + fine + "원 입니다.");
         }
         else{
