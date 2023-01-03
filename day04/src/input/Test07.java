@@ -52,16 +52,14 @@ public class Test07 {
 	int totalPrice = people * day * salePrice;
 	int normalPrice = people * day * price;
 	
-	    System.out.println("여행 예정 : "+year+ "년" + month + "월 입니다.");	
-	    System.out.println("여행 인원수 : "+people+ "명 입니다.");	
-	    System.out.println("여행 인원기간은 : "+day+ "일 입니다.");	
-	    System.out.println("계절 할인은 = "+people + "명 입니다.");	
-	    System.out.println("여행 인원수는 = "+people + "명 입니다.");	
-		System.out.println("계절 할인 " + sale + "%가 적용됩니다.");
-		System.out.println("총 견적 비용은 " + normalPrice + " 원 입니다.");
-		System.out.println("총 할인 비용은 " + salePrice + " 원 입니다.");
-		System.out.println("총 비용은 " + totalPrice + " 원 입니다.");
-		System.out.println("버튼을 눌러 예약 사이트로 이동해주세요.");
+	System.out.println("여행 예정 : "+year+ "년" + month + "월 입니다.");	
+    System.out.println("여행 인원수 : "+people+ "명 입니다.");	
+    System.out.println("여행 인원기간은 : "+day+ "일 입니다.");	
+    System.out.println("계절 할인 " + sale + "%가 적용됩니다.");
+    System.out.println("총 견적 비용 : " + normalPrice + " 원 입니다.");
+    System.out.println("총 할인 비용 : " + salePrice + " 원 입니다.");
+    System.out.println("총 비용 : " + totalPrice + " 원 입니다.");
+    System.out.println("버튼을 눌러 예약 사이트로 이동해주세요.");
 
 	}
 	}}
