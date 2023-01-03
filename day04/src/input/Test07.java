@@ -6,7 +6,7 @@ public class Test07 {
 
 	public static void main(String[] args) {
 
-	Scanner sc = new Scanner(System.in);
+	Scanner sc = new Scanner(System.in); // 입력을 보조해주는 도구.
 	System.out.println("이름을 입력하세요");
     String name = sc.next();
 	
