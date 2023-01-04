@@ -3,7 +3,7 @@ package condition3;
 public class Test02 {
 	public static void main(String[] args) {
 	
-		char key = 's';
+		char key = 'a';
  
 		//switch는 검사항목을 적는거임. 그 후 내가 지정한 지점으로 한번에 이동. 
 		switch(key) {
