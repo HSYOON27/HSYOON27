@@ -15,6 +15,8 @@ public class Test01 {
 		
 		//r.nextInt(B) + A -> A부터 B개 라는 뜻.!
 		int dice = r.nextInt(6)+1;
+		
+		
 		System.out.println("주사위는 " + dice);
 		
 		

@@ -29,7 +29,7 @@ public class Test04 {
 		System.out.println("3. 재평가자의 인원수는 "+count+"명 입니다.");
 		
 		//4. 성적 우수자의 인원수를 출력
-		count=0;
+	    count=0; //매번 카운트 선언해야지 그게 당연하거야 새로하는거니까.
 		for (int i = 0; i< data.length; i++) {
 			if(data[i]>=90) {
 				count++;
@@ -45,6 +45,18 @@ public class Test04 {
 			}
 		}
 		System.out.println("5. 80점인 학생의 등수는 "+(count+1)+"등 입니다.");
+		
+		int student = 80;
+		int rank = 1;
+		for(int i = 0; i<data.length; i++) {
+			
+			if(data[i]>student) {
+				rank++;
+			}
+		}
+		System.out.println("내 등수는 " + rank);
+		
+		
 	}
 }
 //Test04(과제) 어떤 반 학생 10명의 성적 정보는 다음과 같다. 

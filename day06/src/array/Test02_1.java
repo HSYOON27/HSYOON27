@@ -18,12 +18,13 @@ public class Test02_1 {
 		}
 		
 		int total = 0;
+		
 		for (int i = 0; i <data.length; i++) {
 
 			total += data[i];
 
 
-			System.out.println(data[i]);
+			System.out.println(total);
 		}
 	}
 }
