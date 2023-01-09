@@ -11,7 +11,7 @@ public class Test01 {
 				Cafe d = new Cafe();
 				
 				
-				//데이터 초기화
+				//정보 설정
 				a.setting("아메리카노", "음료", 2500, true);
 				b.setting("모카라떼", "음료", 3500);
 				c.setting("치즈케이크", "디저트", 5000, true);
