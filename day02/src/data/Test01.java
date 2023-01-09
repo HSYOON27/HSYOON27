@@ -20,6 +20,7 @@ public class Test01 {
         	  System.out.println(10 / 3);//정수끼리 계산한것이기 때문에 정수만 나오는 것임. 
         	  System.out.println(10 / 3.0); // 끝에 나오는 5는 무시. 실수를 넣어주면 실수 값이 나오는 것임.
         	  
+        	  
         	  System.out.println("Hello");
         }
 }

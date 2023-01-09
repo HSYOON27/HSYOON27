@@ -2,27 +2,20 @@ package oop.method3;
 
 public class Test01 {
 	public static void main(String[] args) {
-		
-		//객체 생성		
-		Cellphone a1 = new Cellphone();
-		Cellphone a2 = new Cellphone();
-		Cellphone a3 = new Cellphone();
-		Cellphone a4 = new Cellphone();
+		Phone p1 = new Phone();
+		Phone p2 = new Phone();
+		Phone p3 = new Phone();
+		Phone p4 = new Phone();
 
-		//데이터 초기화 
-		a1.setting("갤럭시22s", "SK", 180, "설정하지 않음");
-		a2.setting("갤럭시22s", "KT", 175, "24개월");
-		a3.setting("아이폰 14", "LG", 200, "30개월");
-		a4.setting("아이폰 14", "SK", 199, "설정하지 않음");
-		
-		//출력
-		a1.output();
-		a2.output();
-		a3.output();
-		a4.output();
+		p1.setting("갤럭시 22s", "SK", 1800000);
+		p2.setting("갤럭시 22s", "KT", 1750000, 24);
+		p3.setting("아이폰 14", "LG", 2000000, 30);
+		p4.setting("아이폰 14", "SK", 1990000);
 
+		p1.output();
+		p2.output();
+		p3.output();
+		p4.output();
 
-		
 	}
-
 }
