@@ -1,6 +1,7 @@
 package oop.modifier7;
 
 public class Student {
+
 	// field
 	private String name;
 	private int grade;
@@ -10,15 +11,16 @@ public class Student {
 	private String type;
 
 	// setter method - 설정용 메소드 세터 게터 설정 가능
-	void setName(String name) {
+	public void setName(String name) {
 		this.name = name;
 	}
 
-	void setGrade(int grade) {
+	public void setGrade(int grade) {
+		if(!(grade >=1 && grade <=6))return;
 		this.grade = grade;
 	}
 
-	void setKorean(int korean) {
+	public void setKorean(int korean) {
 		if (korean < 0 || korean > 100) {
 			return;
 		}
@@ -26,20 +28,20 @@ public class Student {
 		this.korean = korean;
 	}
 
-	void setEnglish(int english) {
+	public void setEnglish(int english) {
 		if (english < 0 || english > 100) {
 			return;
 		}
 		this.english = english;
 	}
 
-	void setMath(int math) {
+	public void setMath(int math) {
 		if (math < 0 || math > 100) {
 			return;
 		}
 		this.math = math;
 	}
-	void setType(String type) {
+	public void setType(String type) {
 		switch(type) {
 		case "총점", "평균", "등급" : 
 		this.type = type;
@@ -48,35 +50,42 @@ public class Student {
 	
 	// getter method - 확인용 , 반환용 매서드.
 
-	String getName() {
+	public String getName() {
 		return this.name;
 	}
 
-	int getGrade() {
+	public int getGrade() {
+			
 		return this.grade;
 	}
 
-	int getKorean() {
+	public int getKorean() {
 		return this.korean;
 	}
 
-	int getEnglish() {
+	public int getEnglish() {
 		return this.english;
 	}
 
-	int getMath() {
+	public int getMath() {
 		return this.math;
 	}
 
-	int getTotal() {
+	public int getTotal() {
 		return this.getKorean() + this.getEnglish() + this.getMath();
 	}
 
-	double getAverage() {
+	public double getAverage() {
 		return this.getTotal() / 3.0;
 	}
+	
+	//public String getGrade(){
+	//if(90~100) return "A";
+	//else if(80~89) return "B"; ~~~~
+	//else return "F";
 
-	Student(String name, int grade, int korean, int english, int math) {
+	//constructor
+	public Student(String name, int grade, int korean, int english, int math) {
 		this.setName(name);
 		this.setGrade(grade);
 		this.setKorean(korean);
@@ -86,7 +95,7 @@ public class Student {
 	}
 	
 	//method
-	void output() {
+	public void output() {
 		System.out.println("<학생 성적 정보>");
 		System.out.println("이름 : " + getName());
 		System.out.println("학년 : " + getGrade());
