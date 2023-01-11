@@ -1,23 +1,14 @@
 package oop.inherit4;
 
-public class Mp4 extends Files {
+public class Mp4 extends MediaFile {
 	
-	private String speed;
+	private double speed;
 
-	public String getSpeed() {
+	public double getSpeed() {
 		return speed;
 	}
 
-	public void setSpeed(String speed) {
+	public void setSpeed(double speed) {
 		this.speed = speed;
 	}
-
-	 public void rewind() {
-			System.out.println("되감기 기능 실행");
-		}
-	 public void forword() {
-			System.out.println("빨리감기 기능 실행");
-		}
-	
-
 }

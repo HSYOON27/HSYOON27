@@ -1,23 +1,15 @@
 package oop.inherit4;
 
-public class Mp3 extends Files{
+public class Mp3 extends MediaFile{
 	
-    private String duration;
+	//필드 
+    private int duration;
 	
 
-    public String getDuration() {
+    public int getDuration() {
 		return duration;
 	}
-	public void setDuration(String duration) {
+	public void setDuration(int duration) {
 		this.duration = duration;
-	}
-	public void forward() {
-		System.out.println("빨리감기 기능 실행");
-	}
-    public void rewind() {
-		System.out.println("되감기 기능 실행");
-	}
-    public void execute() {
-		System.out.println("실행 기능");
 	}
 }
