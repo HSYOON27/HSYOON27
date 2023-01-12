@@ -25,6 +25,7 @@ public class Test01 {
 		String d = "Hello";
 		System.out.println(a.equals(d)); //동등비교(글자가 같은지)
 		System.out.println(a.equalsIgnoreCase(d)); //대소문자를 무시하고 비교하라는 명령 
+	    System.out.println(a.toLowerCase().equals(d.toLowerCase()));
 		
 		//문자열은 전체가 아닌 일부만 비교하는 경우도 있음. 
 		String e = "https://iei.or.kr";
