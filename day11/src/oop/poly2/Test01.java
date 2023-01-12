@@ -13,10 +13,10 @@ public class Test01 {
 		int action = sc.nextInt();
 		sc.close();
 		
-		//다형성의 특징을 사용하지 않겠다는 것  = 자료형을 통합해서 쓰겠다는것 (업캐스팅)
+		//다형성의 특징을 사용하지 않겠다는 것 = 자료형을 통합해서 쓰겠다는것 (업캐스팅)
 		Game player;
 		if(job == 1) {
-			player = new Warrior("테스트 유저"); //Warrir->Player로 업캐스팅
+			player = new Warrior("테스트 유저"); //Warrior->Player로 업캐스팅
 		}
 		else if(job == 2) {
 			player = new Magician("테스트 유저");

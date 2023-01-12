@@ -25,7 +25,19 @@ public class Test01 {
 	    e.move();
 	    e.reservation();
 	    
+	    test(c); // 자료형으로 검사를 해버린 것.
+	    test(a); 	    
 	    
+	    test2(c);
+	    
+	    
+	}
+	//이 메소드는 Flyable을 상속받은 클래스만 상속이 가능하다. 
+	
+	public static void test(Flyable flyable) {
+	}
+
+	public static void test2(Electronic electronic) {
 	}
 
 }
