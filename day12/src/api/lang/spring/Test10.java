@@ -11,7 +11,7 @@ public class Test10 {
 		String birth = sc.nextLine();
 		sc.close();
 		
-		String regex = "^(19[0-9][0-9]|20[0-9][0-9])-(0[0-9]|1[0-2])-(0[0-9]|[1-2][0-9]|3[0-1])&";
+		String regex = "^(19[0-9][0-9]|20[0-9][0-9])-(0[0-9]|1[0-2])-(0[0-9]|[1-2][0-9]|3[0-1])$";
 
 		if(Pattern.matches(regex, birth)) {
 			System.out.println("올바른 생년월일 입니다.");
