@@ -16,7 +16,7 @@ public class Test02_5 {
 								
 				//Arrays.sort(data);//무조건 오름차순
 				
-				Arrays.sort(arr, Collections.reverseOrder());
+				Arrays.sort(arr, (o1,o2)->o2.compareTo(o1));
 				
 				
 				System.out.println(Arrays.toString(arr));

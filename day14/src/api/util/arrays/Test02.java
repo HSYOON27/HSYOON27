@@ -7,7 +7,7 @@ public class Test02 {
 
 	public static void main(String[] args) {
 		//배열 정렬 
-		//- Arrays는 우너시형과 문자열이 오름차순 정렬이 가능. 
+		//- Arrays는 원시형과 문자열이 오름차순 정렬이 가능. 
 		//- 다른 방식이나 객체일 경우는 정렬 기준을 따로 구현해야 한다.
 		//- java.util.Comparator를 사용하여 정렬 할 수 있다.(즉 기준을 생성)
 		
@@ -28,10 +28,6 @@ public class Test02 {
 				
 			}
 		};
-		
-		
-	
-		
 		//Arrays.sort(data); //sort로 정렬 쌉가능 하지만 바꾸질 못한다는 큰 단점. 난 내림차순 하고싶은데 등등
 		//그래서 sort가 두개다. 얘는 무적권 오름차순
 		
