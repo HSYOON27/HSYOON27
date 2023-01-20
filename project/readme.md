@@ -48,3 +48,5 @@ System.out.println("Hello world");
 # 이미지
 
 ![카카오 라이언 이미지](https://blog.kakaocdn.net/dn/bezjux/btqCX8fuOPX/6uq138en4osoKRq9rtbEG0/img.jpg)
+
+링크 표시 앞에 느낌표(`!`)를 추가하면 이미지를 보여줄 수 있습니다.
