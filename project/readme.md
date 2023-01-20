@@ -39,5 +39,12 @@ System.out.println("Hello world");
 ```
 
 위의 코드는 **Hello world** 라는 글자를 콘솔에 출력하는 명령이다.
-
 위의 코드는 `Hello world` 라는 글자를 콘솔에 출력하는 명령이다.
+
+# 링크
+
+[여기](https://www.google.com)를 누르면 구글로 이동합니다.
+
+# 이미지
+
+![카카오 라이언 이미지](https://blog.kakaocdn.net/dn/bezjux/btqCX8fuOPX/6uq138en4osoKRq9rtbEG0/img.jpg)
