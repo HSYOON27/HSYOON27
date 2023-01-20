@@ -35,5 +35,8 @@
 코드는 코드 블럭을 만들고 옆에 언어를 적으면 대부분 시스템에서 자동 하이라이팅이 가능 
 
 ``` java
-System.out.println("Hello");
+System.out.println("Hello world");
 ```
+
+위의 코드는 **Hello world** 라는 글자를 콘솔에 출력하는 명령이다.
+위의 코드는 `Hello world` 라는 글자를 콘솔에 출력하는 명령이다.
