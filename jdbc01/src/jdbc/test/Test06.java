@@ -38,8 +38,9 @@ public class Test06 {
 		JdbcTemplate jdbcTemplate = new JdbcTemplate();
 		jdbcTemplate.setDataSource(dataSource);
 
-		String sql = "insert into student(no,name,korean,english,math) values(?, ?, ?, ?, ?)";
-		Object[] param = { no, name, korean, english, math };
+		String sql = "insert into student(no,name,korean,english,math) "
+				+ "values(student_seq.nextval, ?, ?, ?, ?)";
+		Object[] param = { name, korean, english, math };
 
 		jdbcTemplate.update(sql, param);
 		System.out.println("실행 완료");
