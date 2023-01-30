@@ -17,7 +17,7 @@ public class Test02 {
 		System.out.println(b);
 		
 		//3. OTP 번호 6개
-		int otp = r. nextInt(900000)+100000;
+		int otp = r.nextInt(900000)+100000;
 		System.out.println("OTP 번호는 : "+otp);
 		
 		//4. 동전 앞뒤 
