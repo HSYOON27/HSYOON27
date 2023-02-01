@@ -10,14 +10,15 @@ import com.kh.spring09.dao.MemberDao;
 import com.kh.spring09.dto.MemberDto;
 
 @Controller
+@RequestMapping("/member") //공용주소
 public class MemberController {
 	@Autowired
 	private MemberDao dao;
-	@RequestMapping("/member/join")
+	
+	@RequestMapping("join") //맾핑주소 
 	@ResponseBody
 	public String join(@ModelAttribute MemberDto dto) {
 		dao.join(dto);
 		return "등록완료";
 	}
-
 }

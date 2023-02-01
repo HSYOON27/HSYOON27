@@ -22,7 +22,6 @@ public class PocketmonDao {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 	
-	//주소 안적음 얘는 컨트롤러가 아니라 부하임 부하
 	public void insert(PocketmonDto dto) {
 		String sql = "insert into pocketmon(no,name,type) values(?,?,?)";
 		Object[] param = {dto.getNo(), dto.getName(), dto.getType()};
@@ -31,7 +30,7 @@ public class PocketmonDao {
 	
 	private RowMapper<PocketmonDto> mapper = new RowMapper<PocketmonDto>() {
 		@Override
-		public PocketmonDto mapRow(ResultSet rs, int rowNum) throws SQLException{
+		public PocketmonDto mapRow(ResultSet rs, int rowNum) throws SQLException {
 			PocketmonDto dto = new PocketmonDto();
 			dto.setNo(rs.getInt("no"));
 			dto.setName(rs.getString("name"));
@@ -39,17 +38,22 @@ public class PocketmonDao {
 			return dto;
 		}
 	};
+	
 	public List<PocketmonDto> selectList(){
 		String sql = "select * from pocketmon order by no asc";
 		return jdbcTemplate.query(sql, mapper);
-    }
+	}
 	
-	public List<PocketmonDto> selectList(String column, String keyword){
-		String sql = "select * from pocketmon" + "where instr(#1,?)>0" + "order by #1 asc";
+	public List<PocketmonDto> selectList(String column, String keyword) {
+		String sql = "select * from pocketmon "
+						+ "where instr(#1,?) > 0 "
+						+ "order by #1 asc";
+		sql = sql.replace("#1", column);
 		Object[] param = {keyword};
 		return jdbcTemplate.query(sql, mapper, param);
 	}
-	public PocketmonDto selectOne(int no) { 
+	
+	public PocketmonDto selectOne(int no) {
 		String sql = "select * from pocketmon where no = ?";
 		Object[] param = {no};
 		List<PocketmonDto> list = jdbcTemplate.query(sql, mapper, param);
@@ -60,18 +64,16 @@ public class PocketmonDao {
 			return list.get(0);
 		}
 	}
-	 //수정
+
 	public boolean update(PocketmonDto dto) {
 		String sql = "update pocketmon set name=?,type=? where no=?";
 		Object[] param = {dto.getName(), dto.getType(), dto.getNo()};
-		return jdbcTemplate.update(sql, param)>0;
+		return jdbcTemplate.update(sql, param) > 0;
 	}
-	
-	//삭제
+
 	public boolean delete(int no) {
 		String sql = "delete pocketmon where no=?";
 		Object[] param = {no};
-		return jdbcTemplate.update(sql,param)>0;
-		
+		return jdbcTemplate.update(sql, param) > 0;
 	}
 }
