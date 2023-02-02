@@ -10,11 +10,11 @@
 <!-- 절대 경로 -->
 	<h1>스튜던트 등록(절대경로)</h1>
 	<form action="/student/insert">
-		<input name="no"><br>
-		<br> <input name="name"><br>
-		<br> <input name="korean"><br>
-		<br> <input name="english"><br>
-		<br> <input name="math"><br>
+		번호<br>       <input name="no"><br>
+		이름<br> <input name="name"><br>
+		국어<br> <input name="korean"><br>
+		영어<br> <input name="english"><br>
+		수학<br> <input name="math"><br>
 		<br>
 		<button>등록</button>
 	</form>
@@ -22,11 +22,11 @@
 	<!-- 상대 경로 -->
 	<h1>스튜던트 등록(상대경로)</h1>
 	<form action="/..student/insert">
-		<input name="no"><br>
-		<br> <input name="name"><br>
-		<br> <input name="korean"><br>
-		<br> <input name="english"><br>
-		<br> <input name="math"><br>
+		번호<br><input name="no"><br>
+		이름<br> <input name="name"><br>
+		국어<br> <input name="korean"><br>
+		영어<br> <input name="english"><br>
+		수학<br> <input name="math"><br>
 		<br>
 		<button>등록</button>
 	</form>
@@ -34,6 +34,8 @@
 	<h1>스튜던트 검색</h1>
 	<a href="/student/list">전체 목록보기</a>
 	<br><br>
+	
+	
 	<form action="/student/list">
 	<select name="column">
 		<option value="no">번호</option>
@@ -42,13 +44,15 @@
 	    <option value="english">영어</option>
 	    <option value="math">수학</option>
 	</select>
-	   <br><br>
+	   <br>
 	   <input name="keyword"><br><br>
 	   <button>검색</button>
 	</form>
  	   <br><br>
+ 	   
     <h1>스튜던트 상세정보</h1>
     <form action="/student/detail">
+    번호<br>
     <input type="number"name="no">
     <button>보기</button>
     </form>
@@ -79,6 +83,7 @@
     
     <h1>스튜던트 삭제</h1>
     <form action="/student/delete">
+         번호<br>
          <input name="no">
     </form>
     <br>

@@ -1,4 +1,4 @@
-package com.kh.spring11.dao;
+package com.kh.spring12.dao;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -9,7 +9,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
-import com.kh.spring11.dto.StudentDto;
+import com.kh.spring12.dto.StudentDto;
 
 @Repository
 public class StudentDao {

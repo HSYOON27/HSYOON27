@@ -12,87 +12,82 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.kh.spring11.dao.SubjectDao;
 import com.kh.spring11.dto.SubjectDto;
 
+//컨트롤러에는 공용 주소를 부여할 수 있다
 @Controller
+@RequestMapping("/subject")
 public class SubjectController {
 
-	// 등록
 	@Autowired
-	private SubjectDao dao;
+	private SubjectDao subjectDao;
 
-	@RequestMapping("/subject/insert")
-	@ResponseBody
+//	@RequestMapping("/insert")
+//	@ResponseBody
+//	public String insert(@ModelAttribute SubjectDto dto) {
+//		subjectDao.insert(dto);
+//		return "등록 완료";
+//	}
+
+//	등록이 완료된 이후에 텍스트 메세지가 아니라 다른 곳으로 보내고 싶다면
+//	사용자에게 재접속을 요청하도록 처리할 수 있다(Redirect, 리다이렉트)
+//	- @ResponseBody를 제거하고 redirect: 로 시작하는 문자열을 반환한다
+	@RequestMapping("/insert")
 	public String insert(@ModelAttribute SubjectDto dto) {
-		dao.insert(dto);
-		return "등록 완료";
+		subjectDao.insert(dto);
+		return "redirect:list";//상대경로
+//		return "redirect:/subject/list";//절대경로
 	}
-// 등록 완료 후 텍스트 메시지가 아니라 다른곳으로 보내고 싶다면,
-// 사용자에게 재접속을 요청하도록 처리할 수 있다.(Redirect, 리다이렉트)
-// @ResponseBody 제거하고 redirect:로 시작하는 문자열을 반환한다
-// @RequestMapping("/subject/insert")
-// public String insert(@ModelAttribute SubjectDto dto) {
-// dao.insert(dto);
-// return "redirect:list"; //상대경로	
-// return "redirect:/subject/list"; //절대경로 
-	
-	// 목록&검색 통합페이지
-	@RequestMapping("/subject/list")
-	@ResponseBody
-	public String list(@RequestParam(required = false, defaultValue = "name") String column,
-			@RequestParam(required = false, defaultValue = "") String keyword) {
-		boolean search = !keyword.equals("");
 
+	@RequestMapping("/list")
+	@ResponseBody
+	public String list(
+			@RequestParam(required = false, defaultValue = "name") String column,
+			@RequestParam(required = false, defaultValue = "") String keyword) {
 		List<SubjectDto> list;
-		if (search) {
-			list = dao.selectList(column, keyword);
-		} else {
-			list = dao.selectList();
+		if(keyword.equals("")) {//목록이라면
+			list = subjectDao.selectList();
 		}
+		else {//검색이라면
+			list = subjectDao.selectList(column, keyword);
+		}
+
 		StringBuffer buffer = new StringBuffer();
-		for (SubjectDto dto : list) {
+		for(SubjectDto dto : list) {
 			buffer.append(dto.toString());
 			buffer.append("<br>");
 		}
 		return buffer.toString();
 	}
 
-	// 상세 페이지
-	@RequestMapping("/subject/detail")
+	@RequestMapping("/detail")
 	@ResponseBody
 	public String detail(@RequestParam int no) {
-		SubjectDto dto = dao.selectOne(no);
-
-		if (dto == null) {
-			return "없어";
-		} else {
+		SubjectDto dto = subjectDao.selectOne(no);
+		if(dto == null) {
+			return "대상 없음";
+		}
+		else {
 			return dto.toString();
 		}
 	}
 
-	// 수정 페이지
-	@RequestMapping("/subject/edit")
+	@RequestMapping("/edit")
 	@ResponseBody
-
 	public String edit(@ModelAttribute SubjectDto dto) {
-		boolean success = dao.update(dto);
+		boolean success = subjectDao.update(dto);
 
-		if (success) {
-			return "변경 완료";
-		} else {
-			return "대상 없음";
-		}
+		return success ? "변경 성공" : "없는 대상";
+//		if(success) {
+//			return "변경 성공";
+//		}
+//		else {
+//			return "없는 대상";
+//		}
 	}
 
-	// 삭제 페이지
-	@RequestMapping("/subject/delete")
+	@RequestMapping("/delete")
 	@ResponseBody
 	public String delete(@RequestParam int no) {
-		boolean success = dao.delete(no);
-
-		if (success) {
-			return "삭제 완료";
-		} else {
-			return "대상 없음";
-		}
+		boolean success = subjectDao.delete(no);
+		return success ? "삭제 완료" : "존재하지 않는 대상";
 	}
-
 }
