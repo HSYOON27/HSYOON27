@@ -13,5 +13,9 @@
 	<h4>기간 : ${subjectDto.period}</h4><br>
 	<h4>가격 : ${subjectDto.price}</h4><br>
 	<h4>종류 : ${subjectDto.type}</h4><br>
+	
+	<h2><a href="list">목록 보러가기</a></h2>
+    <h2><a href="delete?no=${subjectDto.no}">과목 정보 삭제하기</a></h2>
+	
 </body>
 </html>

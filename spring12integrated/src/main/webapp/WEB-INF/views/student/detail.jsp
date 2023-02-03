@@ -20,5 +20,8 @@
 	    <li>영어 : ${studentDto.english}점</li><br>
 	    <li>수학 : ${studentDto.math}점</li><br>
 	</ul>
+	    <h2><a href="delete?no=${studentDto.no}">학생 정보 삭제하기</a></h2>
+		<h2><a href="list"> 목록 보러가기</a></h2>
+	
 </body>
 </html>

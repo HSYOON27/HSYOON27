@@ -42,4 +42,30 @@ public class StudentController {
 		return "/WEB-INF/views/student/detail.jsp";
 	}
 
+	//목록
+	@GetMapping("/list")
+	public String list(Model model, 
+			@RequestParam(required=false, defaultValue="name")String column,
+			@RequestParam(required=false, defaultValue="")String keyword){
+		boolean search =!column.equals("") &&!keyword.equals("");
+		
+		if(search) {
+			model.addAttribute("keyword", keyword);
+			model.addAttribute("mode","검색");
+			model.addAttribute("list", studentDao.selectList(column,keyword));
+		}
+		else {
+			model.addAttribute("mode","목록");
+			model.addAttribute("list", studentDao.selectList());
+		}
+		return "/WEB-INF/views/student/list.jsp";
+	}
+	//삭제
+	@GetMapping("/delete")
+	public String delete(@RequestParam int no) {
+		studentDao.delete(no);
+		return "redirect:list";
+	}
+			
+			
 }

@@ -30,7 +30,6 @@ public class SubjectController {
 	public String insertProcess(@ModelAttribute SubjectDto subjectDto) {
 		subjectDao.insert(subjectDto);
 		return "redirect:insertFinish"; //상대주소
-		
 	}
 	
 	@GetMapping("/insertFinish")
@@ -44,6 +43,31 @@ public class SubjectController {
 		SubjectDto subjectDto = subjectDao.selectOne(no);
 		model.addAttribute("subjectDto", subjectDto);
 		return "/WEB-INF/views/subject/detail.jsp";
+	}
+	
+	//목록
+	@GetMapping("/list")
+	public String list(Model model, 
+			@RequestParam(required = false, defaultValue ="")String column,
+			@RequestParam(required = false, defaultValue ="")String keyword) {
+		boolean search = !column.equals("") && !keyword.equals("");
 		
+		if(search) {
+			model.addAttribute("keyword", keyword);
+			model.addAttribute("mode","검색");
+			model.addAttribute("list",subjectDao.selectList(column,keyword));
+		}
+		else {
+			model.addAttribute("mode","목록");
+			model.addAttribute("list",subjectDao.selectList());
+		}
+		return "/WEB-INF/views/subject/list.jsp";
+	}
+	
+	//삭제
+	@GetMapping("/delete")
+	public String delete(@RequestParam int no) {
+		subjectDao.delete(no);
+		return "redirect:list";
 	}
 }

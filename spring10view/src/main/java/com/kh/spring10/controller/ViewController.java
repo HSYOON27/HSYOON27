@@ -100,7 +100,10 @@ public class ViewController {
     	int[] lotto = new int[] {10, 13, 24, 25, 37, 41};
     	model.addAttribute("lotto", lotto);
     	return "/WEB-INF/views/data05.jsp";
-    			
+    }
+    @GetMapping("/table01")
+    public String table01() {
+    	return "/WEB-INF/views/table01.jsp";
     }
      
     

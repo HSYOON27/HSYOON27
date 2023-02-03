@@ -12,5 +12,8 @@
 	<h4>번호 : ${pocketmonDto.no}<br></h4>
 	<h4>이름 : ${pocketmonDto.name}<br></h4>
     <h4>속성 : ${pocketmonDto.type}<br></h4>
+    
+    <h2><a href="list">목록으로 이동</a></h2>
+    
 </body>
 </html>
