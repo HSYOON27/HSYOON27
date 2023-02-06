@@ -1,12 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>포켓몬 등록 페이지</title>
-</head>
-<body>
+<jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 	<h1>포켓몬 등록<h1>
 	<!-- form의 전송 방식은 크게 2가지로 나뉜다
 	- GET : 기본 방식, 주소를 통해 데이터를 전달하는 방식
@@ -27,5 +21,5 @@
 		<input type="text"name="type"placeholder="타입을 적으세여"required><br><br>
 		<button>등록</button>
      </form>
-</body>
-</html>
+<jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>
+     

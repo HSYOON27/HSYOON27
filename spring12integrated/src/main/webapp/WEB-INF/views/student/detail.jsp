@@ -1,11 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>${studentDto.no}번 학생의 상세정보</title>
-</head>
+<jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
+
 <body>
 	<h1>학생 정보</h1>
 	<!-- ul : 순서 없는 리스트 태그(unorder list)
@@ -22,6 +18,5 @@
 	</ul>
 	    <h2><a href="delete?no=${studentDto.no}">학생 정보 삭제하기</a></h2>
 		<h2><a href="list"> 목록 보러가기</a></h2>
-	
-</body>
-</html>
+		
+<jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>

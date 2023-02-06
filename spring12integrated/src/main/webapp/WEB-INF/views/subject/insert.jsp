@@ -1,12 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>수업과목 등록 페이지</title>
-</head>
-<body>
+    
+<jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
+
 	<h1>수업 과목 등록</h1>
 	<form action="insert" method="post">
 		<input type="number" name="no" placeholder="번호를 적으세여" required><br><br>
@@ -21,5 +17,5 @@
 		<br><br>
 		<button>등록</button>
      </form>
-</body>
-</html>
+     
+<jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>

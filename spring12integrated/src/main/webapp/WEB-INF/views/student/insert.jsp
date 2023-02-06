@@ -1,12 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>학생 등록</title>
-</head>
-<body>
+    
+<jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
+
 	<h1>학생 등록하기</h1>
 	<form action="insert" method="post">
 	<input type="number" name="no" placeholder="번호를 적으세요" required><br><br>
@@ -17,6 +13,5 @@
 	<Button>등록</Button>
 			<h2><a href="list"> 목록 보러가기</a></h2>
 	</form>
-
-</body>
-</html>
+	
+<jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>
