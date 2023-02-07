@@ -159,26 +159,48 @@ public class MemberController {
 		 }
 		 
 		 @GetMapping("/editFinish")
-		 public String editFinish() {
+		 public String editFinish(@ModelAttribute MemberDto memberDto, 
+				 HttpSession session,RedirectAttributes attr) {
+			 
 			 return "/WEB-INF/views/member/editFinish.jsp";
 		 }
 		 
-		 //회원 탈퇴
+		 //회원 탈퇴 (2023.02.07)
 		 
 		 @GetMapping("/exit")
-		 public String exit() {
+		 public String exit(HttpSession session) {
 			 return "/WEB-INF/views/member/exit.jsp";
 		 }
 		 
 		 @PostMapping("/exit")
-		 public String exit(@ModelAttribute MemberDto memberDto) {
-			 memberDao.insert(memberDto);
-			 return "/WEB-INF/views/member/exit.jsp"; 
+		 public String exit(HttpSession session, //회원 정보가 저장되어 있는 세션 객체 
+				 @RequestParam String memberPw,//사용자가 입력한 비밀번호 
+				 RedirectAttributes attr//리다이렉트 시 정보를 추가하기 위한 객체
+				 )
+		 {
+			 String memberId = (String)session.getAttribute("memberId");
+			 //System.out.println(Id);
+			 MemberDto memberDto = memberDao.selectOne(memberId);
+		    //System.out.println(memberDto);
+			 
+			 //비밀번호가 일치하지 않는다면
+			 if(!memberDto.getMemberPw().equals(memberPw)) {
+				 attr.addAttribute("mode", "error");
+				 return "redirect:exit";
+			 }
+			 //비밀번호가 일치한다면 -> 회원탈퇴+로그아웃
+			 memberDao.delete(memberId);
+			 
+			 session.removeAttribute("memberId");
+			 session.removeAttribute("memberLevel");
+			 
+			 return "redirect:exitFinish";
+			 
 		 }
 		 
 		 @GetMapping("/exitFinish")
 		 public String exitFinish() {
-			 return "/";
+			 return "/WEB-INF/views/member/exitFinish.jsp";
 		 }
 }
 

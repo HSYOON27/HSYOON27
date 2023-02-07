@@ -69,4 +69,8 @@
 	</tbody>
 	</table>
 
+<c:if test="${param.mode == 'error'}">
+	<h2>비밀번호가 일치하지 않습니다</h2>
+</c:if>
+
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>

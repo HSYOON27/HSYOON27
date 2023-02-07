@@ -86,9 +86,14 @@ public class MemberDao {
 			memberDto.getMemberPost(), memberDto.getMemberBasicAddr(), 
 			memberDto.getMemberDetailAddr()	
 			};
-			return jdbcTemplate.update(sql, param) >0;
+			return jdbcTemplate.update(sql, param) > 0;
 		}
-		
+//  	회원 탈퇴 기능
+		public boolean delete(String memberId) {
+			String sql = "delete member where member_id =?";
+			Object[] param = {memberId};
+			return jdbcTemplate.update(sql, param) > 0;
+		}
 }
 
 
