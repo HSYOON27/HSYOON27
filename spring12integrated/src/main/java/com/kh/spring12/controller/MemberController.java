@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.spring12.dao.MemberDao;
@@ -93,37 +94,73 @@ public class MemberController {
 			 model.addAttribute("memberDto", memberDto); //3번 
 			 return "/WEB-INF/views/member/mypage.jsp";
 	 	}
-		 //비밀번호 변경
+		 //비밀번호 변경 기능(2023.02.07)
 		 @GetMapping("/password")
 		 public String password() {
 			 return "/WEB-INF/views/member/password.jsp";
 		 }
-		 
+
 		 @PostMapping("/password")
-		 public String password(@ModelAttribute MemberDto memberDto) {
-			 memberDao.insert(memberDto);
-			 return "/WEB-INF/views/member/passwordFinish.jsp"; 
+		 public String password(
+				 HttpSession session,//아이디가 저장되어 있는 세션 객체
+				 @RequestParam String currentPw, //현재 비밀번호
+				 @RequestParam String changePw,//변경할 비밀번호
+				 RedirectAttributes attr) {//리다이렉트에 정보를 추가하기 위한 객체
+			 String memberId = (String)session.getAttribute("memberId");
+			 MemberDto memberDto = memberDao.selectOne(memberId);
+
+			 //비밀번호가 일치하지 않는다면
+			 if(!memberDto.getMemberPw().equals(currentPw)) {
+				 attr.addAttribute("mode", "error");
+				 return "redirect:password";
+			 }
+
+			 //비밀번호가 일치한다면 → 비밀번호 변경 처리
+			 memberDao.changePassword(memberId, changePw);
+			 return "redirect:passwordFinish";		 
 		 }
-		 
+
+
 		 @GetMapping("/passwordFinish")
 		 public String passwordFinish() {
-			 return "/WEB-INF/views/member/mypage.jsp";
+			 return "/WEB-INF/views/member/passwordFinish.jsp";
 		 }
-		 //개인정보 변경
+
+		 
+		 //비밀번호를 제외한 개인정보 변경
 		 @GetMapping("/edit")
-		 public String edit() {
+		 public String edit(HttpSession session,//회원 아디가 저장되어있는 세션 객체, 
+				 Model model//회원의 모든 정보를 전달할 전송 객체
+				 ) {
+			 String memberId = (String) session.getAttribute("memberId");
+			 MemberDto memberDto = memberDao.selectOne(memberId);
+			 model.addAttribute("memberDto", memberDto);
 			 return "/WEB-INF/views/member/edit.jsp";
 		 }
 		 
 		 @PostMapping("/edit")
-		 public String edit(@ModelAttribute MemberDto memberDto) {
-			 memberDao.insert(memberDto);
-			 return "/WEB-INF/views/member/editFinish.jsp"; 
+		 public String edit(@ModelAttribute MemberDto memberDto, 
+				 HttpSession session, //회원 아이디가 저장되어 있는 세션 객체
+				 RedirectAttributes attr//리다이렉트 시 정보를 추가할 전송 객체
+				 )//데이터를 자동으로 받기위한 객체) 
+		 {
+			 String memberId = (String) session.getAttribute("memberId"); //세션에서 아이디를 꺼낸다
+			 MemberDto findDto = memberDao.selectOne(memberId);
+			 
+			 //비밀번호가 일치하지 않는다면 -> 에러 표시 후 이전 페이지로 리다이렉트
+			 if(!findDto.getMemberPw().equals(memberDto.getMemberPw())) {
+				 attr.addAttribute("mode","error");
+				 return "redirect:edit";
+			 }
+			 //비밀번호가 일치한다면 -> 비밀번호 변경 및 완료 페이지로 리다이렉트
+			 memberDto.setMemberId(memberId);//아이디 추가 설정
+			 memberDao.changeInformation(memberDto);//정보 변경 요청 
+			 return "redirect:editFinish.jsp"; 
 		 }
 		 
 		 @GetMapping("/editFinish")
 		 public String editFinish() {
-			 return "/WEB-INF/views/member/mypage.jsp";
+			 return "/WEB-INF/views/member/editFinish.jsp";
 		 }
 		 
 		 //회원 탈퇴

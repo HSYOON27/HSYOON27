@@ -71,6 +71,24 @@ public class MemberDao {
 			Object[] param = {memberId};
 			return jdbcTemplate.update(sql, param) > 0;
 		}
+// 		비밀번호 변경 기능(2023.02.07)
+		public boolean changePassword(String memberId, String memberPw) {
+			String sql = "update member set member_pw = ? where member_id = ?";
+			Object[] param = {memberPw, memberId};
+			return jdbcTemplate.update(sql, param) > 0;
+		}
+//      비밀번호를 제외한 나머지 정보 변경 기능
+		public boolean changeInformation(MemberDto memberDto) {
+			String sql = "update member set member_nick=?, member_tel=?, member_email=?, member_birth=?, member_post=?, member_basic_addr=?, member_detail_addr=?, where member_id=?";
+			Object[] param = {
+			memberDto.getMemberNick(), memberDto.getMemberTel(),
+			memberDto.getMemberEmail(), memberDto.getMemberBirth(), 
+			memberDto.getMemberPost(), memberDto.getMemberBasicAddr(), 
+			memberDto.getMemberDetailAddr()	
+			};
+			return jdbcTemplate.update(sql, param) >0;
+		}
+		
 }
 
 
