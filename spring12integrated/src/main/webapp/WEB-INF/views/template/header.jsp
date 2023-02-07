@@ -38,6 +38,7 @@
 		<a href="/">홈으로</a>
 	    <a href="/member/join">회원 가입</a>
 	    <a href="/member/login">로그인하기</a> 
+	    <a href="/member/find">아이디 찾기</a>
 		</c:otherwise>
 	</c:choose>
 	

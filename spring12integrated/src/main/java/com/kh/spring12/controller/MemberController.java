@@ -202,6 +202,26 @@ public class MemberController {
 		 public String exitFinish() {
 			 return "/WEB-INF/views/member/exitFinish.jsp";
 		 }
+		 
+		 //아이디 찾기 페이지(2023.02.07)
+		 @GetMapping("/find")
+		 public String find() {
+			 return "/WEB-INF/views/member/find.jsp";
+		  }
+		 
+		 @PostMapping("/find") //session은 아디가 로그인 한 상태일때 쓰는거다
+		 public String find(@ModelAttribute MemberDto memberDto, 
+				 Model model, RedirectAttributes attr) {
+			 try {
+				 String memberId = memberDao.findId(memberDto);
+				 model.addAttribute("memberId", memberId);
+				 return "/WEB-INF/views/member/findResult.jsp";
+			 }
+			 catch(Exception e) {
+				 attr.addAttribute("mode", "error");
+				 return "redirect:find";
+			 }
+		 }
 }
 
 

@@ -94,6 +94,18 @@ public class MemberDao {
 			Object[] param = {memberId};
 			return jdbcTemplate.update(sql, param) > 0;
 		}
+		
+//      아이디 찾기 기능 닉네임, 전번 생년월일로 
+		public String findId(MemberDto memberDto) {
+			String sql = "select member_id from member "
+					+ "where member_nick=? and member_tel=? and member_birth=?";
+			Object[] param = {
+				memberDto.getMemberNick(), memberDto.getMemberTel(),
+				memberDto.getMemberBirth()
+			};
+			//String.class는 한글로 "String 자료형"이라는 뜻이다
+			return jdbcTemplate.queryForObject(sql, String.class, param);
+		}
 }
 
 
