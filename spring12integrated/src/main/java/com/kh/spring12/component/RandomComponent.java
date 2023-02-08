@@ -29,9 +29,9 @@ public class RandomComponent {
 		data.add("$");
 	}
 	
-	public String generateString() {
+	public String generateString(int size) {
 		StringBuffer buffer = new StringBuffer();
-		for (int i=0; i<10; i++) {
+		for(int i=0; i < size; i++) {
 			int index = r.nextInt(data.size());
 			buffer.append(data.get(index));
 		}

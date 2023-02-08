@@ -61,23 +61,23 @@ public class AdminController {
 //			RedirectAttributes attr,
 			@RequestParam String memberId,
 			HttpSession session) {
-//		String memberPw = "khacademy";
-		List<String> data = new ArrayList<>();
-		for(char i='A'; i <= 'Z'; i++) data.add(String.valueOf(i));
-		for(char i='a'; i <= 'z'; i++) data.add(String.valueOf(i));
-		for(char i='0'; i <= '9'; i++) data.add(String.valueOf(i));
+////		String memberPw = "khacademy";
+//		List<String> data = new ArrayList<>();
+//		for(char i='A'; i <= 'Z'; i++) data.add(String.valueOf(i));
+//		for(char i='a'; i <= 'z'; i++) data.add(String.valueOf(i));
+//		for(char i='0'; i <= '9'; i++) data.add(String.valueOf(i));
+//
+//		Random r = new Random();
+//		StringBuffer buffer = new StringBuffer();
+//
+//		for(int i=0; i < 10; i++) {
+//			int index = r.nextInt(data.size());
+//			buffer.append(data.get(index));
+//		}
+//
+//		String memberPw = buffer.toString();
 
-		Random r = new Random();
-		StringBuffer buffer = new StringBuffer();
-
-		for(int i=0; i < 10; i++) {
-			int index = r.nextInt(data.size());
-			buffer.append(data.get(index));
-		}
-
-		String memberPw = buffer.toString();
-
-		memberDao.changePassword(memberId, memberPw);
+		String memberPw = randomComponent.generateString(10);
 //		model.addAttribute("memberPw", memberPw);
 //		return "/WEB-INF/views/admin/member/password.jsp";
 
