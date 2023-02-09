@@ -56,7 +56,7 @@
 </h4>
 
 <!-- 회원 관리 메뉴 -->
-<h2><a href="#">개인정보 변경</a></h2>
+<h2><a href="edit?memberId=${memberDto.memberId}">개인정보 변경</a></h2>
 <h2><a href="password?memberId=${memberDto.memberId}">일회용 비밀번호 설정</a></h2>
 <h2><a href="exit?memberId=${memberDto.memberId}">회원 강제 탈퇴</a></h2>
 <h2><a href="list">목록 보기</a></h2>

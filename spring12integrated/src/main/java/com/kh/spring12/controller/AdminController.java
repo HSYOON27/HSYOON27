@@ -1,8 +1,6 @@
 package com.kh.spring12.controller;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import javax.servlet.http.HttpSession;
 
@@ -10,8 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.spring12.component.RandomComponent;
 import com.kh.spring12.dao.MemberDao;
@@ -76,7 +77,6 @@ public class AdminController {
 //		}
 //
 //		String memberPw = buffer.toString();
-
 		String memberPw = randomComponent.generateString(10);
 //		model.addAttribute("memberPw", memberPw);
 //		return "/WEB-INF/views/admin/member/password.jsp";
@@ -98,11 +98,30 @@ public class AdminController {
 		session.removeAttribute("memberPw");
 		model.addAttribute("memberPw", memberPw);
 		return "/WEB-INF/views/admin/member/password.jsp";
+		}
+	
+//		관리자로 회원 정보 변경(2023.02.09)	
+	@GetMapping("/member/edit")
+	public String memberEdit(@RequestParam String memberId, Model model) {
+	MemberDto memberDto = memberDao.selectOne(memberId);
+	model.addAttribute("memberDto", memberDto);
+	return "/WEB-INF/views/admin/member/edit.jsp";
+}
+	
+	@PostMapping("/member/edit")
+	public String memberEdit(@ModelAttribute MemberDto memberDto, RedirectAttributes attr) {
+		//정보변경
+		memberDao.changeInformationByAdmin(memberDto);
+		attr.addAttribute("memberId", memberDto.getMemberId());
+		return "redirect:detail";
 	}
-	
-	
+
 }
 
+	
+	
+
+	
 
 	
 

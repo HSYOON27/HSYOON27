@@ -30,7 +30,7 @@
 		<td>${memberDto.memberLevel}</td>
 		<td>
 		 	<a href="detail?memberId=${memberDto.memberId}">상세</a>
-			<a href="edit">변경</a>
+			<a href="edit?memberId=${memberDto.memberId}">변경</a>
 			<a href="exit?memberId=${memberDto.memberId}&page=${page}">탈퇴</a>
 	</tr>
 	</c:forEach>
