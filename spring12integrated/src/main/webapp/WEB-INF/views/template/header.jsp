@@ -43,8 +43,8 @@
 		</c:otherwise>
 	</c:choose>
 	
-	<a href="/pocketmon/list">포켓몬 관리</a> 
-	<a href="/subject/list">과목 관리</a> 
-	<a href="/student/list">학생 관리</a> 
 	
+	<c:if test="${memberLevel == '관리자'}">
+	<a href="/admin/home">관리자 모드</a>
+	</c:if>
 	<hr>

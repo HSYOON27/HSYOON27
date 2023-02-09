@@ -16,7 +16,12 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.spring12.component.RandomComponent;
 import com.kh.spring12.dao.MemberDao;
+import com.kh.spring12.dao.MemberStatDao;
+import com.kh.spring12.dao.PocketmonStatDao;
+import com.kh.spring12.dao.SubjectStatDao;
 import com.kh.spring12.dto.MemberDto;
+import com.kh.spring12.dto.PocketmonStatDto;
+import com.kh.spring12.dto.SubjectStatDto;
 
 @Controller
 @RequestMapping("/admin")
@@ -26,6 +31,12 @@ public class AdminController {
 	
 	@Autowired
 	private RandomComponent randomComponent;
+	
+	//관리자 홈
+	@GetMapping("/home")
+	public String home() {
+		return "/WEB-INF/views/admin/home.jsp";
+	}
 	
 	@GetMapping("/member/list")
 	public String memberList(Model model,
@@ -116,6 +127,45 @@ public class AdminController {
 		return "redirect:detail";
 	}
 
+	// 관리자통계  2023.02.09
+
+	@Autowired
+	private PocketmonStatDao pocketmonStatDao;
+	
+	@GetMapping("/stat/pocketmon")
+	public String pocketmon(Model model) {
+		List<PocketmonStatDto> list = pocketmonStatDao.selectList();
+		model.addAttribute("list", list);
+		return "/WEB-INF/views/admin/stat/pocketmon.jsp";
+	}
+	
+	// 관리자 통계 서브젝트편 
+	
+	@Autowired
+	private SubjectStatDao subjectStatDao;
+	
+	@Autowired
+	private MemberStatDao memberStatDao;
+	
+	@GetMapping("/stat/subject")
+	public String subject(Model model) {
+		List<SubjectStatDto> list = subjectStatDao.selectList();
+		model.addAttribute("list", list);
+		return "/WEB-INF/views/admin/stat/subject.jsp";
+	}
+	
+	// 관리자 통계 멤버편
+	
+	@GetMapping("/stat/member")
+	public String member(Model model, 
+			@RequestParam(required = false,
+			defaultValue = " member_level asc")String sort) {
+		model.addAttribute("list", memberStatDao.selectList(sort));
+		return "/WEB-INF/views/admin/stat/member.jsp";
+	}
+	
+	
+	
 }
 
 	
