@@ -15,12 +15,13 @@ public class AdminInterceptor implements HandlerInterceptor {
 		HttpSession session = request.getSession();
 		String memberLevel = (String)session.getAttribute("memberLevel");
 	
-	if(memberLevel.equals("관리자"))
+		//null 검사 무적권 해야함
+	if(memberLevel != null && memberLevel.equals("관리자"))
 			{
 		return true;
 	}
 	else {
-		response.sendError(HttpServletResponse.SC_FORBIDDEN);
+		response.sendError(403);
 		return false;
 	}
 	}

@@ -79,7 +79,9 @@ public class MemberDao {
 		}
 //      비밀번호를 제외한 나머지 정보 변경 기능
 		public boolean changeInformation(MemberDto memberDto) {
-			String sql = "update member set member_nick=?, member_tel=?, member_email=?, member_birth=?, member_post=?, member_basic_addr=?, member_detail_addr=?, where member_id=?";
+			String sql = "update member set member_nick=?, member_tel=?, member_email=?, "
+					+ "member_birth=?, member_post=?, member_basic_addr=?, member_detail_addr=?, "
+					+ "where member_id=?";
 			Object[] param = {
 			memberDto.getMemberNick(), memberDto.getMemberTel(),
 			memberDto.getMemberEmail(), memberDto.getMemberBirth(), 

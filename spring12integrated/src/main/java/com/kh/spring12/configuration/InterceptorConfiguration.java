@@ -50,7 +50,8 @@ public class InterceptorConfiguration implements WebMvcConfigurer{
 				.addPathPatterns("/member/**", "/admin/**")
 				.excludePathPatterns("/member/join", "/member/login", "/member/joinFinish",
 						"/member/find", "/member/exitFinish");
-		
+	
+		//[3] 관리자 전용 검사 인터셉터 
 		registry.addInterceptor(adminInterceptor)
 				.addPathPatterns("/admin/**");
 	}
