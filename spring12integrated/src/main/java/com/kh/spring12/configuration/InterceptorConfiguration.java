@@ -6,6 +6,7 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.kh.spring12.interceptor.AdminInterceptor;
+import com.kh.spring12.interceptor.BoardManageInterceptor;
 import com.kh.spring12.interceptor.MemberInterceptor;
 import com.kh.spring12.interceptor.TestInterceptor;
 
@@ -47,13 +48,19 @@ public class InterceptorConfiguration implements WebMvcConfigurer{
 		//[2] MemberInterceptor를 마이페이지에 설정하겠다!
 		//- /member로 시작하는 주소 중에서 /join, /joinFinish, /login, /find, /exitFinish 제외
 		registry.addInterceptor(memberInterceptor)
-				.addPathPatterns("/member/**", "/admin/**")
+				.addPathPatterns("/member/**", "/admin/**", "/board/write")
 				.excludePathPatterns("/member/join", "/member/login", "/member/joinFinish",
 						"/member/find", "/member/exitFinish");
 	
 		//[3] 관리자 전용 검사 인터셉터 
 		registry.addInterceptor(adminInterceptor)
 				.addPathPatterns("/admin/**");
+		
+		//[4] 관리자 삭제 가능 인터셉터
+//		registry.addInterceptor(boardManageInterceptor)
+//			.addPathPatterns("/board/delete")
+			
+			
 	}
 	
 				

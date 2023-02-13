@@ -35,6 +35,8 @@
 		<a href="/pocketmon/list">포켓몬 관리</a> 
         <a href="/subject/list">과목 관리</a> 
         <a href="/student/list">학생 관리</a> 
+        <a href="/board/list">게시판</a>
+        
 		</c:when>
 		
 		<c:otherwise>
@@ -43,6 +45,7 @@
 	    <a href="/member/join">회원 가입</a>
 	    <a href="/member/login">로그인하기</a> 
 	    <a href="/member/find">아이디 찾기</a>
+	    <a href="/board/list">게시판</a>
 		</c:otherwise>
 	</c:choose>
 	

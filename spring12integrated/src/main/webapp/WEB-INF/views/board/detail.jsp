@@ -1,51 +1,75 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
     
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 
 <title>게시글 상세 페이지</title>
 
-<h1>게시글 정보<h1>
+<h1>${boardDto.boardNo}번 게시글</h1>
 
 <h4>
-       <table border = "1" width ="800">
-			<tbody align = "center">
+       <table border = "1" width ="500">
+			<tbody>
 			    <tr>
-			    	<th width="30%">회원 번호</th>
-			    	<td>${boardDto.boardId}</td>
-				</tr>
-				  <tr>
-			    	<th>작성자</th>
-			    	<td>${boardDto.boardWriter}</td>
-				</tr>
-				<tr>
-					<th>제목</th>
-					<td>${boardDto.boardTitle}</td>
-				</tr>
-					<tr>
-					<th>내용</th>
-					<td>${boardDto.boardContent}</td>
-				</tr>
-				  <tr>
-					<th>작성시간</th>
-					<td>${boardDto.boardTime}</td>
-				</tr><tr>
-					<th>머릿말</th>
-					<td>${boardDto.boardHead}</td>
-				</tr><tr>
-					<th>조회수</th>
-					<td>${boardDto.boardRead}</td>
-				</tr><tr>
-					<th>좋아요</th>
-					<td>${boardDto.boardLike}</td>
-				</tr>
-				<tr>
-					<th>댓글수</th>
-					<td>${boardDto.boardReply}</td>
-				</tr>
-			
-			</tbody>
-				 </table>
+			    <td>
+				<h2>${boardDto.boardTitle}</h2>
+			   </td>
+		</tr>
+		<tr>
+			<td>
+				${boardDto.boardWriter}
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<fmt:formatDate value="${boardDto.boardTime}" pattern="y년 M월 d일 H시 m분 s초"/>
+				조회수 ${boardDto.boardRead}
+			</td>
+		</tr>
+		<tr height="150" valign="top">
+			<td>${boardDto.boardContent}</td>
+		</tr>
+		<tr>
+			<td>
+				좋아요 ${boardDto.boardLike}
+				댓글 ${boardDto.boardReply}
+			</td>
+		</tr>
+		<tr>
+			<td>미래의 댓글목록</td>
+		</tr>
+		<tr>
+			<td>미래의 댓글작성창</td>
+		</tr>
+		<tr>
+			<td>
+				<a href="/board/write">글쓰기</a>
+				<a href="#">답글쓰기</a>
+				
+					<c:if test="${owner}">
+				<!-- 내가 작성한 글이라면 수정과 삭제 메뉴를 출력 -->
+				<a href="/board/edit?boardNo=${boardDto.boardNo}">수정</a>
+					</c:if>
+					
+				<c:if test="${admin || owner}">
+				<!-- 파라미터 방식일 경우의 링크 -->
+				<a href="/board/delete?boardNo=${boardDto.boardNo}">삭제</a>
+<!-- 				경로 변수 방식일 경우의 링크 -->
+<%-- 			    <a href="/board/delete/${boardDto.boardNo}">삭제</a> --%>
+			    </c:if>
+			    
+				<a href="/board/list">목록보기</a>
+			</td>
+		</tr>
+	</tbody>
+</table>
 </h4>
+<%--(+추가) 오늘 읽은 글(memory) 목록을 출력 --%>
+오늘 읽은 글 번호<br>
+ <c:forEach var="number" items="${sessionScope.memory}" > 
+${number}<br>
+</c:forEach>
 
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>

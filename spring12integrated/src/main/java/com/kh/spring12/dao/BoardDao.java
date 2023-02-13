@@ -10,7 +10,6 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import com.kh.spring12.dto.BoardDto;
-import com.kh.spring12.dto.SubjectDto;
 
 @Repository
 public class BoardDao {
@@ -50,44 +49,69 @@ public class BoardDao {
 		jdbcTemplate.update(sql, param);
 	}
 	
+	//목록 조회
 	public List<BoardDto> selectList(){
-		String sql = "select * from board order by board_no asc";
+		String sql = "select * from board order by board_no desc";
 		return jdbcTemplate.query(sql, mapper);
 	}
 	
+	//검색 
 	public List<BoardDto> selectList(String column, String keyword){
-		String sql = "select * from board where instr(#1,?) > 0 order by #1 asc";
+		String sql = "select * from board where instr(#1,?) > 0 order by board_no desc";
 		sql = sql.replace("#1", column);
 		Object[] param = {keyword};
 		return jdbcTemplate.query(sql, mapper, param);
 	}
 	
-	public BoardDto selectOne(int no) {
-		String sql = "select * from board where no = ?";
-		Object[] param = {no};
-		List<BoardDto> list = jdbcTemplate.query(sql, mapper, param);
-		return list.isEmpty() ? null : list.get(0);
-	}
-	
-	//게시글 삭제 
-	public boolean delete(int no) {
-		String sql = "delete board where no=?";
-		Object[] param = {no};
+	//게시글 삭제 (2023.02.13)
+	public boolean delete(int boardNo) {
+		String sql = "delete board where board_no=?";
+		Object[] param = {boardNo};
 		return jdbcTemplate.update(sql, param)>0;
 	}
 	
 	
 	//게시글 상세
+	public BoardDto selectOne(int boardNo) {
+		String sql = "select * from board where board_no = ?";
+		Object[] param = {boardNo};
+		List<BoardDto> list = jdbcTemplate.query(sql, mapper, param);
+		return list.isEmpty() ? null : list.get(0);
+		
+	}
 	
-	
-	
-	//게시글 수정 입력, 수정 처리 
-	public boolean editBoard(BoardDto boardDto) {
-		String sql = "update board set board_title=?, board_content=?, board_head=?";
+	//게시글 수정 처리 
+	public boolean update (BoardDto boardDto) {
+		String sql = "update board set board_head=?, board_title=?, board_content=? where board_no=?";
 		Object[] param = {
-			boardDto.getBoardTitle(), boardDto.getBoardContent(), boardDto.getBoardHead()
-		};
+				boardDto.getBoardHead(), boardDto.getBoardTitle(), boardDto.getBoardContent(), boardDto.getBoardNo()};
 		return jdbcTemplate.update(sql, param) > 0;
 	}
 	
+	// 번호를 생성하면서 등록하는 방법
+	// 1. 시퀀스 번호를 듀얼 테이블을 사용하여 조회
+	// 2. 생성된 번호까지 설정한 DTO를 등록
+	public int sequence() {
+		String sql = "select board_seq.nextval from dual";
+		return jdbcTemplate.queryForObject(sql, int.class);
+	}
+	//번호를 일단 생성해서 뽑아놨음
+	
+	public void insert(BoardDto boardDto) {
+		String sql = "insert into board(board_no, board_writer, board_title, board_content,"
+					+ "board_head, board_time, board_read, board_like, board_reply)"
+					+ "values(?, ?, ?, ?, ?, sysdate, 0, 0, 0)";
+		Object[] param = {
+				boardDto.getBoardNo(), boardDto.getBoardWriter(), boardDto.getBoardTitle(), boardDto.getBoardContent(), boardDto.getBoardHead()
+		};
+		jdbcTemplate.update(sql, param);
+	}
+	
+	//조회수 증가
+	public boolean updateReadCount(int boardNo) {
+		String sql = "update board set board_read=board_read+1"
+				+"where board_no = ?";
+		Object[] param = {boardNo};
+		return jdbcTemplate.update(sql, param) > 0;
+	}
 }
