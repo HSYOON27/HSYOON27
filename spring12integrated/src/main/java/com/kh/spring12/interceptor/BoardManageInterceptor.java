@@ -4,26 +4,63 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.HandlerInterceptor;
 
+import com.kh.spring12.dao.BoardDao;
+import com.kh.spring12.dto.BoardDto;
+
 @Service
 public class BoardManageInterceptor implements HandlerInterceptor{
+	@Autowired
+	private BoardDao boardDao;
+	
 	@Override
-	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
+	public boolean preHandle(HttpServletRequest request, //사용자가 보낸 정보임 request
+			HttpServletResponse response, //사용자에게 보낼 정보 resposne 중요 매우중요
+			Object handler)
 			throws Exception {
-		//로그인 상태라 함은 = 세션에 있는 memberId가 null이 아닌 경우를 말함.
-		HttpSession session = request.getSession(); //세션을 직접 가져와야 함 컨트롤러가 아니기 때문에
-		String memberLevel = (String)session.getAttribute("memberLevel");
+		//작성자 본인이라는 것은 게시글의 작성자와 현재 세션의 회원 아이디가 같다는 것을 의미. 
+		//- 게시글 정보를 불러오려면 게시글 번호와 BoardDao가 필요하다.
+		//- 게시글 번호는 파라미터(Parameter) 형태로 전송 
+		//request.getParameter("이름") 작성시 반환형이 String
+		
+		//게시글 작성자 확인 코드 
+		int boardNo = Integer.parseInt(request.getParameter("boardNo")); //여러개 오는 경우는 parameterValues 사용
+		BoardDto boardDto = boardDao.selectOne(boardNo);
+		String writeId = boardDto.getBoardWriter();
+		
+		//현재 로그인 회원 확인 코드 
+		HttpSession session = request.getSession(); 
+		String memberId = (String)session.getAttribute("memberId");
+		
+		boolean isOwner = memberId.equals(writeId);
 
-		if(memberLevel != null & memberLevel.equals("관리자")) { //회원이라면 
+		//현재 로그인 회원의 등급 확인 코드 
+		String memberLevel = (String)session.getAttribute("memberLevel");
+		
+		boolean isAdmin = memberLevel != null && memberLevel.equals("관리자");
+		
+		//if(memberId != null, writeId != null, 생략)
+		//관리자는 삭제페이지면 이동하시고 작성자면 삭제 가능하시고
+		if(isAdmin) { //관리자가
+			if(request.getRequestURI().equals("/board/delete")) { //삭제 페이지로 가는거라면 
+//			System.out.println(request.getRequestURI());
+			return true;
+			}
+		}
+		
+		if(isOwner) {
 			return true;
 		}
-		else {//비회원 이라면 - 로그인 페이지로 이동시키면서 차단 
-			   //리다이렉트 코드 
-			response.sendRedirect("/member/login"); //return "redirect:/member/login이랑 같은 의미 
+		
+		else {
+//			response.sendRedirect("/member/login"); 
+			response.sendError(403); 
 			return false;
 		}
 	}
-
 }
+	
+

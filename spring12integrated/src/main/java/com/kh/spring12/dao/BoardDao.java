@@ -31,13 +31,14 @@ public class BoardDao {
 			boardDto.setBoardRead(rs.getInt("board_read"));
 			boardDto.setBoardLike(rs.getInt("board_like"));
 			boardDto.setBoardReply(rs.getInt("board_reply"));
-			
+			boardDto.setBoardGroup(rs.getInt("board_group"));
+			boardDto.setBoardParent(rs.getInt("board_parent"));
+			boardDto.setBoardDepth(rs.getInt("board_depth"));
 			return boardDto;
 		}
 	};
 	
 	//게시글 작성 및 등록 설정
-	
 	public void write(BoardDto boardDto) {
 		String sql = "insert into board(board_no, board_writer, board_title, board_content, board_time, board_content,"
 				+ "board_time, board_head, board_read, board_like, board_reply) values(board_seq_nextval,?,?,?,?,?,?,?,?)";
@@ -49,15 +50,33 @@ public class BoardDao {
 		jdbcTemplate.update(sql, param);
 	}
 	
+	//공지사항만 조회하는 기능
+	public List<BoardDto> selectNoticeList(int begin, int end){
+		String sql = "select * from ("
+				+ "select rownum rn, TMP.* from ("
+					+ "select * from board where board_head='공지' "
+					+ "order by board_no desc"
+				+ ")TMP"
+			+ ") where rn between ? and ?";
+		Object[] param = {begin, end};
+		return jdbcTemplate.query(sql, mapper, param);
+	}
+	
 	//목록 조회
 	public List<BoardDto> selectList(){
-		String sql = "select * from board order by board_no desc";
+//		String sql = "select * from board order by board_no desc";
+		String sql = "select * from board connect by prior board_no=board_parent "
+				+ "start with board_parent is null "
+				+ "order siblings by board_group desc, board_no asc";
 		return jdbcTemplate.query(sql, mapper);
 	}
 	
 	//검색 
 	public List<BoardDto> selectList(String column, String keyword){
-		String sql = "select * from board where instr(#1,?) > 0 order by board_no desc";
+		String sql = "select * from board where instr(#1,?) > 0 "
+				+ "connect by prior board_no=board_parent "
+				+ "start with board_parent is null "
+				+ "order siblings by board_group desc, board_no asc";
 		sql = sql.replace("#1", column);
 		Object[] param = {keyword};
 		return jdbcTemplate.query(sql, mapper, param);

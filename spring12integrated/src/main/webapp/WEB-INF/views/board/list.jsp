@@ -21,11 +21,15 @@
 			<th>작성일</th>
 			<th>조회수</th>
 			<th>좋아요</th>
+			<th>그룹</th>
+			<th>대상</th>
+			<th>차수</th>
 		</tr>
 	</thead>
 	<tbody align="center">
-		<c:forEach var="boardDto" items="${list}">
-		<tr>
+		<!-- 공지사항을 출력 -->
+		<c:forEach var="boardDto" items="${noticeList}">
+		<tr bgcolor="dfe6e9">
 			<td>${boardDto.boardNo}</td>
 			<td align="left">
 			<!-- 제목을 누르면 상세로 이동 -->
@@ -44,6 +48,43 @@
 			<td>${boardDto.boardTimeAuto}</td>
 			<td>${boardDto.boardRead}</td>
 			<td>${boardDto.boardLike}</td>
+		</tr>
+		</c:forEach>
+	
+		<!-- 검색 또는 목록 결과를 출력  -->
+		<c:forEach var="boardDto" items="${list}">
+		<tr>
+			<td>${boardDto.boardNo}</td>
+			<td align="left">
+			<!-- boardDepth만큼 띄어쓰기 실시 -->
+			<c:forEach var="i" begin="1" end="${boardDto.boardDepth}">
+				&nbsp;&nbsp;
+			</c:forEach>
+			
+			<!-- boardDepth가 1이상일 경우에만 답글 표식을 추가 -->
+			<c:if test="${boardDto.boardDepth > 0}">
+			→
+			</c:if>
+			
+			<!-- 제목을 누르면 상세로 이동 -->
+			<a href="detail?boardNo=${boardDto.boardNo}">
+		
+				<c:if test="${boardDto.boardHead != null}">
+				<!-- 말머리가 있으면 출력 -->
+				[${boardDto.boardHead}]
+				</c:if>		
+			${boardDto.boardTitle}
+			</a>
+			</td>
+			<td align="left">${boardDto.boardWriter}</td>
+
+			<%-- DTO에 만든 가상의 Getter 메소드를 불러 처리 --%>			
+			<td>${boardDto.boardTimeAuto}</td>
+			<td>${boardDto.boardRead}</td>
+			<td>${boardDto.boardLike}</td>
+			<td>${boardDto.boardGroup}</td>
+			<td>${boardDto.boardParent}</td>
+			<td>${boardDto.boardDepth}</td>
 		</tr>
 		</c:forEach>
 	</tbody>

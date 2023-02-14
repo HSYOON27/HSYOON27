@@ -17,6 +17,8 @@ public class BoardDto {
 	private int boardRead;
 	private int boardLike;
 	private int boardReply;
+	private int boardGroup, boardDepth;
+	private Integer boardParent; //null이 가능하니까 
 	
 	// 가상의 Getter를 추가하여 현재시각을 기준으로 비교 후 
 	// 1. 날짜가 같으면 시간과 분을 반환 (HH:mm)

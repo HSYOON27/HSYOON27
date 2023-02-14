@@ -31,7 +31,9 @@
 		<a href="/member/edit">내 정보 변경</a>
 		<a href="/member/password">내 비밀번호 변경</a>
 		<a href="/member/exit">회원탈퇴</a>
+		<c:if test="${memberLevel =='관리자'}">
 		<a href="/admin/member/list">회원 목록</a>
+		</c:if>
 		<a href="/pocketmon/list">포켓몬 관리</a> 
         <a href="/subject/list">과목 관리</a> 
         <a href="/student/list">학생 관리</a> 

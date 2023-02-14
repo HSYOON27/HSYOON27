@@ -9,7 +9,7 @@
    <input type="hidden" name="boardNo" value="${boardDto.boardNo }">
    <br><br>
    말머리 : 
-   <c:if test="${admin }">
+   <c:if test="${admin}">
       <c:choose>
          <c:when test="${boardDto.boardHead == '정보' }">
             <select name="boardHead">
@@ -46,7 +46,7 @@
       </c:choose>
    </c:if>
    
-   <c:if test="${!admin }">
+   <c:if test="${!admin}">
       <c:choose>
          <c:when test="${boardDto.boardHead == '정보' }">
             <select name="boardHead">
