@@ -38,7 +38,16 @@ public class BoardDto {
 		else {
 			return writeStr.substring(0,11);
 		}
-	
 	}
+	
+	//새글인지 여부를 확인하는 명령
+	public boolean isNew() {
+		return boardParent == null;
+	}
+	//답글인지 여부를 확인하는 명령
+	public boolean isAnswer() {
+		return !isNew();
+	}
+	
 	
 }

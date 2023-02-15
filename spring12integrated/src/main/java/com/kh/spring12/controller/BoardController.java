@@ -1,6 +1,7 @@
 package com.kh.spring12.controller;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.servlet.http.HttpSession;
@@ -18,32 +19,58 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.spring12.dao.BoardDao;
 import com.kh.spring12.dto.BoardDto;
+import com.kh.spring12.service.BoardService;
+import com.kh.spring12.vo.PaginationVO;
 
 @Controller
 @RequestMapping("/board")
 public class BoardController {
+	
 	@Autowired
 	private BoardDao boardDao;
 	
+	@Autowired
+	private BoardService boardService;
+	
 	//게시글 목록 & 검색
-		@GetMapping("/list")
-		public String list(Model model, 
-				@RequestParam (required=false, defaultValue="boardTitle") String column,
-				@RequestParam (required=false, defaultValue="") String keyword) {
-				
-		if(keyword.equals("")){
-		model.addAttribute("list", boardDao.selectList());
-		}
-		else {//키워드가 있다면 -> 검색
-			model.addAttribute("column", column);
-			model.addAttribute("keyword", keyword);
-			model.addAttribute("list", boardDao.selectList(column, keyword));
-		}
-		//검색 여부와 관계 없이 공지사항을 3개 조회해서 Model에 첨부
-		model.addAttribute("noticeList", boardDao.selectNoticeList(1,3));
-		return"/WEB-INF/views/board/list.jsp";
-     }
-
+////		@GetMapping("/list")
+////		public String list(Model model, 
+////				@RequestParam (required=false, defaultValue="boardTitle") String column,
+////				@RequestParam (required=false, defaultValue="") String keyword) {
+////				
+////		if(keyword.equals("")){
+////		model.addAttribute("list", boardDao.selectList());
+////		}
+////		else {//키워드가 있다면 -> 검색
+////			model.addAttribute("column", column);
+////			model.addAttribute("keyword", keyword);
+////			model.addAttribute("list", boardDao.selectList(column, keyword));
+////		}
+//		//검색 여부와 관계 없이 공지사항을 3개 조회해서 Model에 첨부
+//		model.addAttribute("noticeList", boardDao.selectNoticeList(1,3));
+//		return"/WEB-INF/views/board/list.jsp";
+//     }
+	
+	//(+추가) ModelAttribute는 자동 수신외에 기능이 하나 더 있다.
+	//-> Model에 자동으로 추가됨(이름을 설정해야한다 vo )
+	
+	//게시글 목록 & 검색 업글버전 
+	@GetMapping("/list")
+	public String list(@ModelAttribute("vo") PaginationVO vo, Model model) {
+		//vo에 딱 한가지 없는 데이터 => 게시글의 개수 (목록/검색이 다름)
+		int totalCount =boardDao.selectCount(vo);
+		vo.setCount(totalCount);
+		
+		//공지사항
+		model.addAttribute("noticeList", boardDao.selectNoticeList(1, 3));
+		
+		//게시글
+		List<BoardDto> list = boardDao.selectList(vo);
+		model.addAttribute("list", list);
+		
+		return "/WEB-INF/views/board/list2.jsp";
+	}
+	
 //	조회수 중복 방지 시나리오
 // 1. 작성자 본인은 조회수 증가를 하지 않는다. 
 // 2. 한 번 이상 본 글은 조회수 증가를 하지 않는다.
@@ -118,27 +145,63 @@ public class BoardController {
 	
 	//게시글 작성 및 상세페이지로 갈땐 무적권 이렇게 
 	@GetMapping("/write")
-	public String write(HttpSession session, Model model) {
-		boolean admin = session.getAttribute("memberLevel").equals("관리자");
-		model.addAttribute("admin", admin);
+	public String write(@RequestParam(required = false) Integer boardParent, Model model) {
+		model.addAttribute("boardParent", boardParent);
 		return "/WEB-INF/views/board/write.jsp";
 	}
 	
+//	@PostMapping("/write")
+//	public String write(
+//			@ModelAttribute BoardDto boardDto, //3개 말머리, 제목, 내용)
+//			HttpSession session, RedirectAttributes attr)
+//			{
+//		//번호와 회원 아이디를 추출
+//		int boardNo = boardDao.sequence();
+//		String memberId = (String)session.getAttribute("memberId");
+//
+//		//작성한 게시글 정보에 첨부해서
+//		boardDto.setBoardNo(boardNo);
+//		boardDto.setBoardWriter(memberId);
+//		
+//		//게시글을 등록 
+//		boardDao.insert(boardDto);
+//		
+//		//상세 페이지로 이동
+//		attr.addAttribute("boardNo", boardNo);
+//		return "redirect:detail";
+//	}
+	//새글과 답글 
 	@PostMapping("/write")
-	public String write(
-			@ModelAttribute BoardDto boardDto, //3개 말머리, 제목, 내용)
-			HttpSession session, RedirectAttributes attr)
-			{
-		int boardNo = boardDao.sequence();
+	public String write(@ModelAttribute BoardDto boardDto, HttpSession session, RedirectAttributes attr) {
+		
+		//boardDto 경우 정보를 새글과 답글로 구분하려 처리 후 등록
+		
+		//-새글일 경우 boardParent가 null이다.
+		//  	- 그룹 번호(boardGroup)는 글번호와 동일하게 처리
+		//		- 대상 글 번호(boardParent)는 null로 설정
+		// 		- 차수(boardDepth)는 0으로 설정
+		
+		//-답글일 경우 boardParent가 null이 아니다.
+		//		- 대상글의 정보를 조회한 결과를 설정한다. 
+		//		- 그룹 번호(boardGroup)는 대상글의 그룹번호와 동일하게 처리
+		//		- 대상 글 번호 (boardParent)는 전달받은 값을 그대로 사용
+		//		- 차수(boardDepth)는 대상글의 차수에 1을 더해서 사용
+		
+		//컨트롤러에서 가능한 작업은 컨트롤러에서만 처리
+		//- 사용자의 요청을 처리하는 것
+		//- 세션 사용
+		//- 리다이렉트 관련 처리
+		//- 그 외 사용자 요청 처리 관련 도구 사용 
 		String memberId = (String)session.getAttribute("memberId");
-
-		boardDto.setBoardNo(boardNo);
 		boardDto.setBoardWriter(memberId);
 		
-		boardDao.insert(boardDto);
-		
+		//나머지 일반 프로그래밍 코드는 서비스를 호출하여 처리
+		int boardNo = boardService.write(boardDto);
+	
+		//상세 페이지로 이동
 		attr.addAttribute("boardNo", boardNo);
 		return "redirect:detail";
+		
 	}
 	
 	// 게시글 삭제
