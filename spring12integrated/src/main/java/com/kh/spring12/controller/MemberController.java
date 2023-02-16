@@ -1,5 +1,7 @@
 package com.kh.spring12.controller;
 
+import java.io.IOException;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,10 +12,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.spring12.dao.MemberDao;
 import com.kh.spring12.dto.MemberDto;
+import com.kh.spring12.service.MemberService;
 
 @Controller
 @RequestMapping("/member")
@@ -22,15 +26,22 @@ public class MemberController {
 	@Autowired
 	private MemberDao memberDao;
 	
-//	회원가입
+	 @Autowired
+	 private MemberService memberService;
+	 
+	
+	   //	회원가입
 	 @GetMapping("/join")
 	 public String join() {
 		 return "/WEB-INF/views/member/join.jsp";
 	 }
 	 
 	 @PostMapping("/join")
-	 public String join(@ModelAttribute MemberDto memberDto) {
-		 memberDao.insert(memberDto);
+	 public String join(@ModelAttribute MemberDto memberDto,
+			 @RequestParam MultipartFile attach) throws IllegalStateException, IOException {
+	     //회원 가입!
+		 memberService.join(memberDto, attach);
+		 
 		 return "redirect:joinFinish";
 	 }
 	 
