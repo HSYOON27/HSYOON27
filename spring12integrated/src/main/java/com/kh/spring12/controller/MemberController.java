@@ -16,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.spring12.dao.MemberDao;
+import com.kh.spring12.dao.MemberImageDao;
 import com.kh.spring12.dto.MemberDto;
 import com.kh.spring12.service.MemberService;
 
@@ -28,6 +29,10 @@ public class MemberController {
 	
 	 @Autowired
 	 private MemberService memberService;
+	 
+	 @Autowired
+	 private MemberImageDao memberImageDao;
+	
 	 
 	
 	   //	회원가입
@@ -97,12 +102,15 @@ public class MemberController {
 //      1. 세션에서 회원 ID 추출
 //      2. 추출한 ID로 대상의 정보를 상세조회
 //      3. 상세조회한 결과를 Model에 첨부 
+//		4. 회원 프로필 이미지가 있다면 첨부해라(2023.02.17)
+	 	
 	 	
 		 @GetMapping("/mypage")
 		 public String mypage(HttpSession session, Model model) {
 			 String memberId = (String) session.getAttribute("memberId"); //1번
 			 MemberDto memberDto = memberDao.selectOne(memberId); //2번
 			 model.addAttribute("memberDto", memberDto); //3번 
+			 model.addAttribute("profile", memberImageDao.selectOne(memberId));
 			 return "/WEB-INF/views/member/mypage.jsp";
 	 	}
 		 //비밀번호 변경 기능(2023.02.07)

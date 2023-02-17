@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <h1> 파일 관리 예제 </h1>
 
@@ -61,3 +62,13 @@
 	<input type="file" name="attaches" multiple accept="image/*">
 	<button>전송</button>
 </form>
+
+<hr>
+
+<c:forEach var="pocketmonImageDto" items="${list}">
+	<a href="/download?attachmentNo=${pocketmonImageDto.attachmentNo}">
+	<img width="700" height="700" src="/download?attachmentNo=${pocketmonImageDto.attachmentNo}">
+	</a>
+	&nbsp;&nbsp;
+	<br><br>
+</c:forEach>

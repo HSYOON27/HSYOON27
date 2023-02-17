@@ -14,7 +14,7 @@
 	<br> 우편번호 : <input type="text" name="memberPost"><br>
 	<br> 기본주소 : <input type="text" name="memberBasicAddr"><br>
 	<br> 상세주소 : <input type="text" name="memberDetailAddr"><br>
-	<br> 이미지 : <input type="file" name="attach" accept=".jpg, .gif, .pgn">	<br>
+	<br> 프사 : <input type="file" name="attach" accept=".jpg, .gif, .pgn">	<br>
 	<br>
 	<button>가입</button>
 </form>

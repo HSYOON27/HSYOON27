@@ -2,6 +2,7 @@ package com.kh.spring13.dao;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -62,4 +63,14 @@ public class AttachmentDao {
 					};
 		jdbcTemplate.update(sql, param);	
 		}
-}
+		
+		//상세 조회 구현
+		public AttachmentDto selectOne(int attachmentNo) {
+			String sql = "select * from attachment where attachment_no = ? ";
+			Object[] param = {attachmentNo};
+			List<AttachmentDto> list = jdbcTemplate.query(sql, mapper, param);
+			return list.isEmpty() ? null : list.get(0);
+			}
+			
+		}
+

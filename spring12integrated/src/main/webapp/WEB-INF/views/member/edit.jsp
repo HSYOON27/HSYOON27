@@ -61,6 +61,8 @@
 					value="${memberDto.memberDetailAddr}" placeholder="상세주소">
 			</td>
 		</tr>
+		
+		
 		<tr>
 			<td colspan="2" align="center">
 				<button>수정하기</button>
