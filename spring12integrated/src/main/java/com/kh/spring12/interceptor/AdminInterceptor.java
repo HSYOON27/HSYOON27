@@ -7,6 +7,8 @@ import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.HandlerInterceptor;
 
+import com.kh.spring12.advice.RequirePermissionException;
+
 @Service
 public class AdminInterceptor implements HandlerInterceptor {
 	@Override
@@ -21,8 +23,9 @@ public class AdminInterceptor implements HandlerInterceptor {
 		return true;
 	}
 	else {
-		response.sendError(403);
-		return false;
+//		response.sendError(403);
+//		return false;
+		throw new RequirePermissionException("관리자만 이용 가능합니다.");
 	}
 	}
 	

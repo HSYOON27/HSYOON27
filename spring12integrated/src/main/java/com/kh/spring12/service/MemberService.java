@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.kh.spring12.configuration.CustomFileuploadProperties;
 import com.kh.spring12.dao.AttachmentDao;
 import com.kh.spring12.dao.MemberDao;
 import com.kh.spring12.dao.MemberImageDao;
@@ -28,12 +29,16 @@ public class MemberService {
 	 @Autowired
 	private MemberImageDao memberImageDao;
 	 
-	private final File dir = new File("D:/upload");
+	 @Autowired 
+	private CustomFileuploadProperties fileuploadProperties;
+	 
+	 private File dir;
 	 
 	//최초 1회만 실행되는 메소드
 	@PostConstruct
 	public void init() {
-		dir.mkdir();
+		dir = new File(fileuploadProperties.getPath());
+		dir.mkdirs();
 	}
 public void join(MemberDto memberDto, MultipartFile attach) throws IllegalStateException, IOException {
 		
