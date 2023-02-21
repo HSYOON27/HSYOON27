@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>폼 디자인</title>
+    <style>
+        /*
+        화면에 요소(태그)를 배치할 때 
+        배치 방향을 정할 수 있다
+        display 속성으로 제어한다.
+        - inline은 줄 바꿈 없이 배치(sysout print처럼 배치)
+        - block은 모든 태그를 줄바꿈하면서 배치(sysout println처럼 배치)
+        
+        margin을 통해 외부간격 여백을 조절할 수 있다. 
+        - (주의) margin은 특별한 이유가 없으면 좌우는 주지 않는다.   
+
+        width와 height를 사용하여 폭과 높이를 지정할 수 있다.
+        - (주의) height는 특별한 이유가 없으면 주지 않는다.
+
+        폭 설정시 설정 기준을 변경하여 일관된 폭을 가지도록 처리한다.
+        - box-sizing: border-box;
+
+        */
+        *{
+            box-sizing: border-box;
+        }
+        input{
+            font-size: 20px;
+            display: block;
+
+            margin-top: 10px;
+            margin-bottom: 10px;
+
+            padding: 0.5em;
+
+            width: 300px;
+        }
+        button{
+            font-size: 20px;
+            display: block;
+
+            margin: 10px 0px; /*2개 설정시 상하/좌우*/
+            margin: 10px 0px 10px 0px; /* 4개 설정시 12시 3시 6시 9시 */
+
+            padding: 0.5em;
+            width: 300px;
+        }
+
+    </style>
+</head>
+<body>
+    <form action="#" method="post">
+        <h1>로그인</h1>
+
+        <input type="text" name="memberId">
+        <input type="password" name="memberPw">
+        <button>로그인</button>    
+    </form>
+</body>
+</html>
