@@ -1,0 +1,25 @@
+package com.kh.spring14;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
+
+@SpringBootTest
+public class Test02 {
+	//미리 만든 @Bean을 불러와서 사용할 수 있다.
+	@Autowired
+	private JavaMailSender sender;
+	
+	@Test
+	public void test() {
+		SimpleMailMessage message = new SimpleMailMessage();
+		message.setTo("kots524@naver.com", "lsh392766@gmail.com");
+		message.setSubject("맥날더블쿼터파운더");
+		message.setText("7400원 어플까셈");
+		
+		
+		sender.send(message);
+	}
+}

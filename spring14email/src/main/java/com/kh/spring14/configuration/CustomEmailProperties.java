@@ -10,5 +10,6 @@ import lombok.Data;
 @ConfigurationProperties(prefix = "custom.email")
 public class CustomEmailProperties {
 	private String username, password;
-	
+	private String host;
+	private int port;
 }

@@ -24,8 +24,8 @@ public class Test01 {
 		JavaMailSenderImpl sender = new JavaMailSenderImpl();
 		
 		//이용할 업체(Gmail)에 대한 정보 설정
-		sender.setHost("smtp.gmail.com");
-		sender.setPort(587);
+		sender.setHost(emailProperties.getHost());
+		sender.setPort(emailProperties.getPort());
 		sender.setUsername(emailProperties.getUsername());
 		sender.setPassword(emailProperties.getPassword());
 		
@@ -47,8 +47,8 @@ public class Test01 {
 		SimpleMailMessage message = new SimpleMailMessage();
 		
 		message.setTo("kots524@naver.com", "yoonhyeongdon@gmail.com", "lsh392766@gmail.com");
-		message.setSubject("이메일 발송 테스트");
-		message.setText("성현이 팔뚝 25인치");
+		message.setSubject("성현띠");
+		message.setText("오늘 맥날먹자");
 		
 		sender.send(message);
 		
