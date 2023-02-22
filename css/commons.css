@@ -97,6 +97,7 @@
     border-style: solid;
     border-radius: 0.1em;
     cursor: pointer;
+
     /* display: point; */
  }
  /* form-btn과 positive가 같이 있으면 */
@@ -118,6 +119,11 @@
  
  .form-btn:hover{
     filter: brightness(110%); /*원래보다 10% 밝게 처리*/
+ }
+ a.form-btn{
+    display: inline-block;
+    text-align: center;
+    text-decoration: none;
  }
 
  /* 폭 설정 클래스 */
