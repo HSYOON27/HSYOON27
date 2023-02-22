@@ -20,6 +20,7 @@ public class ErrorController {
 	//근데 얘는 전체에 대한 예외처리라..
 	@ExceptionHandler(Exception.class) 
 	public String error(Exception ex) {
+		ex.printStackTrace();
 		return "/WEB-INF/views/error/sorry.jsp";
 	}
 	

@@ -45,21 +45,26 @@
             2. 버튼말고 다른 태그를 사용한다. 
             - a태그, input[type=button] 등을 사용 할 수 있다.
         -->
-    <button type="submit" class="form-btn neutral">목록</button>
-    <button type="button" class="form-btn positive">등록</button>
-    </div>
+<!--     <button type="submit" class="form-btn neutral">목록</button> -->
+<!--     <button type="button" class="form-btn positive">등록</button> -->
+<!--     </div> -->
 
-    <div class="row">
-        <button type="submit" class="form-btn neutral w-100">목록</button>
-    </div>
+<!--     <div class="row"> -->
+<!--         <button type="submit" class="form-btn neutral w-100">목록</button> -->
+<!--     </div> -->
 
-    <div>
-        <button type="button" class="form-btn positive w-100" style="display: block; text-decoration: none;">등록</button>
+<!--     <div> -->
+<!--         <button type="button" class="form-btn positive w-100" style="display: block; text-decoration: none;">등록</button> -->
+<!--     </div> -->
+    
+    <div class="row right">
+    	<a class="form-btn w-100 neutral" href="list">목록</a>
     </div>
-    <div class="row center">
-        <a class="form-btn w-100 positive" href="list">등록</a>
+    
+   <div class="row right">
+            <button class="form-btn w-100 positive" >등록</button>
     </div>
-
+           
     
     
 </div>    

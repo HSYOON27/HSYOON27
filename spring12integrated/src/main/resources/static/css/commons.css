@@ -72,6 +72,14 @@
     margin: 10px 0px;
  }
 
+
+a.form-btn {
+            display: inline-block;
+            text-align: center;
+            text-decoration: none;
+        }
+        
+        
 /*
         입력창, 버튼에 관련된 디자인
         .form-input - 입력창
