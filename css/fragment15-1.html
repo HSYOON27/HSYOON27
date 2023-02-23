@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>학생 목록</title>
+    <link rel="stylesheet" type="text/css" href="commons.css">
+    <link rel="stylesheet" type="text/css" href="test.css">
+    <style>
+
+    </style>
+</head>
+<div class="container-700">
+    <div class="row center">
+        <h1>학생 목록</h1>
+        <form action="#" method="post">
+            <select class="form-input me-5" name="column">
+                <option>학생 이름</option>
+                <option>학생 번호</option>
+                <input class="form-input" type="search" name="keyword" placeholder="검색어" required>
+                <button class="form-btn positive" type="submit">검색</button>
+            </select>
+        </form>
+    </div>
+<body>
+    <div class="row center">
+        <table class="table table-border table-hover">
+            <thead>
+                <tr>
+                    <th>번호</th>
+                    <th>이름</th>
+                    <th>국어</th>
+                    <th>영어</th>
+                    <th>수학</th>
+                    <th>관리</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>
+                        <a href="edit?no=${studentDto.no}">수정</a>
+                        <a href="delete?no=${studentDto.no}">삭제</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <h3><a href="#">학생 등록하기</a></h3>
+    </div>
+
+</body>
+</div>
+
+</html>
