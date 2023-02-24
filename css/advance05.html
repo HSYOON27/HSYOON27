@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>메뉴 만들기</title>
+    <link rel="stylesheet" type="text/css" href="commons.css">
+    <link rel="stylesheet" type="text/css" href="test.css">
+    <style>
+        /*
+            드롭다운(drop down) 메뉴 만들기
+            - 계층형 구조이므로 list 태그로 만든다
+            - 가장 중요한 스킬은 원하는 차수의 메뉴를 선택하는 것.           
+        
+            1차 메뉴 선택자 : .menu > li
+            2차 메뉴 선택자 : .menu > li > ul > li
+            3차 메뉴 선택자 : .menu > li > ul > li > ul >li
+
+            1차 이상 메뉴 : .menu li 
+            2차 이상 메뉴 : .menu > li li
+            3차 이상 메뉴 : .menu > li > ul > li li
+            
+        */
+
+        /*
+            (Q) 2차 이상의 메뉴 a태그 글자색 빨강으로 변경
+            .menu ul > li > ul ul > li > a -> 3차 이상
+            .menu > li > ul > li > a 2차만
+
+            (1) 리스트의 모든 스타일을 제거 (여백, 표백 방식)
+            (2) 모든 a태그의 스타일을 제거 
+            (3) 1차 메뉴의 항목들의 표시 방식(display)를 inline-block으로 변경
+            (4) 2차 이상의 메뉴(li)들은 배치 방식(position)을 absolute로 변경
+                모든 메뉴(ul)는 기준점 설정을 위해 배치 방식을 relative로 변경
+            (5) 2차 이상의 메뉴(ul)를 숨김 처리 
+            (6) 메뉴에 마우스를 올리면(hover) 하위 메뉴를 표시 
+        */
+
+        /* (1) */
+        .menu, .menu ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* (2) */
+        .menu a {
+            display: block;
+            width: 100%;
+            text-decoration: none;
+            color: black;
+        }
+        /* (3) */
+        .menu > li {
+            display: inline-block;
+            width: 120px;
+        }
+        /* (4) */
+        .menu > li ul {
+            position: absolute;
+            left: 0;
+            top: 100%;
+        }
+        .menu, .menu li{
+            position: relative;
+        }
+        /* (5) */
+        .menu > li ul {
+            display: none;
+        }
+
+        /* (6) */
+        .menu li:hover > ul {
+            display: block;
+        }
+
+    </style>
+</head>
+<body test>
+    <ul class="menu" >
+        <li>
+             <a href="#">File</a>
+             <ul>
+                <li>
+                    <a href="#">New</a>
+                    <!-- <ul>
+                        <li><a href="#">Java Project</a></li>
+                        <li><a href="#">Spring Project</a></li>
+                    </ul> -->
+                </li>
+                <li><a href="#">Open</a></li>
+                <li><a href="#">Save</a></li>
+                <li><a href="#">Exit</a></li>
+             </ul>
+        </li>
+        <li>
+            <a href="#">Edit</a>
+            <ul>
+                <li><a href="#">Undo</a></li>
+                <li><a href="#">Redo</a></li>
+                <li><a href="#">Cut</a></li>
+                <li><a href="#">Copy</a></li>
+                <li><a href="#">Paste</a></li>
+            </ul>  
+        </li>
+        <li>Run</li>
+        <li>Help</li>
+    </ul>
+</body>
+</html>
