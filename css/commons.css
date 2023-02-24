@@ -493,3 +493,64 @@
         input[name=memberPw]{
             background-image: url("image/lockicon.jpg");
         }
+
+        /*
+            (참고) z-index가 없어도 fixed가 가장 높게 나온다.
+            fixed끼리 충돌이 나니까 주는거 뿐임.
+
+            opacity는 내부의 모든 항목에 투명도를 줌... 
+            일반적으로 전체 화면에서는 background-color로 불투명도를 조절
+
+        */
+        .fullscreen{
+            /*
+            background-color: transparent;
+            opacity: 0.5;
+            */
+
+            background-color: rgba(0, 0, 0, 0.2);
+            position: fixed;
+            
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 999999999;
+        }
+
+        .fullscreen > .fullscreen-container{
+            /* background-color: white; */
+            background-image: url(./image/loading.gif);
+            background-repeat: no-repeat;
+            background-size: contain;
+            background-position: left top;
+            width: 300px;
+            height: 400px;
+            
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            /*
+                                가운데 배치하는 방법
+                1. 크기의 절반 만큼 반대 방향으로 이동시킨다. (margin 사용)
+                    - 장점 : 안되는 브라우저가 없음.
+                    - 단점 : 크기를 알아야 함.
+                     margin-left: -150px;
+                     margin-top: -200px;
+
+                2. transform 함수 사용 
+                    - 장점 ; 이동 크기 계산이 필요가 없음.
+                    - 단점 : 구버전 IE에서 안됨.
+
+                3. display:flex 사용
+                4. display:grid 사용     
+
+                폭 높이는 각자 알아서 
+            */
+
+            transform: translate(-50%, -50%);
+
+    
+            
+
+        }
