@@ -57,3 +57,30 @@
             justify-content: center;
             align-items: center;
         }
+
+        /* 홈페이지 메인 레이 아웃*/
+        /*
+            main을 제어해서 홈페이지 전체 폭과 정렬을 제어
+        */
+        main{
+            width: 1000px;
+            margin: 0 auto;
+        }
+        /*
+            내부 영역에 기본 여백을 부여 
+        */
+        header, footer{
+            padding: 1em;
+        }
+        /* section은 다단 레이아웃이 가능하도록 배치*/
+        section {
+            display: flex;
+        }
+        aside {
+            width: 150px;
+        }
+        article{
+            flex-grow: 1;
+            padding: 1em;
+            min-height: 450px;
+        }
