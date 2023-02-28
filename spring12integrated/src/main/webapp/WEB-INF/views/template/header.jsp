@@ -39,11 +39,33 @@
 
             <ul class="menu">
                 <li><a href="/">홈</a></li>
-                <li><a href="/pocketmon/list">포켓몬관리</a></li>
-                <li><a href="/subject/list">과목관리</a></li>
-                <li><a href="/student/list">학생관리</a></li>
+                <li>
+                	<a>데이터</a>
+                	<ul>
+						  <li>
+		                	<a>포켓몬관리</a>
+		                	<ul>
+		                		<li><a href="/pocketmon/list">목록보기</a></li>
+		                		<li><a href="/pocketmon/insert">등록하기</a></li>
+		                	</ul>
+		                </li>
+		                <li>
+		                	<a>과목관리</a>
+		                	<ul>
+		                		<li><a href="/subject/list">목록보기</a></li>
+		                		<li><a href="/subject/insert">등록하기</a></li>
+		                	</ul>
+		                </li>
+		                <li>
+		                	<a>학생관리</a>
+		                	<ul>
+		                		<li><a href="/student/list">목록보기</a></li>
+		                		<li><a href="/student/insert">등록하기</a>
+		                	</ul>
+		                </li>
+                	</ul>
+                </li>
                 <li><a href="/board/list">게시판</a></li>
-
                 <li class="right-menu">
                     <a>회원메뉴</a>
                     <ul>

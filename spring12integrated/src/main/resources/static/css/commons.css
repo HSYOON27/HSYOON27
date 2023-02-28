@@ -312,7 +312,7 @@
         .table.table-striped > thead > tr,
         .table.table-striped > tfoot > tr,
         .table.table-striped > tbody > tr:nth-child(2n){
-            background-color: aliceblue;
+ 		   background-color: #dfe6e9;
             color: aquamarine;
         }
 
@@ -701,3 +701,13 @@
             left: auto;
             right: 100%;
         }
+        
+        
+
+	/* 높이가 맞지 않는 현상을 해결하기 위해 추가한 코드 */
+			.menu {
+			height:2.5em;
+			}
+			.menu li {
+			height:100%;
+			}

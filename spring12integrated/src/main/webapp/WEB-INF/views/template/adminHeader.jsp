@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
-
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -11,13 +10,16 @@
     <title>홈페이지 레이아웃</title>
     <link rel="stylesheet" type="text/css" href="/static/css/load.css">
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
-
+    
     <link rel="stylesheet" type="text/css" href="/static/css/reset.css">
     <link rel="stylesheet" type="text/css" href="/static/css/layout.css">
     <link rel="stylesheet" type="text/css" href="/static/css/commons.css">
     <link rel="stylesheet" type="text/css" href="/static/css/test.css">
     <style>
-        
+        .fa-asterisk {
+        	color:red;
+        	margin-left: 2px;
+        }
     </style>
 </head>
 <body>
@@ -39,10 +41,33 @@
         	<!-- 메뉴를 상태에 따라 다르게 나오도록 처리 -->
 
             <ul class="menu">
-                <li><a href="/">홈</a></li>
-                <li><a href="/pocketmon/list">포켓몬관리</a></li>
-                <li><a href="/subject/list">과목관리</a></li>
-                <li><a href="/student/list">학생관리</a></li>
+                          <li><a href="/">홈</a></li>
+                <li>
+                	<a>데이터</a>
+                	<ul>
+<li>
+		                	<a>포켓몬관리</a>
+		                	<ul>
+		                		<li><a href="/pocketmon/list">목록보기</a></li>
+		                		<li><a href="/pocketmon/insert">등록하기</a></li>
+		                	</ul>
+		                </li>
+		                <li>
+		                	<a>과목관리</a>
+		                	<ul>
+		                		<li><a href="/subject/list">목록보기</a></li>
+		                		<li><a href="/subject/insert">등록하기</a></li>
+		                	</ul>
+		                </li>
+		                <li>
+		                	<a>학생관리</a>
+		                	<ul>
+		                		<li><a href="/student/list">목록보기</a></li>
+		                		<li><a href="/student/insert">등록하기</a>
+		                	</ul>
+		                </li>
+                	</ul>
+                </li>
                 <li><a href="/board/list">게시판</a></li>
 
                 <li class="right-menu">
