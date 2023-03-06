@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript 문자열</title>
+    <script type="text/javascript">
+        function copy01(){
+            //할일
+            //1. class=input-01인 입력창의 입력값을 불러온다.(value)
+            //2. class=view-01인 div에 글자로 설정한다.(textContent)
+            var input = document.querySelector(".input-01");
+            var div =document.querySelector(".view-01");
+            div.textContent = input.value;
+        }
+    
+        function clear01(){
+            //입력창의 값을 제거한다는 것은 비어있는 문자열로 설정한다는 것과 동일함. 
+            var input = document.querySelector(".input-01");
+            input.value="";
+        }
+        
+    </script>
+</head>
+<body>
+    <input type="text" class="input-01">
+    <button onclick="copy01()">복사</button>
+    <button onclick="clear01()">지우기</button>
+    <div class="view-01"></div>
+
+</body>
+</html>
