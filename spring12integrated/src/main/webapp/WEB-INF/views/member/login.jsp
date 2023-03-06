@@ -2,17 +2,23 @@
     pageEncoding="UTF-8"%>
  <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>   
     
-<jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
+<jsp:include page="/WEB-INF/views/template/adminHeader.jsp"></jsp:include>
 
 <title>로그인</title>
 
-<form action="login" method="post">
-	아이디 : <input type="text" name="memberId" required><br><br>
-	비밀번호 : <input type="password" name="memberPw"required>
-	<button>로그인</button>
-</form>
-
-<h2> <a href="find">아이디가 기억나지 않습니다.</a></h2>
+ <div class="container-600">
+        <div class="row center">
+            <form action="login" method="post">
+                <input class="form-input w-50" type="text" name="memberId" required placeholder="아이디"><br>
+                <input class="form-input w-50"type="password" name="memberPw"required placeholder="비밀번호"><br>
+                <button class="form-btn w-50 positive" >로그인</button>
+            </form>
+        </div>
+    </div>
+<div class ="row center" >
+<h4>
+ <a href="find">아이디가 기억나지 않습니다.</a></h4>
+ </div>
 <%-- 
 	이 페이지에 접근 가능한 방법은 2가지가 있다.
 	1. 일반적 접근 : 메뉴 또는 회원가입 완료 페이지의 링크로 이동
@@ -28,4 +34,4 @@
  <c:if test="${param.mode == 'error'}">
  	<h3> 로그인 정보가 일치하지 않습니다.</h3>
 </c:if>
-<jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>
+<jsp:include page="/WEB-INF/views/template/adminFooter.jsp"></jsp:include>

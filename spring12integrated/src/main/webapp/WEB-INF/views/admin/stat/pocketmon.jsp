@@ -1,18 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
+<jsp:include page="/WEB-INF/views/template/adminHeader.jsp"></jsp:include>
 
 <h1>포켓몬 현황</h1>
 
-<table border="1" width="300">
-	<thead>
-		<tr>
-			<th>속성</th>
-			<th>마리수</th>
-		</tr>
-	</thead>
-	<tbody>
+<div class="row center">
+        <table class="table table-border table-hover">
+            <thead>
+                <tr>
+                  	<th>속성</th>
+					<th>마리수</th>
+                </tr>
+            </thead>
+           <tbody>
 		<c:forEach var="pocketmonStatDto" items="${list}">
 		<tr>
 			<td>
@@ -24,7 +25,9 @@
 		</tr>
 		</c:forEach>
 	</tbody>
-</table>
+            </table>
+            </div>
+	
 
 
-<jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>
+<jsp:include page="/WEB-INF/views/template/adminFooter.jsp"></jsp:include>

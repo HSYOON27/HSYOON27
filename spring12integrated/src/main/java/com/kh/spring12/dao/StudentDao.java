@@ -13,12 +13,12 @@ import com.kh.spring12.dto.StudentDto;
 
 @Repository
 public class StudentDao {
-
+	
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
-
+	
 	private RowMapper<StudentDto> mapper = new RowMapper<StudentDto>() {
-
+		
 		@Override
 		public StudentDto mapRow(ResultSet rs, int rowNum) throws SQLException {
 			StudentDto studentDto = new StudentDto();
@@ -30,7 +30,7 @@ public class StudentDao {
 			return studentDto;
 		}
 	};
-
+	
 	public void insert(StudentDto studentDto) {
 		String sql = "insert into student(no,name,korean,english,math) values(student_seq.nextval, ?, ?, ?, ?)";
 		Object[] param = {
@@ -39,7 +39,7 @@ public class StudentDao {
 		};
 		jdbcTemplate.update(sql, param);
 	}
-
+	
 	public List<StudentDto> selectList(){
 		String sql = "select * from student order by no asc";
 		return jdbcTemplate.query(sql, mapper);
@@ -50,14 +50,14 @@ public class StudentDao {
 		Object[] param = {keyword};
 		return jdbcTemplate.query(sql, mapper, param);
 	}
-
+	
 	public StudentDto selectOne(int no) {
 		String sql = "select * from student where no = ?";
 		Object[] param = {no};
 		List<StudentDto> list = jdbcTemplate.query(sql, mapper, param);
 		return list.isEmpty() ? null : list.get(0);
 	}
-
+	
 	public boolean update(StudentDto studentDto) {
 		String sql = "update student set name=?,korean=?,english=?,math=? where no=?";
 		Object[] param = {
@@ -67,11 +67,11 @@ public class StudentDao {
 		};
 		return jdbcTemplate.update(sql, param) > 0;
 	}
-
+	
 	public boolean delete(int no) {
 		String sql = "delete student where no = ?";
 		Object[] param = {no};
 		return jdbcTemplate.update(sql, param) > 0;
 	}
-
+	
 }
