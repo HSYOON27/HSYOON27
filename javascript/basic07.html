@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript 태그 제어</title>
+    <style>
+        .img{
+            transition: width 0.5s ease-in-out, height 0.2s ease-in-out;
+        }
+    </style>
+
+    <script type="text/javascript">
+       
+        function bigger(){
+            var target = document.querySelector(".img");
+            target.style = "width: 300px; height: 300px;";
+            console.log("실행");
+        }
+
+        function normal(){
+            var target = document.querySelector(".img");
+            target.style = "width: 200px; height: 200px;";
+            console.log("실행");
+
+        }
+
+        function smaller(){
+            var target = document.querySelector(".img");
+            target.style = "width: 100px; height: 100px;";
+            console.log("실행");
+
+        }
+    </script>
+</head>
+<body>
+    <button onclick="bigger();">크게</button>
+    <button onclick="normal();">보통</button>
+    <button onclick="smaller();">작게</button>
+
+    <hr>
+    
+   <img src="../javascript/image/countrydog.jpg" width="200" height="200" class="img">
+   
+</body>
+</html>
+

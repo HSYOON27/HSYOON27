@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>템플레이트 예제</title>
+    <link rel="stylesheet" type="text/css" href="css/load.css">
+    <link rel="stylesheet" type="text/css" href="css/reset.css">
+    <link rel="stylesheet" type="text/css" href="css/commons.css">
+    <link rel="stylesheet" type="text/css" href="css/layout.css">
+    <link rel="stylesheet" type="text/css" href="css/test.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+
+    <style>
+        
+    </style>
+
+    <script type="text/javascript">
+            //여기선 반드시 true나 false를 반환하게 만들어야 한다. true는 생략가능 왜 ? 기본값이니
+            function checkMove(){
+                // return false;
+                var choice = confirm("정말로 구굴로 갈거니?");
+
+                if(choice == false){
+                    return false;
+                }
+
+                return true;
+            }
+
+            //form의 경우 내부에 작성된 항목이 유효(valid)한지 따져서 전송하도록 구현
+            function formCheck(){
+                
+                    var memberNick = document.querySelector("[name=memberNick]").value;
+                    var memberNickRegex = /^[가-힣0-9]{2,10}$/;
+
+                    if(memberNickRegex.test(memberNick) == false){
+                        alert("닉네임을 한글+숫자 2~10글자 사이에서 작성하세요");
+                        // document.querySelector("[name=memberNick]").focus();
+                        document.querySelector("[name=memberNick]").select();
+
+                        return false;
+                    }
+
+                    else {
+                        return true;
+                    }
+               
+            }
+    </script>
+
+</head>
+<body>  
+    <!--
+        a태그와 form태그 등은 기본 이벤트가 있는 태그임니다.
+        이걸 개조하고 싶다면? 
+        - 기본 이벤트를 처리하고 싶지 않다면 이벤트 속성에 return false를 작성
+        - 함수를 하나 만들어서 true나 false를 반환하게 만든 뒤 사용 
+
+    -->
+
+    <div class="container-500">
+        <div class="row center">
+            <h1>기본 이벤트 제어 </h1>
+        </div>
+
+        <div class="row">
+            <a href="https://www.google.com" class="link" onclick="alert('hello')">구글로 이동</a>
+
+            <a href="https://www.google.com" class="link" onclick="return false">구글로 이동안댐</a>
+
+        </div>
+
+        <div class="row">
+            <a href="https://www.google.com" class="link" onclick="return checkMove();">물어보고 보내드림</a>
+        </div>
+
+
+        <div class="row">
+            <h2>폼 예제</h2>
+        </div>
+        <form action="https://www.google.com" onsubmit="return formCheck()">
+            <div class="row">
+                <label>닉네임</label>
+                <input type="text" name="memberNick" class="form-input w-100">
+            </div>
+            <div class="row">
+                <button type="submit" class="form-btn w-100 positive" onclick="">전송</button>
+            </div>
+        </form>
+    </div>
+   
+</body>
+</html>

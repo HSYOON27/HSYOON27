@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript 태그 제어</title>
+    <style>
+        
+    </style>
+
+    <script type="text/javascript">
+    function bigger(){
+        var target = document.querySelector(".lorem");
+        target.style.fontSize = "20px";
+        console.log("실행");
+    }
+
+    function normal(){
+        var target = document.querySelector(".lorem");
+        target.style.fontSize = "16px";
+        console.log("실행");
+    }
+
+    function smaller(){
+        var target = document.querySelector(".lorem");
+        target.style.fontSize = "12px";
+        console.log("실행");
+    }
+    </script>
+    
+    <script type="text/javascript">
+        function bigger1(){
+            var target = document.querySelector(".paragraph");
+            target.style.fontSize = "20px";
+            console.log("실행");
+        }
+    
+        function normal1(){
+            var target = document.querySelector(".paragraph");
+            target.style.fontSize = "16px";
+            console.log("실행");
+        }
+    
+        function smaller1(){
+            var target = document.querySelector(".paragraph");
+            target.style.fontSize = "12px";
+            console.log("실행");
+        }
+        </script>
+</head>
+<body>
+    <button onclick="bigger();">크게</button>
+    <button onclick="normal();">보통</button>
+    <button onclick="smaller();">작게</button>
+
+    <button onclick="bigger1();">크게1</button>
+    <button onclick="normal1();">보통1</button>
+    <button onclick="smaller1();">작게1</button>
+    <hr>
+    <section class="lorem" fontSize="16px">
+        <h1>Lorem ipsum</h1>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi iaculis tortor ut lectus accumsan, vel consequat arcu aliquam. Curabitur turpis dui, molestie vitae velit quis, fermentum euismod quam. Proin id nisi sit amet sem pretium dapibus. Mauris tristique eros nec magna lobortis pellentesque. Nam eu pulvinar diam. Phasellus porttitor dictum maximus. Ut a dapibus elit, et congue augue. Etiam eu mollis ligula. In cursus ut augue sed feugiat. Aliquam posuere massa ac consectetur cursus. Phasellus congue leo id magna porta, vel lacinia erat posuere. Quisque ut ante eget eros mattis consectetur. Integer gravida a lectus non pretium.
+
+Donec viverra erat et lorem ornare, sed egestas libero vulputate. Nunc vel mollis tortor, nec euismod purus. Nam eget velit ultrices, feugiat dolor at, congue ligula. Cras mollis velit quis interdum condimentum. Integer vel libero id magna porta molestie sit amet id lectus. Phasellus malesuada et eros id sagittis. Vivamus blandit nisl eget risus convallis, nec sodales diam vehicula. Donec pellentesque augue ex.
+
+Ut in leo ac urna varius laoreet non at lectus. Sed convallis tortor vel tristique sollicitudin. Suspendisse vitae gravida ante, id molestie elit. Aenean id ante quis felis ullamcorper volutpat. In et eros orci. Fusce bibendum, urna ac faucibus bibendum, orci orci semper leo, eu blandit nunc ante nec erat. Duis ipsum quam, commodo ac sapien id, placerat congue nunc.
+
+Vestibulum quis scelerisque augue. Etiam nec ante sed magna fermentum dignissim non ac nisi. Proin elementum, diam quis rutrum volutpat, libero sem efficitur massa, et bibendum mauris diam sed mi. Duis eu ligula eu justo venenatis tristique. Integer auctor aliquet ornare. Nunc feugiat dictum malesuada. Donec ipsum turpis, dictum a iaculis sit amet, pretium vel urna. Aenean eu facilisis diam, nec tincidunt nisi. Aliquam porta orci eget mauris suscipit, vel finibus justo semper. Sed sem libero, accumsan sed lacus ac, interdum dignissim diam. Nulla sodales pellentesque ligula non lobortis. Mauris maximus felis eu nunc condimentum auctor.
+
+Morbi nec consectetur erat. Nullam et augue sapien. Donec ullamcorper, orci ut sollicitudin placerat, risus velit tristique urna, id congue lorem diam eu dolor. Integer ac metus ac nulla condimentum mollis non sed ligula. Nam pellentesque dui quis sapien laoreet bibendum. Morbi vehicula vel velit ac porttitor. Pellentesque varius leo at erat laoreet, quis convallis nisi suscipit. Quisque ut quam eget lectus porta congue. Donec pretium a mauris laoreet tincidunt. Donec at nisi nulla. Morbi tincidunt imperdiet lectus sed varius. Nam dapibus hendrerit eleifend. 
+    </section>
+    
+    <p class="paragraph" style="font-size: 16px;">
+        보이는 그것을 청춘의 설산에서 그와 있을 방황하여도, 끝에 봄바람이다. 새가 모래뿐일 영락과 그것은 소금이라 풍부하게 운다. 하여도 방황하여도, 청춘의 운다. 청춘 심장의 안고, 인간의 것은 일월과 원질이 끓는다. 인생에 피가 지혜는 따뜻한 뛰노는 사막이다. 그들을 피어나는 무한한 것이다. 하는 그들은 천하를 방황하여도, 같이, 과실이 교향악이다. 이상의 투명하되 청춘은 하는 방황하여도, 것은 피다. 모래뿐일 이것을 청춘의 이는 우는 그들에게 목숨을 청춘의 것이다. 희망의 것이 인생에 찾아 전인 이것이다. 못할 목숨을 풍부하게 품에 쓸쓸하랴?
+
+        그와 보이는 있는 있는가? 곳이 힘차게 인도하겠다는 실현에 같으며, 곧 우는 있는가? 반짝이는 이상, 모래뿐일 든 청춘 꽃이 위하여 힘차게 그들은 것이다. 그들의 스며들어 착목한는 것이다. 그러므로 이상이 그들은 돋고, 반짝이는 피가 그것을 있는 교향악이다. 영락과 그들의 같이 불어 열락의 거선의 봄바람이다. 공자는 맺어, 천지는 하는 그들의 역사를 힘있다. 있으며, 수 물방아 피는 새 놀이 부패뿐이다. 남는 가슴에 하는 일월과 같지 뜨고, 밝은 사라지지 황금시대다. 가치를 가장 방지하는 가슴에 있는 붙잡아 운다.
+        
+        속에서 별과 설산에서 실현에 영원히 힘차게 트고, 봄바람을 보라. 품으며, 얼마나 구하지 것이다. 얼음에 있는 더운지라 그리하였는가? 아니한 사랑의 황금시대를 속에 피가 반짝이는 때문이다. 어디 따뜻한 고동을 심장의 행복스럽고 이상, 석가는 가치를 용기가 것이다. 이 수 영락과 하였으며, 약동하다. 하여도 보내는 청춘은 봄바람이다. 것은 원질이 두손을 사라지지 같은 그들은 피가 말이다. 싸인 동산에는 이상은 사랑의 이것이다. 유소년에게서 피가 무엇을 굳세게 할지니, 이상의 오직 것이다. 오직 위하여 그들은 방황하였으며, 웅대한 인간의 피는 시들어 교향악이다.
+    </p>
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>게시글 작성 전체화면 만들기(실패)</title>
+    <link rel="stylesheet" type="text/css" href="css/load.css">
+    <link rel="stylesheet" type="text/css" href="css/reset.css">
+    <link rel="stylesheet" type="text/css" href="css/commons.css">
+    <link rel="stylesheet" type="text/css" href="css/layout.css">
+    <link rel="stylesheet" type="text/css" href="css/test.css">
+    <style>
+       .exInput{
+            transition: width 0.5s ease-in-out, height 0.5s ease-in-out;
+        }
+
+    </style>
+
+    <script type="text/javascript">
+       function fullScreen(){
+            var target = document.querySelector("exInput");
+            target.style = "width: 1000px; height: 1000px;";
+            console.log("실행");
+
+            tag.classList.remove("exInput");
+            tag.classList.add("exInput");
+
+        }
+    </script>
+
+</head>
+<body>
+   <div class="container-600">
+    <div class="row">
+        <h2>게시글 작성</h2>
+    </div>
+ 
+    <div>
+        <label>제목</label>
+    </div>
+    <div>
+        <input type="text" class="form-input w-100" >
+    </div>
+        <br>
+        <label>내용</label> 
+        <button onclick="fullScreen();" style="color: blue; border-color: blue; background-color: white;">전체화면</button>
+        <textarea name="exInput" class="form-input w-100" oninput="checkLength();">
+
+        </textarea>
+        <br><br>
+        <button type="submit" class="form-btn w-100 positive">작성하기</button>
+    
+    
+
+   </div>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript</title>
+
+    <script type="text/javascript">
+       //여러 함수에서 동시에 관리하는 값은 외부에 작성(전역 변수, global 변수)
+       var size = 16;
+       //var target = document.querySelector("p"); // 이건 안대 왜? 화면 생성 전이니까. 
+       function decrease(){
+             if(size <= 12) return;
+
+            size -=1;
+
+            //본문(p태그)의 스타일 변경
+            var target = document.querySelector("p");
+            target.style.fontSize = size+"px";
+
+            //글자크기(span태그)의 글자 변경
+            var span = document.querySelector("span");
+            span.textContent = size;
+       }
+
+       function increase(){
+            //사이즈 제한두기 자바랑 똑같음. 
+            if(size >= 30) return;
+
+            size +=1;
+            
+            //본문(p태그)의 스타일 변경
+            var target = document.querySelector("p");
+            target.style.fontSize = size+"px";
+
+            //글자크기(span태그)의 글자 변경
+            var span = document.querySelector("span");
+            span.textContent = size;
+       }
+    </script>
+</head>
+<body>
+    <button onclick="decrease();">-</button>
+    <span>16</span>
+    <button onclick="increase();">+</button>
+
+    <h1>제목</h1>
+    <p>내용 테스트</p>
+</body>
+</html>

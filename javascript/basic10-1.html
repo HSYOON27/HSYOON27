@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Javascript</title>
+
+    <script type="text/javascript">
+        var imageSize = 200;
+        function increaseImageSize(){
+            //데이터 변경
+            imageSize += 50;
+
+            //화면 갱신
+            var image = document.querySelector(".size-control");
+            image.width = imageSize;
+            image.height = imageSize;
+            var span = document.querySelector(".size-view");
+            span.textContent = imageSize;
+        }
+        function decreaseImageSize(){
+            //데이터 변경
+            imageSize -= 50;
+
+            //화면 갱신
+            var image = document.querySelector(".size-control");
+            image.width = imageSize;
+            image.height = imageSize;
+            var span = document.querySelector(".size-view");
+            span.textContent = imageSize;
+        }
+    </script>
+</head>
+<body>
+    <button onclick="increaseImageSize();">크게</button>
+    <button onclick="decreaseImageSize();">작게</button>
+    (현재 크기 : <span class="size-view">200</span>px)
+
+    <hr>
+
+    <img class="size-control" src="../javascript/image/countrydog.jpg" width="200" height="200">
+</body>
+</html>

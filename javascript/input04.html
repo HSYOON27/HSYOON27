@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>과제 아디/비밀번호 형식검사</title>
+
+    <link rel="stylesheet" type="text/css" href="css/load.css">
+    <link rel="stylesheet" type="text/css" href="css/reset.css">
+    <link rel="stylesheet" type="text/css" href="css/commons.css">
+    <link rel="stylesheet" type="text/css" href="css/layout.css">
+    <link rel="stylesheet" type="text/css" href="css/test.css">
+
+    <script type="text/javascript">
+      
+      function idCheck() {
+        var input = document.querySelector("[name=memberId]");
+        var span = document.querySelector("[name=memberId]+span");
+        var regex = /^[a-z0-9_]{8,20}$/;
+        if (regex.test(input.value)) {
+          span.style.color = "green";
+          span.textContent = "멋진 아이디네요!";
+        } 
+        
+        else {
+          span.style.color = "red";
+          span.textContent = "아이디는 8~20자의 영문 소문자, 숫자로 작성하세요";
+        }
+      }
+      function pwCheck() {
+        var input = document.querySelector("[name=memberPw]");
+        var span = document.querySelector("[name=memberPw]+span");
+        var regex =
+          /^[A-Za-z~!@#$%^&*()_+=0-9]{8,16}$/;
+        if (regex.test(input.value)) {
+          span.style.color = "green";
+          span.textContent = "올바른 비밀번호입니다";
+        } 
+        else {
+          span.style.color = "red";
+          span.textContent =
+            "비밀번호는 8~16자이며 반드시 영문 대/소문자, 숫자, 특수문자가 1개 이상 포함되어야 합니다";
+        }
+      }
+     
+    </script>
+</head>
+<body>
+    <div class="container-400">
+        <div class="row">
+            아이디 : <input name="memberId" class="form-input w-100" required oninput="idCheck();">
+            <span></span>
+          </div>   
+
+        <div class="row">
+           비밀번호 : <input type="password" name="memberPw" class="form-input w-100" required onblur="pwCheck();">
+           <span></span>
+        </div>     
+    </div>
+
+   
+</body>
+</html>
