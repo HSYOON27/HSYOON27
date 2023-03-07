@@ -14,35 +14,36 @@
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
 
     <style>
-       .valid-message{
+        .valid-message {
             color: forestgreen;
             display: none;
-       }
-       
+        }
         .invalid-message,
         .invalid-message2,
         .invalid-message3 {
             color: red;
             display: none;
         }
-
-        /* 입력창이 성공(.valid) 상태일 경우 뒤에 있는 성공메세지(.vaild-message)를 표시*/
-        .valid ~ .valid-message{
+        /* 
+            입력창이 성공상태(.valid)일 경우 
+            뒤에 있는 성공메세지(.valid-message)를 표시 
+        */
+        .valid ~ .valid-message {
             display: block;
         }
-
-       /* 입력창이 실패(.invalid) 상태일 경우 뒤에 있는 실패메세지(.invaild-message)를 표시*/
-        .invalid ~ .invalid-message{
+        /* 
+            입력창이 실패상태(.invalid)일 경우 
+            뒤에 있는 실패메세지(.invalid-message)를 표시 
+        */
+        .invalid ~ .invalid-message {
             display: block;
-        } 
-
-        .invalid ~ .invalid-message2{
+        }
+        .invalid2 ~ .invalid-message2 {
             display: block;
-        } 
-
-        .invalid ~ .invalid-message3{
+        }
+        .invalid3 ~ .invalid-message3 {
             display: block;
-        } 
+        }
 
         /* 입력창 디자인 */
         .valid, .invalid {
@@ -59,6 +60,7 @@
             border-color: red;
             background-image: url("image/invalid.png");
         }
+        
 
     </style>
 
