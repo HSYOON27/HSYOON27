@@ -35,7 +35,7 @@
         function checkAgree(){
             
                 var checkbox = document.querySelector("[name=agree]");
-                var button = document.querySelector("button");
+                var button = document.querySelector(".next-btn");
                 
                 button.disabled = !checkbox.checked
                 // if(checkbox.checked){
@@ -90,7 +90,7 @@
         </div>
 
         <div class="row center">
-            <button disabled type="submit" class="form-btn w-100 positive" onclick="nextStage"> 다음 단계로 이동</button>
+            <button disabled type="submit" class="form-btn w-100 positive next-btn" onclick="nextStage"> 다음 단계로 이동</button>
         </div>
     </div>
    

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>JavaScript 배열</title>
+    <link rel="stylesheet" type="text/css" href="css/load.css">
+    <link rel="stylesheet" type="text/css" href="css/reset.css">
+    <link rel="stylesheet" type="text/css" href="css/commons.css">
+    <link rel="stylesheet" type="text/css" href="css/layout.css">
+    <link rel="stylesheet" type="text/css" href="css/test.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+
+    <style>
+        
+    </style>
+
+    <script type="text/javascript">
+        //자바스크립트도 여러개의 데이터 처리를 위해 배열을 가지고 있다. 
+        //- 배열 역시 자바와 유사한 형태를 띈다
+        //- 차이점은 크기가 늘어난다는 것 
+
+        //[1] 크기만 정하는 방식(비추)
+        // var a = new Array(5); //5칸
+        // console.log(a);
+
+        //[2] 데이터를 알고 있을 대의 방식(추천)
+
+        var b = [10, 20, 30, 40, 50];
+        for(var i=0; i<b.length; i++){
+            console.log(b);
+        }
+
+        //배열에 데이터를 추가
+        //- push()를 사용하면 자바의 List.add() 효과 발생
+        var c =[];
+        // c[0] = 10;
+        c.push(10);
+        c.push(20);
+        c.push(30);
+
+        console.log(c);
+
+        //태그를 전체적으로 불러오고 싶다면 document.querySelectorAll()을 사용함
+        // - 대상이 여러개라 배열 형태로 나옴.
+        function changeRed(){
+            var list = document.querySelectorAll("h1");
+            console.log(list);
+
+            for(var i=0; i<list.length; i++){
+            list[i].style.color = "red";
+            }
+        }
+
+        function changeBlue(){
+            var list = document.querySelectorAll("h1");
+            
+            for(var i=0; i<list.length; i++){
+                list[i].style.color = "blue";
+            }
+        }
+
+        function changeGreen(){
+            var list = document.querySelectorAll("h1");
+
+            for(var i=0; i<list.length; i++){
+                list[i].style.color ="green";
+            }
+        }
+    </script>
+
+</head>
+<body>
+    <button onclick="changeRed()">빨강</button>
+    <button onclick="changeBlue()">파랑</button>
+    <button onclick="changeGreen()">초록</button>
+   <h1>첫번째</h1>
+   <h1>두번째</h1>
+   <h1>세번째</h1>
+   <h1>네번째</h1>
+   <h1>다섯번째</h1>
+</body>    
+</html>

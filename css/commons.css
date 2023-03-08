@@ -748,4 +748,10 @@
             border-color: red;
             background-image: url("image/invalid.png");
         }
-        
+        .form-btn.positive[disabled],
+        .form-btn.positive[disabled]:hover{
+            cursor: not-allowed;
+            background-color: gainsboro;
+            border-color: gainsboro;
+            filter: none;
+        }
