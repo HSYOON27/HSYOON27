@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>JavaScript 체크박스 제어</title>
+    <link rel="stylesheet" type="text/css" href="css/load.css">
+    <link rel="stylesheet" type="text/css" href="css/reset.css">
+    <link rel="stylesheet" type="text/css" href="css/commons.css">
+    <link rel="stylesheet" type="text/css" href="css/layout.css">
+    <link rel="stylesheet" type="text/css" href="css/test.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+    
+    <style>
+        
+    </style>
+
+    <script type="text/javascript">
+        function testFunction1(){
+            // console.log("체크 감지댐");
+            var checkbox =document.querySelector("[name=agree]");
+            // console.log(checkbox.checked);
+            // console.log(checkbox.parentNode);
+            var label = checkbox.parentNode; //부모 노드(태그)
+            label.style.color = checkbox.checked ? "red" : "gray";
+        }
+
+    </script>
+
+</head>
+<body> 
+    <div class="container-500">
+        <div class="row">
+            <h1>체크박스 제어</h1>
+        </div>
+        <div class="row">
+            <label>
+                 <input type="checkbox" name="agree" value="hello" onchange="testFunction1();" checked="checked"> 
+                 동의합니다
+            </label>
+        </div>
+    </div>
+   
+</body>    
+</html>
