@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>JavaScript</title>
+    <link rel="stylesheet" type="text/css" href="css/load.css">
+    <link rel="stylesheet" type="text/css" href="css/reset.css">
+    <link rel="stylesheet" type="text/css" href="css/commons.css">
+    <link rel="stylesheet" type="text/css" href="css/layout.css">
+    <link rel="stylesheet" type="text/css" href="css/test.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+
+    <style>
+         
+    </style>
+
+    <script type="text/javascript">
+      
+      window.addEventListener("load", function(){ 
+
+            var target = document.querySelector("[name=q1]");
+            var span = document.querySelector("[name=q1] + span");
+            span.textContent = target.value.length;
+            
+            target.addEventListener("input",function(){
+                
+                var len = target.value.length
+                span.textContent = len;
+
+                if(len>1000){
+                span.style.color = "red";
+               }
+                else {
+                span.style.color = "black";
+                }
+            })
+        });
+
+       
+
+        
+    </script>
+
+</head>
+<body>
+    <div class="container-600">
+        <h2>(Q) 성장 배경에 대해서 설명해주세요(최대 1000자)</h2>
+    </div>
+    <div class="container-600">
+        <textarea name="q1" class="form-input w-100">
+        </textarea>
+        <span>0</span> / 1000
+    </div>
+</body>    
+</html>
