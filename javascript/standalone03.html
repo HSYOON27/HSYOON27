@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>JavaScript 폼 최종 처리 코드</title>
+    <link rel="stylesheet" type="text/css" href="css/load.css">
+    <link rel="stylesheet" type="text/css" href="css/reset.css">
+    <link rel="stylesheet" type="text/css" href="css/commons.css">
+    <link rel="stylesheet" type="text/css" href="css/layout.css">
+    <link rel="stylesheet" type="text/css" href="css/test.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+
+    <style>
+        
+    </style>
+
+    <script type="text/javascript">
+        //독립형 자바 스크립트 템플릿 
+        window.addEventListener("load", function(){ 
+
+            var colors = ["red", "orange", "yellow", "green", "blue"];
+            for(var i=0; i < colors.length; i++){
+                document.querySelector("#")
+            } 
+
+            var target = document.querySelector("h1");
+
+            // var redbutton = document.getElementById("#red");
+            var redbutton = document.querySelector("#red");
+            var bluebutton = document.querySelector("#blue");
+
+            redbutton.addEventListener("click",function(){
+                target.style.color = "red";
+            })
+
+            bluebutton.addEventListener("click",function(){
+                target.style.color = "blue";
+            })
+
+        });
+
+    </script>
+
+</head>
+<body>
+   <div class="container-600">
+        <div class="row">
+            <h1>헬로 자바</h1>
+        </div>
+    <button class="form-btn" id="red">빨강</button>
+    <button class="form-btn" id="blue">파랑</button>
+   </div>
+</body>    
+</html>

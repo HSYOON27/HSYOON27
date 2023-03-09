@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>JavaScript 폼 최종 처리 코드</title>
+    <link rel="stylesheet" type="text/css" href="css/load.css">
+    <link rel="stylesheet" type="text/css" href="css/reset.css">
+    <link rel="stylesheet" type="text/css" href="css/commons.css">
+    <link rel="stylesheet" type="text/css" href="css/layout.css">
+    <link rel="stylesheet" type="text/css" href="css/test.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+
+    <style>
+        
+    </style>
+
+    <script type="text/javascript">
+        /*
+            내장객체란 프로그래밍 언어에서 기본적으로 제공하는 도구를 말한다.
+            자바스크립트가 클라이언트용이냐 서버용이냐에 따라 최상위 객체가 다름
+            - 클라이언트 용에서는 window가 최상위 객체
+            - 서버용에서는 process가 최상위 객체
+
+            최상위 객체는 생략이 가능함. 그래서 window 안붙힘
+            
+            window - 창과 관련된 정보와 명령을 가진 내장객체임.
+
+
+        */
+        console.log(window);
+        function window01(){
+            // alert("알림창입니다");
+            // console.log(window);
+
+            window.alert("알림창 입니다");
+        }
+
+        function window02(){
+            var choice = window.confirm("확인창 입니다"); //뭘 눌렀는지를 알아야 하니까 변수저장 가능
+            console.log("choice = " + choice);
+        }
+
+        function window03(){
+            var input = window.prompt("입력창 입니다");
+            console.log("input = " + input);
+        }
+
+        function window04(){
+            window.open("https://www.naver.com");
+        }
+
+        function window05(){
+            window.open("https://www.naver.com", "naver", "width=500, height=500");
+            //가운데 식별자를 안주면 중복으로 계속 열림. 마지막은 사이즈 조정해서 띄우는 결제창용 
+        }
+
+        /*
+            주소 객체(window.location)
+            - 주소창과 새로고침 버튼을 담당하는 내장객체
+        */
+        function location01(){
+            // console.log(window.location);
+            location.href = "https://www.google.com";
+        }
+
+        function location02(url){
+            location.href = url;
+            //넣어준 주소로 이동하겠다 라는 의미
+        }
+
+        //필요하다면 태그에 커스텀 속성 data-? 형태로 추가할 수 있다.
+        //Javascript에서는 dataset이라는 내장 객체로 읽을 수 있다.
+        function location03(tag){
+            console.log(tag);
+            console.log(tag.dataset.url);
+            location.href = tag.dataset.url;
+        }
+
+
+        function history01(){
+            // console.log(window.history);
+            history.back();
+        }
+
+        function history02(){
+            history.go(-2);
+        }
+
+        function document01(){
+            // var tag = document.querySelector("h1");
+            // var tag = document.querySelector("#dummy");
+            // var tag = document.querySelector(".temp");
+
+            var tag = document.querySelectorAll(".temp")[0];
+
+            tag.style.color = "red";
+        }
+
+        function document02(){
+            //classic 선택 명령
+            // var tag = document.getElementsByTagName("h1")[0]; //태그명
+            var tag = document.getElementById("dummy"); //ID 기반 선택
+            // var tag = document.getElementsByClassName("temp")[0];
+            //class기반 선택 s 붙은 이유는 클래스는 여러개 붙일 수 있으니까. 당연한거
+            tag.style.color = "blue";
+        }
+
+    </script>
+
+
+</head>
+<body>
+   <div class="container-600">
+        <div class="row center">
+            <h1>내장객체</h1>
+        </div>
+        <div class="row">
+            <h2>창 제어(window)</h2>
+        </div>
+        <div class="row">
+            <button class="form-btn" onclick="window01();">알림창</button>
+            <button class="form-btn" onclick="window02();">확인창</button>
+            <button class="form-btn" onclick="window03();">입력창</button>
+        </div>
+        <div class="row">
+            <button class="form-btn" onclick="window04();">새탭</button>
+            <button class="form-btn" onclick="window05();">새창</button>
+        </div>
+
+        <div class="row">
+            <h2>주소 제어</h2>
+        </div>
+
+        <div class="row">
+            <button class="form-btn" onclick="location01();">구글로 이동</button>
+            <button class="form-btn" onclick="location02('https://www.google.com');">구글로 이동</button>
+            <button class="form-btn" onclick="location02('https://www.naver.com');">네이바로 이동</button>
+            <button class="form-btn" onclick="location03(this);" data-url="https://www.google.com">구글로 이동</button>
+            <button class="form-btn" onclick="location03(this);" data-url="https://www.naver.com">네이버로 이동</button>
+        </div>
+
+        <div class="row">
+            <h2> 이력제어(history) </h2>
+        </div>
+
+        <div class="row">
+            <button class="form-btn" onclick="history01();">뒤로가기</button>
+            <button class="form-btn" onclick="history02();">뒤로 2페이지가기</button>
+        </div>
+
+        <div class="row">
+            <h2>문서 객체(document)</h2>
+        </div>
+
+        <div class="row">
+            <button class="form-btn" onclick="document01();">선택</button>
+            <button class="form-btn" onclick="document02();">선택</button>
+        </div>
+
+        <div class="row">
+            <h1 id="dummy" class="temp">선택 될 대상</h1>
+        </div>
+
+   </div>
+</body>    
+</html>

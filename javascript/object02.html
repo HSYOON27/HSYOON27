@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>JavaScript 폼 최종 처리 코드</title>
+    <link rel="stylesheet" type="text/css" href="css/load.css">
+    <link rel="stylesheet" type="text/css" href="css/reset.css">
+    <link rel="stylesheet" type="text/css" href="css/commons.css">
+    <link rel="stylesheet" type="text/css" href="css/layout.css">
+    <link rel="stylesheet" type="text/css" href="css/test.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+
+    <style>
+        
+    </style>
+
+    <script type="text/javascript">
+        //객체 
+        // - 정보가 모여있는 단위
+        // - 자바에서는 객체를 만들려면 클래스가 필요하다
+        // - 자바 스크립트에서는 클래스가 없어도 객체 생성이 가능하다.
+        // - 자바스크립트에서는 클래스는 ES6(신버전)에서 나옴
+
+        //ES5(구버전) 에서 객체를 생성하는 방법
+        //(1) 일회용 객체 생성 - 쉽고 간편하지만 체계가 없음.
+
+        var a = {
+            name : "피카추",
+            score : 90
+        };
+        console.log(a);
+        console.log(a.name, a["name"]);  // [변수처리]
+        console.log(a.score, a["score"]);
+
+        //(2) 생성자 함수를 사용 - 체계적으로 객체를 생성(자바의 클래스)
+        function Student(name, score){
+            this.name = name;
+            this.score = score;
+            this.setName = function(name){
+                this.name = name;
+            }
+            this.getName = function(){
+                return this.name;
+            }
+        }
+        var b = new Student("라이츄", 89);
+        console.log(Student);
+        console.log(b);
+
+        //(1)과 (2)의 차이는 데이터의 형태가 다르다는 것
+        console.log(a instanceof Student);
+        console.log(b instanceof Student);
+
+        //(Q) 객체에 함수를 넣을 수 있는가?
+        //(Q) 변수에 함수를 넣을 수 있는가?
+        //c(); 함수 표현식은 미리 부를 수 없다. 
+        d();
+
+        var c = function(){//함수 표현식(호이스팅x)
+            console.log("hello");
+        };
+        function d(){//함수 선언(호이스팅o)
+            console.log("HEllO");
+        }
+
+        c();
+        d();
+
+        // 만약 객체에 변수를 만들고 함수를 넣으면? 
+        // 멤버 메소드가 되지 않을까?
+
+        var stu={
+            name : "피카추",
+            score : 99,
+            setName : function(name) {
+                this.name = name;
+            },
+            getName : function(){
+                return this.name;
+            },
+            setScore : function(score){
+                if(score < 0 || socre > 0) return;
+                this.score = score;
+            },
+            getScore : function(){
+                return this.score;
+            }
+        };
+        console.log(stu.getScore());
+   </script>
+
+</head>
+<body>
+   <div class="container-600">
+        <div class="row">
+            <h1>제목</h1>
+        </div>
+   </div>
+</body>    
+</html>
