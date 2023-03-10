@@ -15,10 +15,14 @@
     <script type="text/javascript">
 
         window.addEventListener("load", function(){
+            //[1] 아이디 입력창에 입력을 마치면 형식 검사 후 메시지 출력
+            //[2] 비밀번호 입력창에 입력을 마치면 형식 검사 후 메시지 출력
+            //[3] 비밀번호 확인창에 입력을 마치면 비밀번호 일치 검사 후 메시지 출력 
+
             var memberId = document.querySelector("[name=memberId]");
             var memberIdRegex = /^[a-z][a-z0-9]{7,19}$/;
-
             var span = document.querySelector("[name=memberId]").nextElementSibling;
+
             memberId.addEventListener("blur", function(){
 
                 if(memberIdRegex.test(memberId.value)) {
@@ -35,7 +39,6 @@
         window.addEventListener("load", function(){
             var memberPw = document.querySelector("[name=memberPw]");
             var memberPwRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$])[a-zA-Z0-9!@#$]{8,16}$/;
-
             var span = document.querySelector("[name=memberPw] + span");
 
             memberPw.addEventListener("blur", function(){

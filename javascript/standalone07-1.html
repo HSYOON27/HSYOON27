@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>기본 이벤트 방지</title>
+
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="css/load.css">
+    <link rel="stylesheet" type="text/css" href="css/reset.css">
+    <link rel="stylesheet" type="text/css" href="css/commons.css">
+    <link rel="stylesheet" type="text/css" href="css/layout.css">
+    <link rel="stylesheet" type="text/css" href="css/test.css">
+
+    <script type="text/javascript">
+        //독립형 자바스크립트 템플릿
+
+        //목표 : .confirm-link를 누르면 확인창 출력 후 확인 클릭 시 이동(취소 시 차단)
+        window.addEventListener("load", function(){
+
+            var confirmLinkList = document.querySelectorAll(".confirm-link");
+            for(var i=0; i < confirmLinkList.length; i++){
+                confirmLinkList[i].addEventListener("click", function(e){
+                    //안내메세지 설정
+                    var text = this.dataset.message || "정말 이동하시겠습니까?";
+                    // var text;
+                    // if(!this.dataset.message) {
+                    //     text = "정말 이동하시겠습니까?";
+                    // }
+                    // else {
+                    //     text = this.dataset.message;
+                    // }
+
+                    var choice = window.confirm(text);
+                    if(choice == false) {
+                        e.preventDefault();
+                    }
+                });
+            }
+
+        });
+    </script>
+</head>
+<body>
+    <div class="container-600">
+        <div class="row center">
+            <h1>제목</h1>
+        </div>
+
+        <div class="row">
+            <a href="https://www.google.com" onclick="return false">클릭안됨</a>
+        </div>
+
+        <div class="row">
+            <a href="https://www.google.com" class="confirm-link">클릭안됨</a>
+        </div>
+
+        <div class="row">
+            <a href="https://www.google.com" class="confirm-link" data-message="정말 삭제하시겠어요?">클릭안됨</a>
+        </div>
+    </div>
+</body>
+</html>

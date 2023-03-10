@@ -1,0 +1,1 @@
+window.addEventListener("load",(function(){for(var confirmLinkList=document.querySelectorAll(".confirm-link"),i=0;i<confirmLinkList.length;i++)confirmLinkList[i].addEventListener("click",(function(e){var text=this.dataset.message||"정말 이동하시겠습니까?",choice;0==window.confirm(text)&&e.preventDefault()}))}));
