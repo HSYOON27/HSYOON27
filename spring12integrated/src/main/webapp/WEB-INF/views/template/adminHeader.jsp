@@ -21,7 +21,11 @@
         	margin-left: 2px;
         }
     </style>
-</head>
+    
+        <script src="https://cdn.jsdelivr.net/gh/HSYOON27/confirm-link@latest/confirm-link.js"></script>
+	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+	<script src="/static/js/find-address.js"></script>
+	</head>
 <body>
     <!--
         홈페이지를 만들 때 시맨틱 태그(semantic tag)를 사용하여 의미있게 구현

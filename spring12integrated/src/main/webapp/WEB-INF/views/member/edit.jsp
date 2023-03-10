@@ -4,12 +4,15 @@
 <jsp:include page="/WEB-INF/views/template/adminHeader.jsp"></jsp:include>
 
 <title>회원정보 수정 페이지</title>
+	<!-- 다음 우편 API 사용을 위한 CDN -->
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script src="/static/js/find-address.min.js"></script>
 	
-	<table border="1" width="400px">	
+	<table border="1" width="600px">	
 		
-		<tbody>
+		<tbody test>
 		<tr>
-			<th width="30%">아이디</th>
+			<th width="40%">아이디</th>
 			<td>${memberDto.memberId}</td>
 		</tr>
 		<tr>
@@ -43,7 +46,14 @@
 			</td>
 		</tr>
 		<tr>
-			<th rowspan="3">주소</th>
+			<th rowspan="5">주소</th>
+		</tr>
+		<tr>
+		<td>
+				<button type="button" class="find-address-btn">우편번호 찾기</button>
+		</td>
+		</tr>	
+		<tr>
 			<td>
 				<input type="text" name="memberPost" 
 					value="${memberDto.memberPost}" placeholder="우편번호">
@@ -65,7 +75,7 @@
 		
 		<tr>
 			<td colspan="2" align="center">
-				<button>수정하기</button>
+				<button class="form-btn positive">수정하기</button>
 			</td>
 		</tr>
 	</tbody>

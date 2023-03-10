@@ -47,7 +47,10 @@
                   </div>      
 
                   <div class="row">
-                    우편번호 : <input type="number" name="memberPost" required class="form-input w-100">
+						<button type="button" class="form-btn neutral find-address-btn">우편번호 찾기</button><br>
+						<input type="text" name = "memberPost"  class="form-input w-100" placeholder="우편번호">
+						<input type="text" name = "memberBasicAddr"   class="form-input w-100"  placeholder="주소"><br>
+						<input type="text" name = "memberDetailAddr"   class="form-input w-100"  placeholder="상세주소">
                   </div>  
 
                   <div class="row">

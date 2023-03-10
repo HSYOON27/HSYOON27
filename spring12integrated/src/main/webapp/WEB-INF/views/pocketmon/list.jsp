@@ -59,8 +59,8 @@
 	 				</td>
 	 			<td>${pocketmonDto.type}</td>
 	 			<td>
-	 			<a href="edit?no=${pocketmonDto.no}">수정</a>
-	 			<a href="delete?no=${pocketmonDto.no}">삭제</a>
+	 			<a class="link" href="edit?no=${pocketmonDto.no}">수정</a>
+	 			<a class="link confirm-link" data-message="정말 삭제하시겠습니까?" href="delete?no=${pocketmonDto.no}">삭제</a>
 	 			</td>
 	 		</tr>
 	 	</c:forEach>
