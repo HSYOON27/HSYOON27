@@ -23,7 +23,24 @@
     <script type="text/javascript">
        
         $(function(){
+            //jQuery는 선택하는 작업부터 시작한다 반드시
 
+            //red-btn을 선택한 뒤 css 컬러를 레드로 변경해라
+            // $(".red-btn").css("color","red");
+
+            //.red-btn을 클릭하면(이벤트)
+            // $(".red-btn").on("click", function(){});
+
+            //click처럼 사용 명령이 빈번한 작업들은 축약명령이 존재한다(input은 없엉)
+            $(".red-btn").click(function(){
+                //.target의 글자 색상을 빨강으로 변경
+                $(".target").css("color", "red");
+            });
+
+
+            $(".blue-btn").click(function(){
+                $(".target").css("color", "blue");
+            })
         });
 
 
@@ -33,9 +50,13 @@
 <body>
    <div class="container-600">
         <div class="row">
-            <h1>제목</h1>
+            <h1 class="target">Hello jQuery!</h1>
         </div>
       
+        <div class="row">
+            <button class="form-btn neurtral red-btn">빨강</button>
+            <button class="form-btn neurtral blue-btn">파랑</button>
+        </div>
    </div>
 </body>    
 </html>
