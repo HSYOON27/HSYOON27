@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>이미지 슬라이더</title>
+    <link rel="stylesheet" type="text/css" href="css/load.css">
+    <link rel="stylesheet" type="text/css" href="css/reset.css">
+    <link rel="stylesheet" type="text/css" href="css/commons.css">
+    <link rel="stylesheet" type="text/css" href="css/layout.css">
+    <link rel="stylesheet" type="text/css" href="css/test.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+
+    <!-- Swiper cdn-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css">
+
+    <style>
+        .swiper{
+           
+            width: 100%;
+            height: 300px;
+            /* height :40vh;*/
+    
+        }
+
+    </style>
+
+    <script type="text/javascript">
+      //독립형 자바 스크립트 템플릿 
+      window.addEventListener("load", function(){ 
+            var swiper = new Swiper('.swiper', {
+            
+            //슬라이더의 방향(horizontal/vertical)
+            direction: 'horizontal',
+
+            //슬라이더의 반복 여부(true, false)    
+            loop: true,
+
+            // 페이징 표시를 어케할거냐?
+            pagination: {
+                // 적용 대상
+                el: '.swiper-pagination',
+                // 유형 (bullets / fraction / progrssbar)
+                type : 'bullets',
+                hideOnClick	: true,
+
+            },
+
+            // 이전, 다음버튼
+            navigation: {
+                nextEl: '.swiper-button-next', //다음 버튼 선택자
+                prevEl: '.swiper-button-prev', //이전 버튼 선택자 
+                hideOnClick	: true,
+            },
+
+            // And if we need scrollbar
+            scrollbar: {
+                el: '.swiper-scrollbar',
+            },
+            });
+        });
+
+    </script>
+        <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+
+
+</head>
+<body>
+   <div class="container-600">
+        <div class="row">
+            <h1>이미지 슬라이더</h1>
+        </div>
+        <div class="row">
+            <!-- swiper HTML -->
+            <!-- Slider main container -->
+            <div class="swiper">
+                <!-- Additional required wrapper -->
+                <div class="swiper-wrapper">
+                <!-- Slides -->
+                <div class="swiper-slide">
+                    <img src="/javascript/image/countrydog.jpg">
+                </div>
+                <div class="swiper-slide">
+                    <img src="/javascript/image/cutedog.jpg">
+                </div>
+                <div class="swiper-slide">
+                    <img src="/javascript/image/closeUpDog.png">
+                </div>
+                </div>
+                <!-- If we need pagination -->
+                <div class="swiper-pagination"></div>
+            
+                <!-- If we need navigation buttons -->
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-button-next"></div>
+            
+                <!-- If we need scrollbar -->
+                <div class="swiper-scrollbar"></div>
+            </div>
+        </div>
+   </div>
+</body>    
+</html>
