@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Jquery</title>
+    <link rel="stylesheet" type="text/css" href="css/load.css">
+    <link rel="stylesheet" type="text/css" href="css/reset.css">
+    <link rel="stylesheet" type="text/css" href="css/commons.css">
+    <link rel="stylesheet" type="text/css" href="css/layout.css">
+    <link rel="stylesheet" type="text/css" href="css/test.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+
+    <style>
+        
+    </style>
+
+    <!--Jquery Cdn-->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+   
+    <script type="text/javascript">
+       
+        $(function(){
+            // $(".q1").on("input", function(){
+                
+            //     var count = this.value.length;
+            //     var span = this.nextElementSibling;
+            //     span.textContent = count;
+            //     if(count > 1000){
+            //         span.style.color="red";
+            //     }
+    
+            //     else{
+            //         span.style.color="black";
+            //     }
+            // });
+
+            $("textarea.form-input").on("input", function(){
+                //this == 입력이 발생한 창
+                //console.log($(this).val());
+
+                var len = $(this).val().length;
+                //$("span").text(len);
+                $(this).next().children("span").text(len);
+            });
+        });
+
+
+    </script>
+
+</head>
+<body>
+    <div class="container-600">
+        <h2>(Q) 성장 배경에 대해서 설명해주세요(최대 1000자)</h2>
+    </div>
+    <div class="container-600">
+        <textarea class="form-input w-100 q1">
+        </textarea>
+        <div>
+        <span>0</span> / 1000
+        </div>
+    </div>
+    
+
+</body>    
+</html>
