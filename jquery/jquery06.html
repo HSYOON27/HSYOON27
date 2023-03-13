@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Jquery</title>
+    <link rel="stylesheet" type="text/css" href="css/load.css">
+    <link rel="stylesheet" type="text/css" href="css/reset.css">
+    <link rel="stylesheet" type="text/css" href="css/commons.css">
+    <link rel="stylesheet" type="text/css" href="css/layout.css">
+    <link rel="stylesheet" type="text/css" href="css/test.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+
+    <style>
+        .dummy{
+            color: red;
+            background-color: blueviolet;
+        }
+    </style>
+
+    <!--Jquery Cdn-->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+   
+    <script type="text/javascript">
+       
+        $(function(){
+            //eq(index)는 특정 위치의 객체만 추출하는 명령
+            $(".form-btn").eq(0).click(function(){
+                $(".target").addClass("dummy dummy2 dummy3");
+            });
+            $(".form-btn").eq(1).click(function(){
+                $(".target").removeClass("dummy dummy2 dummy3");
+            });
+            $(".form-btn").eq(2).click(function(){
+                var isContain = $(".target").hasClass("dummy");
+                console.log(isContain);
+            });
+            $(".form-btn").eq(3).click(function(){
+                $(".target").toggleClass("dummy");
+            });
+            
+            //표시 버튼 
+            $(".form-btn").eq(4).click(function(){
+                // $(".target2").show();
+                // $(".target2").slideDown();
+                $(".target2").fadeIn();
+            });
+
+            //숨김
+            $(".form-btn").eq(5).click(function(){
+                // $(".target2").hide();
+                // $(".target2").slideUp();
+                $(".target2").fadeOut();
+
+            });
+
+            //토글
+            $(".form-btn").eq(6).click(function(){
+                // $(".target2").toggle();
+                // $(".target2").slideToggle();
+                $(".target2").fadeToggle();
+
+            });
+        });
+
+
+    </script>
+
+</head>
+<body>
+   <div class="container-600">
+        <div class="row">
+            <h1>클래스 제어</h1>
+        </div>
+      
+        <div class="row">
+            <button class="form-btn neurtral">추가</button>
+            <button class="form-btn neurtral">삭제</button>
+            <button class="form-btn neurtral">검사</button>
+            <button class="form-btn neurtral">토글</button>
+        </div>
+
+        <div class="row">
+            <h2 class="target">Hello jQuery!</h2>
+        </div>
+
+        <div class="row">
+            <button class="form-btn neurtral">표시</button>
+            <button class="form-btn neurtral">숨김</button>
+            <button class="form-btn neurtral">토글</button>
+        </div>
+
+        <div class="row">
+            <h3 class="target2">Hello jQuery!2</h3>
+        </div>
+   </div>
+</body>    
+</html>
