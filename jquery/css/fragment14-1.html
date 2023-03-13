@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>포켓몬 목록/검색</title>
+    <link rel="stylesheet" type="text/css" href="commons.css">
+    <link rel="stylesheet" type="text/css" href="test.css">
+    <style>
+
+    </style>
+</head>
+    <div class="container-700">
+        <div class="row center">
+            <h1>포켓몬 목록/검색</h1>
+            <h2><a href="insertInput"> 신규등록</a></h2>
+            <form action="list" method="post">
+                <select class="form-input me-5" name="column">
+                    <option>이름</option>
+                    <option>속성</option>
+                    <input class="form-input" type="search" name="keyword" placeholder="검색어" required>
+                    <button class="form-btn positive" type="submit">검색</button>
+                </select>
+            </form>
+        </div>
+<body>
+    <div class="row center">
+        <table class="table table-border table-hover">
+            <thead>
+                <tr>
+                    <th>번호</th>
+                    <th>이름</th>
+                    <th>속성</th>
+                    <th>관리</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>
+                        <a href="edit?no=${pocketmonDto.no}">수정</a>
+	 		        	<a href="delete?no=${pocketmonDto.no}">삭제</a>
+                    </td>
+                </tr>
+            </tbody>
+            </table>
+            </div>
+</body>
+</div>
+
+</html>

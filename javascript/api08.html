@@ -18,13 +18,14 @@
 
     <style>
         .swiper{
-           
             width: 100%;
             height: 300px;
             /* height :40vh;*/
-    
         }
-
+        .swiper img {
+            width: 100%;
+            height: 100%;
+        }
     </style>
 
     <script type="text/javascript">
@@ -55,10 +56,24 @@
                 hideOnClick	: true,
             },
 
-            // And if we need scrollbar
+            // 스크롤바 
             scrollbar: {
                 el: '.swiper-scrollbar',
             },
+
+            // 추가 옵션들
+
+            // effect - 전환 효과
+            // slide, flip, cube, coverflow, creative, cards
+            effect:"cube",
+            
+            //autoplay - 자동 재생
+            // autoplay: true,
+            autoplay:{
+                delay: 5000,//ms
+                pauseOnMouseEnter:true, //마우스 진입 시 재생 정지
+            }
+
             });
         });
 
@@ -100,6 +115,36 @@
                 <div class="swiper-scrollbar"></div>
             </div>
         </div>
+       
+        <div class="row">
+            <!-- swiper HTML -->
+            <!-- Slider main container -->
+            <div class="swiper">
+                <!-- Additional required wrapper -->
+                <div class="swiper-wrapper">
+                <!-- Slides -->
+                <div class="swiper-slide">
+                    <img src="/javascript/image/countrydog.jpg">
+                </div>
+                <div class="swiper-slide">
+                    <img src="/javascript/image/cutedog.jpg">
+                </div>
+                <div class="swiper-slide">
+                    <img src="/javascript/image/closeUpDog.png">
+                </div>
+                </div>
+                <!-- If we need pagination -->
+                <div class="swiper-pagination"></div>
+            
+                <!-- If we need navigation buttons -->
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-button-next"></div>
+            
+                <!-- If we need scrollbar -->
+                <div class="swiper-scrollbar"></div>
+            </div>
+        </div>
+        
    </div>
 </body>    
 </html>

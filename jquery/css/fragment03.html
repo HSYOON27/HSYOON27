@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>포켓몬 등록</title>
+    <link rel="stylesheet" type="text/css" href="commons.css">
+
+    <style>
+        /* div{
+            border: 1px dotted gray;
+        } */
+
+        /*
+            a 태그를 버튼과 동일한 모양으로 만들 수 있도록 개조 
+            - display=inline 이므로 block속성이 들어가게 개조(폭설정)
+            - text-align으로 글자 가운데 정렬
+            - text-decoration으로 밑줄을 제거 
+        */
+        a.form-btn {
+            display: inline-block;
+            text-align: center;
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+    <!--
+        1. 컨테이너 크기를 정해서 생성
+        2. 배치될 항목(컴포넌트)의 줄 수 만큼 .row를 생성
+
+    -->
+<body>
+    <form action="#" method="post">
+<div class="container-300" >
+    <div class="row center">
+    <h1 >포켓몬 등록</h1>
+    </div>
+
+    <div class="row left">
+    <input type="text" name="no" placeholder="번호를 적으세요" class="form-input w-100" required>
+    </div>
+
+    <div class="row left">
+    <input type="text" name="name" placeholder="이름을 적으세요" class="form-input w-100" required>
+    </div>
+
+    <div class="row left">
+    <input type="text" name="type" placeholder="타입을 적으세요" class="form-input w-100" required>
+    </div>
+
+    <div class="row right">
+        <!-- 
+            form 안에 있는 버튼은 전송용 버튼으로 기본 취급한다.
+            문제를 해결하기 위해서는 다음과 같이 처리한다. 
+
+            1. 버튼에 type을 설정해서 용도를 지정할 수 있다.
+            - type="submit" 이면 폼을 전송시키는 버튼
+            - type="button" 이면 그냥 버튼
+
+            2. 버튼말고 다른 태그를 사용한다. 
+            - a태그, input[type=button] 등을 사용 할 수 있다.
+        -->
+    <button type="submit" class="form-btn neutral">목록</button>
+    <button type="button" class="form-btn positive">등록</button>
+    </div>
+
+    <div class="row">
+        <button type="submit" class="form-btn neutral w-100">목록</button>
+    </div>
+
+    <div>
+        <button type="button" class="form-btn positive w-100" style="display: block; text-decoration: none;">등록</button>
+    </div>
+    <div class="row center">
+        <a class="form-btn w-100 positive" href="list">등록</a>
+    </div>
+
+    
+    
+</div>    
+    </form> 
+</div>
+</body>
+
+</html>
