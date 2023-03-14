@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jquery 포켓몬 문제</title>
+
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="css/load.css">
+    <link rel="stylesheet" type="text/css" href="css/reset.css">
+    <link rel="stylesheet" type="text/css" href="css/commons.css">
+    <link rel="stylesheet" type="text/css" href="css/layout.css">
+    <link rel="stylesheet" type="text/css" href="css/test.css">
+
+    <!-- jquery cdn -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+    <script type="text/javascript">
+       
+        $(function(){
+            $("#add-btn").click(function(){
+                //입력값 불러오고 입력창 초기화
+                var no = $("#user-input-no").val();
+                var name = $("#user-input-name").val();
+                var type= $("#user-input-type").val();
+
+                $("#user-input-no").val("");
+                $("#user-input-name").val("");
+                $("#user-input-type").val("");
+
+                var html = $("#pocketmon-template").html();
+                var parse = $.parseHTML(html);
+
+                $(parse).find("#table-no").text(no);
+                $(parse).find("#table-name").text(name);
+                $(parse).find("#table-type").text(type);
+
+                $(parse).find("#del-btn").click(function(){
+                    if(window.confirm("삭제 하시겠습니까?")){
+                        $(this).parent("td").parent("tr").remove();
+                    };
+
+                });
+
+                $(".target").append(parse);
+
+
+            });
+        });
+        
+
+    </script>
+ <!-- 템플릿 생성 -->
+    <script type="text/template" id="pocketmon-template">
+        <tr>
+            <td id="table-no"></td>
+            <td id="table-name"></td>
+            <td id="table-type"></td>
+            <td> 
+                <span id="del-btn">삭제</span>
+            </td>
+        </tr>
+    </script>
+</head>
+<body>
+    <div class="container-800">
+        <div class="row center">
+            <h1>포켓몬 등록</h1>
+        </div>
+        <hr>
+        <div class="row center">
+            <input type="text" id="user-input-no" class="form-input" placeholder="번호">
+            <input type="text" id="user-input-name" class="form-input" placeholder="이름">
+            <input type="text" id="user-input-type" class="form-input" placeholder="속성">
+            <button class="form-btn positive" id="add-btn">등록</button>
+        </div>
+
+        <hr>
+        <div class="row center">
+            <table class="table table-border">
+                <thead>
+                    <tr>
+                        <th>번호</th>
+                        <th>이름</th>
+                        <th>속성</th>
+                        <th>관리</th>
+                    </tr>
+                </thead>
+                <tbody class="target">
+                   
+                </tbody>
+            </table>
+        </div>
+
+       
+    </div>
+</body>
+</html>
