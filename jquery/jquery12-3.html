@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>SPA</title>
+    <link rel="stylesheet" type="text/css" href="css/load.css">
+    <link rel="stylesheet" type="text/css" href="css/reset.css">
+    <link rel="stylesheet" type="text/css" href="css/commons.css">
+    <link rel="stylesheet" type="text/css" href="css/layout.css">
+    <link rel="stylesheet" type="text/css" href="css/test.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+
+    <style>
+        
+    </style>
+
+    <!--Jquery Cdn-->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+    <script type="text/javascript">
+       
+        $(function(){
+            $("#add-btn").click(function(){
+                
+                //입력값 불러온 후 입력창 초기화
+                var item = $("#user-input").val();
+                $("#user-input").val("");
+
+                //태그를 만들어서 화면(.target)에 추가 
+                var h2 = $("<h2>").text(item);
+                var icon = $("<i>").addClass("fa-solid fa-xmark ms-20")
+                                    .click(function(){
+                                        $(this).parent().remove();
+                                    });
+
+                //h2에 icon을 추가하고, .target에 h2를 추가해야함  
+                h2.append(icon);
+                $(".target").append(h2);
+
+
+
+
+            });
+        });
+
+
+    </script>
+
+</head>
+<body>
+    <div class="container-600">
+        <div class="row center">
+            <h1>오늘의 할 일 등록하기</h1>
+        </div>
+
+        <div class="row center">
+            <input type="text" id="user-input" class="form-input">
+            <button class="form-btn positive" id="add-btn">등록</button>
+        </div>
+
+        <hr>
+
+        <!-- 할 일이 등록될 위치-->
+        <div class="row center target">
+
+        </div>
+</body>    
+</html>

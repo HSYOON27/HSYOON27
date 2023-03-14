@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>SPA</title>
+    <link rel="stylesheet" type="text/css" href="css/load.css">
+    <link rel="stylesheet" type="text/css" href="css/reset.css">
+    <link rel="stylesheet" type="text/css" href="css/commons.css">
+    <link rel="stylesheet" type="text/css" href="css/layout.css">
+    <link rel="stylesheet" type="text/css" href="css/test.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+
+    <style>
+        
+    </style>
+
+    <!--Jquery Cdn-->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+    <script type="text/javascript">
+        //목표 : 등록 버튼을 누르면 입력한 내용이 태그로 변환되어 결과화면에 추가되는 것
+
+        $(function(){
+            $("#add-btn").click(function(){
+                var item = $("#user-input").val();
+                var tag = "<h2>" + item + "</h2>";
+                // $(".target").html(tag); //덮어쓰기가 되어버림 내용유지 X 
+                $(".target").append(tag); //이어 쓰기
+                $("#user-input").val("");
+            });
+        });
+
+
+    </script>
+
+</head>
+<body>
+    <div class="container-600">
+        <div class="row center">
+            <h1>오늘의 할 일 등록하기</h1>
+        </div>
+
+        <div class="row center">
+            <input type="text" id="user-input" class="form-input">
+            <button class="form-btn positive" id="add-btn">등록</button>
+        </div>
+
+        <hr>
+
+        <!-- 할 일이 등록될 위치-->
+        <div class="row center target">
+
+        </div>
+</body>    
+</html>
