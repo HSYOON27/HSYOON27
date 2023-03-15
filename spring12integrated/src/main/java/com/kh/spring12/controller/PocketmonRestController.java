@@ -5,6 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -24,10 +27,24 @@ public class PocketmonRestController {
 	@Autowired
 	private PocketmonDao pocketmonDao;
 	
-	@GetMapping("/list")
+	@GetMapping("/")
 		public List<PocketmonDto> list(){
 			return pocketmonDao.selectList();
 		}
 	
-	
+	@GetMapping("/{no}")
+		public String find(@PathVariable int no) {
+			PocketmonDto dto = pocketmonDao.selectOne(no);
+			if(dto == null) {//없다 = 사용가능
+				return	 "NNNNY";
+			}
+			
+			else {//있다 = 사용불가능
+				return "NNNNN";
+			}	
+		}
+	@PostMapping("/")
+	public void insert(@ModelAttribute PocketmonDto pocketmonDto) {
+		pocketmonDao.insert(pocketmonDto);
+	}
 }
