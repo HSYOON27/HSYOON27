@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Javascript</title>
+
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="css/load.css">
+    <link rel="stylesheet" type="text/css" href="css/reset.css">
+    <link rel="stylesheet" type="text/css" href="css/commons.css">
+    <link rel="stylesheet" type="text/css" href="css/layout.css">
+    <link rel="stylesheet" type="text/css" href="css/test.css">
+
+    <!-- jquery cdn -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+    <script type="text/javascript">
+        $(function(){
+           $(".confirm-link").click(function(e){
+
+               // [1] return false로 차단 가능
+               // return false;
+
+               // [2] 이벤트 객체를 사용하여 차단 함수 호출
+                 e.preventDefault();
+           });
+        });
+    </script>
+
+   
+</head>
+<body>
+    <div class="container-600">
+        <div class="row center">
+            <h1>제목</h1>
+        </div>
+
+        <div class="row target">
+            <a href="https://www.google.com" class="confirm-link">구굴로 이동</a>
+        </div>
+    </div>
+</body>
+</html>
