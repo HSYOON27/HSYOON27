@@ -26,9 +26,9 @@
         $(function(){
             $("#add-btn").click(function(){
                 var item = $("#user-input").val();
-                var tag = "<h2>" + item + "</h2>";
+                var tag = "<h2>" + item + "</h2>"; //엔터 역할도 하는거다.
                 // $(".target").html(tag); //덮어쓰기가 되어버림 내용유지 X 
-                $(".target").append(tag); //이어 쓰기
+                $(".target").append(item); //이어 쓰기
                 $("#user-input").val("");
             });
         });
