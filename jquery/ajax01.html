@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Jquery</title>
+    <link rel="stylesheet" type="text/css" href="css/load.css">
+    <link rel="stylesheet" type="text/css" href="css/reset.css">
+    <link rel="stylesheet" type="text/css" href="css/commons.css">
+    <link rel="stylesheet" type="text/css" href="css/layout.css">
+    <link rel="stylesheet" type="text/css" href="css/test.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+
+    <style>
+        
+    </style>
+
+    <!--Jquery Cdn-->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+   
+    <script type="text/javascript">
+        //목표 : 버튼을 누르면 비동기 통신으로 다른페이지를 불러온다
+        $(function(){
+            $("button").click(function(){
+                $.ajax({
+                    url:"jquery01.html",//대상주소  
+                    success:function(response){ //성공시(resposnse는 결과물)
+                        //console.log(response);
+                        //$(".target").text(response);
+                        $(".target").html(response);
+
+                    }
+                })
+            });
+
+        });
+
+
+    </script>
+
+</head>
+<body>
+   <div class="container-600">
+        <div class="row">
+            <h1>비동기 통신 예제</h1>
+        </div>
+      
+        <div class="row">
+            <button class="form-btn positive">불러오기</button>
+        </div>
+
+        <div class="row target">
+
+        </div>
+   </div>
+</body>    
+</html>
