@@ -28,14 +28,18 @@
                 $.ajax({
                     url:"ajax01.json",//대상주소  
                     success:function(response){ //성공시(resposnse는 결과물)
-                        // console.log(response);
-                        // $(".target").text(response);
-                        // $(".target").html(response);
+                        //화면 청소(내부만 지워)
+                        $(".target").empty();
 
+                        //response의 데이터와 HTML의 템플릿을 합쳐서 출력
                         for(var i=0; i < response.length; i++){
-                            // console.log(response[i]);
-                            console.table(response[i]);
 
+                            var template = $("#student-template").html();
+                            var html = $.parseHTML(template);
+                            $(html).find(".name").text(response[i].name);
+                            $(html).find(".score").text(response[i].score);
+
+                            $(".target").append(html);
                         }
 
                     }
@@ -45,6 +49,13 @@
         });
 
 
+    </script>
+    
+    <script type="text/template" id="student-template">
+        <div>
+            <span class="name">이름</span>
+            <span class="score">점수</span>
+        </div>
     </script>
 
 </head>
@@ -59,7 +70,7 @@
         </div>
 
         <div class="row target">
-
+            
         </div>
    </div>
 </body>    
