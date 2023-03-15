@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Jquery</title>
+    <link rel="stylesheet" type="text/css" href="css/load.css">
+    <link rel="stylesheet" type="text/css" href="css/reset.css">
+    <link rel="stylesheet" type="text/css" href="css/commons.css">
+    <link rel="stylesheet" type="text/css" href="css/layout.css">
+    <link rel="stylesheet" type="text/css" href="css/test.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+
+    <style>
+        
+    </style>
+
+    <!--Jquery Cdn-->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+   
+    <script type="text/javascript">
+       
+       $(function(){
+                $.ajax({
+                    url:"http://localhost:8080/rest/student/list",
+                    success:function(response){
+
+                        // console.log(response);
+                        for(var i=0; i<response.length; i++){
+                            var template = $("#student-template").html(); 
+                            var html = $.parseHTML(template);
+
+                            $(html).find("td").eq(0).text(response[i].no);
+                            $(html).find("td").eq(1).text(response[i].name);
+                            $(html).find("td").eq(2).text(response[i].korean);
+                            $(html).find("td").eq(3).text(response[i].english);
+                            $(html).find("td").eq(4).text(response[i].math);
+
+
+                            $(".target").append(html);
+                        }
+
+                    }   
+                });
+        });
+
+        
+    </script>
+
+    <script type="text/template" id="student-template">
+        <tr class="student">
+            <td class="no"></td>
+            <td class="name"></td>
+            <td class="korean"></td>
+            <td class="english"></td>
+            <td class="math"></td>
+
+            <td>
+                <a href="#" class="link edit-btn">수정</a>
+                <a href="#" class="link delete-btn">삭제</a>
+            </td>
+        </tr>
+    </script>
+
+</head>
+<body>
+   <div class="container-400">
+        <div class="row center">
+            <h1>학생 목록</h1>
+        </div>
+
+        <div class="row">
+            <table class="table table-border table-hover">
+                <thead>
+                    <tr>
+                        <th>번호</th>
+                        <th>이름</th>
+                        <th>국어</th>
+                        <th>영어</th>
+                        <th>수학</th>
+                        <th>관리</th>
+                    </tr>
+                </thead>
+
+                <tbody class="center target">
+                   
+                </tbody>
+            </table>
+        </div>
+   </div>
+</body>    
+</html>
