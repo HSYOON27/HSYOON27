@@ -26,8 +26,18 @@
             //이 범위에서 사용할 수 있는 변수를 생성해서 번호 중복 검사 결과를 저장
             var isValid = false;
 
+            
+            function clearInput(){
+                $("[name=no]").val("").next("span").text("");
+                $("[name=name]").val("");
+                $("[name=type]").val("");
+            }   //인풋창 초기화
+
+            
             loadList();
             function loadList(){
+
+           
 
                 $.ajax({
                     url:"http://localhost:8080/rest/pocketmon/",
@@ -81,8 +91,35 @@
             }
                 //등록 버튼을 누르면 isVaild의 상태에 따라 등록 처리/차단
                 $(".add-btn").click(function(){
-                    console.log(isValid);
+                    // console.log(isValid);
+
+                    //(주의) 비동기 통신은 가급적 발생하지 않는 것이 좋다. 
+                    if(!isValid) return;
+
+                    var no = $("[name=no]").val();
+                    var name = $("[name=name]").val();
+                    var type = $("[name=type]").val();
+
+
+                    $.ajax({
+                        url:"http://localhost:8080/rest/pocketmon/",
+                        method:"post", //등록은 POST
+                        data:{//전송할 데이터
+                            no:no, //왼쪽 이름, 오른쪽 데이터
+                            name:name,
+                            type:type
+                        },
+                        success:function(response){
+                            // console.log(response);
+                            loadList();//등록 끝나면 목록 갱신
+                            clearInput();//입력창 지우기 
+                        }
+
+                    })
+
                 });
+
+                
             });
             
         
