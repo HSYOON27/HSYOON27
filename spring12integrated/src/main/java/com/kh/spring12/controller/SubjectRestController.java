@@ -4,7 +4,11 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -19,8 +23,17 @@ public class SubjectRestController {
 	@Autowired
 	private SubjectDao subjectDao;
 	
-	@GetMapping("/list")
+	@GetMapping("/")
 	public List<SubjectDto> list(){
 		return subjectDao.selectList();
+	}
+	@PostMapping("/")
+	public void insert(@ModelAttribute SubjectDto subjectDto) {
+		subjectDao.insert(subjectDto);
+	}
+	
+	@DeleteMapping("{no}")
+	public void delete(@PathVariable int no) {
+		subjectDao.delete(no);	
 	}
 }

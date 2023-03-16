@@ -171,6 +171,13 @@ public class MemberDao {
 			};
 			return jdbcTemplate.update(sql, param) > 0;
 		}
+
+		public MemberDto selectByNickname(String memberNick) {
+			String sql = "select * from member where member_nick = ?";
+			Object[] param = {memberNick};
+			List<MemberDto> list = jdbcTemplate.query(sql, mapper, param);
+			return list.isEmpty() ? null : list.get(0);
+		}
 		
 }
 

@@ -312,7 +312,7 @@
         .table.table-striped > thead > tr,
         .table.table-striped > tfoot > tr,
         .table.table-striped > tbody > tr:nth-child(2n){
- 		   background-color: #dfe6e9;
+            background-color: aliceblue;
             color: aquamarine;
         }
 
@@ -508,7 +508,7 @@
             padding-right: 20px;
         }
         input[name=memberId] {
-            background-image: url(/static/image/usericon01.jpg);
+            background-image: url(./image/usericon01.jpg);
             background-size: auto 50%;
             background-repeat: no-repeat;
             /*
@@ -524,7 +524,7 @@
         }
 
         input[name=memberPw]{
-            background-image: url("/static/image/lockicon01.png");
+            background-image: url("image/lockicon01.png");
             background-size: auto 50%;
             background-repeat: no-repeat;
 
@@ -701,13 +701,58 @@
             left: auto;
             right: 100%;
         }
-        
-        
 
-	/* 높이가 맞지 않는 현상을 해결하기 위해 추가한 코드 */
-			.menu {
-			height:2.5em;
-			}
-			.menu li {
-			height:100%;
-			}
+        .valid-message {
+            color: forestgreen;
+            display: none;
+        }
+        .invalid-message,
+        .invalid-message2,
+        .invalid-message3 {
+            color: red;
+            display: none;
+        }
+        /* 
+            입력창이 성공상태(.valid)일 경우 
+            뒤에 있는 성공메세지(.valid-message)를 표시 
+        */
+        .valid ~ .valid-message {
+            display: block;
+        }
+        /* 
+            입력창이 실패상태(.invalid)일 경우 
+            뒤에 있는 실패메세지(.invalid-message)를 표시 
+        */
+        .invalid ~ .invalid-message {
+            display: block;
+        }
+        .invalid2 ~ .invalid-message2 {
+            display: block;
+        }
+        .invalid3 ~ .invalid-message3 {
+            display: block;
+        }
+
+        /* 입력창 디자인 */
+        .valid, .invalid {
+            background-position: top 50% right 3%;
+            background-size: auto 60%;
+            background-repeat: no-repeat;
+        }
+        .valid {
+            border-color: forestgreen;
+            background-image: url("image/valid.png");
+        }
+
+        .invalid, .invalid2, .invalid3 {
+            border-color: red;
+            background-image: url("image/invalid.png");
+        }
+        
+        .form-btn.positive[disabled],
+        .form-btn.positive[disabled]:hover{
+            cursor: not-allowed;
+            background-color: gainsboro;
+            border-color: gainsboro;
+            filter: none;
+        }

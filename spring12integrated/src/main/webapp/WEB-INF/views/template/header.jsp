@@ -18,10 +18,14 @@
     <style>
         
     </style>
+    <!-- 링크 확인창 출력을 위한 cdn -->
         <script src="https://cdn.jsdelivr.net/gh/HSYOON27/confirm-link@latest/confirm-link.js"></script>
+        
 	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 	<script src="/static/js/find-address.js"></script>
 	
+	<!-- jQuery Cdn -->
+	<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 	</head>
 <body>
 <!--

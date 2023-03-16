@@ -4,10 +4,12 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -47,4 +49,24 @@ public class PocketmonRestController {
 	public void insert(@ModelAttribute PocketmonDto pocketmonDto) {
 		pocketmonDao.insert(pocketmonDto);
 	}
+	
+	@DeleteMapping("/{no}")
+	public void delete(@PathVariable int no) {
+		pocketmonDao.delete(no);
+	}
+	
+	//포켓몬 정보 수정(번호빼고, 이름 속성만 가능. 왜? No = PK니까)
+	//- 번호(no)로 이름(name)과 속성(type)을 변경
+	//- PocketmonDto가 필요
+	
+	@PutMapping("/") //모든 정보를 바꿀 때
+//	@PatchMapping("/") // 일부 정보를 바꿀 때 이름, 타입 바꿀때는 그럼 패치 2개 만들어야함
+	public void edit(@ModelAttribute PocketmonDto pocketmonDto) {
+		pocketmonDao.update(pocketmonDto);
+		
+	}
+	
+	
+	
+	
 }
