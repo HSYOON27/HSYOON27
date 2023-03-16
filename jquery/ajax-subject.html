@@ -14,50 +14,154 @@
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
 
     <style>
-        
-    </style>
+            
+    </style>  
 
     <!--Jquery Cdn-->
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
    
     <script type="text/javascript">
-       
-       $(function(){
-            
-                $.ajax({
-                    url:"http://localhost:8080/rest/subject/list",
-                    success:function(response){
+        $(function(){
+            //시작하자마자 바로 불러오도록 처리
+            loadList();
 
-                        // console.log(response);
-                        for(var i=0; i<response.length; i++){
-                            var template = $("#subject-template").html(); 
+            function loadList() {
+                $.ajax({
+                    url:"http://localhost:8080/rest/subject/",//통신대상
+                    method:"get",//전송방식
+                    success:function(response){//성공처리
+                        $(".target").empty();
+                        
+                        //console.log(response);
+                        for(var i=0; i < response.length; i++) {
+                            var template = $("#subject-template").html();
                             var html = $.parseHTML(template);
 
-                            $(html).find(".no").text(response[i].no);
-                            $(html).find(".name").text(response[i].name);
-                            $(html).find(".period").text(response[i].period);
-                            $(html).find(".price").text(response[i].price);
-                            $(html).find(".type").text(response[i].type);
+                            $(html).find("td").eq(0).text(response[i].no);
+                            $(html).find("td").eq(1).text(response[i].name);
+                            $(html).find("td").eq(2).text(response[i].period);
+                            $(html).find("td").eq(3).text(response[i].price);
+                            $(html).find("td").eq(4).text(response[i].type);
+
+                            $(html).find(".delete-btn").attr("data-no",response[i].no);
+                            
+                            $(html).find(".edit-btn").attr("data-no",response[i].no);
 
                             $(".target").append(html);
-                        }
 
-                    }   
-                });
-
-            
-        });
-
+                            //삭제 이벤트 설정 위치 
+                            $(html).find(".delete-btn").click(function(){
+                               var choice = window.confirm("정말 삭제하시겠음??");
+                               if(!choice) return;
         
+                               var no = $(this).attr("data-no");
+        
+                               $.ajax({
+                                   url:"http://localhost:8080/rest/subject/"+no, //ES5
+                                //    url:'http://localhost:8080/rest/subject/${no}', //ES6
+                                   method:"delete",
+
+                                   success:function(response){
+                                       loadList();   //실시간 다시 목록 띄워
+                                   },
+                                   error:function(){
+                                       window.alert("통신 오류");
+                                   },
+        
+                               });
+                           });
+                        }
+                    }
+
+                });
+            }
+            
+            // 백그라운드 데이터
+            var valid = {
+                nameValid : false,
+                periodValid : false,
+                priceValid : false,
+                typeValid : false,
+
+                // ES5 (구버전)
+                isAllValid : function(){
+                    return this.nameValid && this.periodValid
+                                && this.priceValid && this.typeValid;
+                },   
+                // ES6 (신버전)
+                get allVaild() {
+                    return this.nameValid && this.periodValid
+                                && this.priceValid && this.typeValid;
+                }
+            }
+
+            // 입력창 컨트롤 - valid에 결과를 설정하는 것이 목표
+            $("[name=name]").blur(function(){
+                var regex = /^[가-힣A-za-z0-9\s]{1,20}$/;
+                valid.nameValid = regex.test($(this).val());
+
+                $(this).removeClass("valid invalid")
+                        .addClass(valid.nameValid ? "valid" : "invalid")
+            });
+            $("[name=period]").blur(function(){
+                var period = parseInt($(this).val());
+                valid.periodValid = period > 0 && period % 30 == 0;
+
+                $(this).removeClass("valid invalid")
+                        .addClass(valid.periodValid ? "valid" : "invalid")
+            });
+            $("[name=price]").blur(function(){
+                var regex = /^[0-9]+$/;
+                valid.priceValid = regex.test($(this).val());
+
+                $(this).removeClass("valid invalid")
+                        .addClass(valid.priceValid ? "valid" : "invalid")
+            });
+
+            $("[name=type]").change(function(){
+                var regex = /^(온라인|오프라인|혼합)$/;
+                valid.typeValid = regex.test($(this).val());
+
+                $(this).removeClass("valid invalid")
+                        .addClass(valid.priceValid ? "valid" : "invalid")
+            });
+
+            // 폼 컨트롤 - valid에 설정된 결과를 활용하여 전송 여부를 판정
+            $(".input-form").submit(function(e){
+                e.preventDefault();
+
+                //if(valid.isAllValid() == false) return //ES5
+
+                if(valid.allVaild == false) return; //ES6
+
+                var data = $(this).serialize();
+
+                //비동기 통신
+                $.ajax({
+                    url:"http://localhost:8080/rest/subject/",
+                    method:"post",
+                    data:data,
+                    success:function(response){
+                        $(".input-form").get(0).reset();
+                        $("[name]").removeClass("valid invalid");
+                        loadList();
+                    },
+                    error:function(){
+                        alert("오류 발생");
+                    }
+                });
+            });
+
+        });
     </script>
 
     <script type="text/template" id="subject-template">
         <tr class="subject">
-            <td class="no"></td>
-            <td class="name"></td>
-            <td class="period"></td>
-            <td class="price"></td>
-            <td class="type"></td>
+            <td>과정번호자리</td>
+            <td>과정이름자리</td>
+            <td>과정시간자리</td>
+            <td>과정가격자리</td>
+            <td>과정유형자리</td>
             <td>
                 <a href="#" class="link edit-btn">수정</a>
                 <a href="#" class="link delete-btn">삭제</a>
@@ -65,31 +169,72 @@
         </tr>
     </script>
 
+
 </head>
 <body>
-   <div class="container-600">
+    <div class="container-900">
         <div class="row center">
-            <h1>과목 목록</h1>
+            <h1>과목 관리</h1>
         </div>
-      
-        <div class="row">
-            <table class="table table-border table-hover">
-                <thead>
-                    <tr>
-                        <th>번호</th>
-                        <th>과정명</th>
-                        <th>강의시간</th>
-                        <th>수강료</th>
-                        <th>수업방식</th>
-                        <th>관리</th>
-                    </tr>
-                </thead>
+        <div class="flex-box">
+            
+            <!--입력창-->
+            <div class="w-40">
+                <form autocomplete="off" class="input-form">
+                    <div class="row">
+                        <label>과목명</label>
+                        <input type="text" name="name" class="form-input w-100">
+                        <div class="valid-message">올바른 과정명 입니다.</div>
+                        <div class="invalid-message">한글, 영어, 숫자 띄어쓰기만 가능</div>
+                    </div>
+                    <div class="row">
+                        <label>강의시간</label>
+                        <input type="text" name="period" class="form-input w-100">
+                        <div class="valid-message">올바른 과정시간 입니다.</div>
+                        <div class="invalid-message">강의 시간은 30시간 단위로만 가능합니다.</div>
+                    </div>
+                    <div class="row">
+                        <label>수강료</label>
+                        <input type="text" name="price" class="form-input w-100">
+                        <div class="invalid-message">0원 이상 부터 설정 가능합니다.</div>
+                    </div>
+                    <div class="row">
+                        <label>강의유형</label>
+                        <select name="type" class="form-input w-100">
+                            <option value="">선택하세요</option>
+                            <option>오프라인</option>
+                            <option>온라인</option>
+                            <option>혼합</option>
+                        </select>
+                    </div>
+                    <div class="row">
+                        <button type="submit" class="form-btn positive w-100 add-btn">
+                            <i class="fa-solid fa-plus"></i>
+                            등록
+                        </button>
+                </form>
+                </div>
+            </div>
 
-                <tbody class="center target">
-                   
-                </tbody>
-            </table>
+            <!--테이블-->
+            <div class="w-60 p-10">
+                    <table class="table table-slit">
+                        <thead>
+                            <tr>
+                                <th>번호</th>
+                                <th>이름</th>
+                                <th>시간</th>
+                                <th>가격</th>
+                                <th>유형</th>
+                                <th>관리</th>
+                            </tr>
+                        </thead>
+                        <tbody class="center target">
+                            
+                        </tbody>
+                    </table>
+            </div>
         </div>
-   </div>
-</body>    
+    </div>
+</body>
 </html>

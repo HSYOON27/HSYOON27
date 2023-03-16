@@ -52,8 +52,41 @@
                             $(html).find(".no").text(response[i].no);
                             $(html).find(".name").text(response[i].name);
                             $(html).find(".type").text(response[i].type);
+                            $(html).find(".edit-btn").attr("data-no", response[i].no).attr("data-name", response[i].name).attr("data-type", response[i].type);
+
+                            $(html).find(".delete-btn").attr("data-no", response[i].no);
+
+                            //삭제 이벤트 위치 
+                            $(html).find(".delete-btn").click(function(){
+                                var choice = window.confirm("정말 삭제하시겠어염?");
+                                if(choice == false) return;
+
+                                // var no = $(this).parent().prev().prev().prev().text();
+                                // var no = $(this).data("no"); //읽기만 가능
+                                var no = $(this).attr("data-no"); //난 이게 좋아
+
+
+                                $.ajax({
+                                    url:"http://localhost:8080/rest/pocketmon/"+no,
+                                    method:"delete",
+                                    //GET/DELETE는 data가 없다
+                                    success:function(response){
+                                        loadList();
+                                    },
+                                    error:function(){
+                                        window.alert("통신 오류");
+                                    },
+
+                                });
+                            });
                             
-                            
+                            //수정 이벤트 위치 
+                            $(html).find(".edit-btn").click(function(){
+                                $("[name=no]").val($(this).data("no"));
+                                $("[name=name]").val($(this).data("name"));
+                                $("[name=type]").val($(this).data("type"));
+                            })
+
                             $(".target").append(html);
 
                             //번호 중복 검사
@@ -103,7 +136,7 @@
 
                     $.ajax({
                         url:"http://localhost:8080/rest/pocketmon/",
-                        method:"post", //등록은 POST
+                        method:"post", //등록은 POST, 수정은 PUT
                         data:{//전송할 데이터
                             no:no, //왼쪽 이름, 오른쪽 데이터
                             name:name,
@@ -118,8 +151,11 @@
                     })
 
                 });
-
                 
+                //이 코드는  적용 대상이 없어서 작동하지 않음
+                //-> 이벤트는 태그 생성 시 설정해야 한다(loadList)
+                //$(".delete-btn").click(function(){});
+                // console.log($(".delete-btn").length);
             });
             
         
@@ -161,6 +197,9 @@
                     <button class="form-btn positive w-100 add-btn">등록</button>
                 </div>
 
+                <div class="row">
+                    <button class="form-btn positive w-100 edit-btn">수정</button>
+                </div>
             </div>
             <div class="float-left w-60 p-10">
                 <table class="table table-border">
