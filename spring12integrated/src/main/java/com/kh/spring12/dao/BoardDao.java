@@ -179,6 +179,12 @@ public class BoardDao {
 			return jdbcTemplate.query(sql, mapper, param);
 		}
 	}
+
+	public void updateLikecount(int boardNo, int count) {
+		String sql = "update board set board_like = ? where board_no = ?";
+		Object[] param = {count, boardNo};
+		jdbcTemplate.update(sql, param);
+	}
 }
 	
 
