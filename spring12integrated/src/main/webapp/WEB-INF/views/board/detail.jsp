@@ -61,7 +61,8 @@
 		<i class="fa-heart"></i>
 		</c:if>
 		
-		댓글 ${boardDto.boardReply}
+		댓글 
+		<span class="reply-count">${boardDto.boardReply}</span>
 	</div>
 	<hr>
 	<div class="row reply-list">

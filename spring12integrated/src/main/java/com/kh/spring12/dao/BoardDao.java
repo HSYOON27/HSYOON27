@@ -189,7 +189,7 @@ public class BoardDao {
 	//댓글 개수 갱신 기능
 	public void updateReplycount(int boardNo) {
 		String sql = "update board "
-				+ "set boad_reply = ("
+				+ "set board_reply = ("
 				+ "select count(*) from reply where reply_origin=?"
 				+ ") "
 				+ "where board_no=?";

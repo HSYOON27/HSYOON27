@@ -49,8 +49,10 @@ public class ReplyRestController {
 	
 	@DeleteMapping("/{replyNo}")
 	public void delete(@PathVariable int replyNo) {
-		replyDao.delete(replyNo);
 		ReplyDto replyDto = replyDao.selectOne(replyNo);
+		//삭제를 조회보다 나중에 해야 정보가 나옴
+		replyDao.delete(replyNo);
+		//댓글 삭제 후 개수 갱신
 		boardDao.updateReplycount(replyDto.getReplyOrigin());
 	}
 	

@@ -92,6 +92,12 @@
 							</c:if>
 
 							${boardDto.boardTitle}
+							
+							<c:if test="${boardDto.boardReply > 0}">
+								<!-- 댓글이 있으면 개수 출력 -->
+								[${boardDto.boardReply}]
+							</c:if>
+							
 						</a>
 					</td>
 					<td class="left">${boardDto.boardWriter}</td>

@@ -38,7 +38,11 @@ $(function(){
 			url:"/rest/reply/"+replyOrigin,
 			method:"get",
 			success:function(response){//response == List<ReplyDto>
-				//console.log(response);
+			
+				//댓글 개수 변경
+				$(".reply-count").text(response.length);
+
+				
 				for(var i=0; i < response.length; i++) {
 					//템플릿 불러와서 세팅하고 추가하는 코드
 					var template = $("#reply-template").html();//템플릿 불러와서
