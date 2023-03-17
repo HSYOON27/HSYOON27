@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.kh.spring12.dao.BoardDao;
 import com.kh.spring12.dao.ReplyDao;
 import com.kh.spring12.dto.ReplyDto;
 
@@ -23,6 +24,9 @@ public class ReplyRestController {
 
 	@Autowired
 	private ReplyDao replyDao;
+	
+	@Autowired
+	private BoardDao boardDao;
 	
 	@GetMapping("/{replyOrigin}")
 	public List<ReplyDto> list(@PathVariable int replyOrigin){
@@ -39,11 +43,15 @@ public class ReplyRestController {
 		
 		//등록 
 		replyDao.insert(replyDto);
+		
+		boardDao.updateReplycount(replyDto.getReplyOrigin());
 	}
 	
 	@DeleteMapping("/{replyNo}")
 	public void delete(@PathVariable int replyNo) {
 		replyDao.delete(replyNo);
+		ReplyDto replyDto = replyDao.selectOne(replyNo);
+		boardDao.updateReplycount(replyDto.getReplyOrigin());
 	}
 	
 //	@PutMapping("/") 전체수정 바꿀때 

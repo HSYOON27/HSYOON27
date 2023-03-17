@@ -185,6 +185,17 @@ public class BoardDao {
 		Object[] param = {count, boardNo};
 		jdbcTemplate.update(sql, param);
 	}
+	
+	//댓글 개수 갱신 기능
+	public void updateReplycount(int boardNo) {
+		String sql = "update board "
+				+ "set boad_reply = ("
+				+ "select count(*) from reply where reply_origin=?"
+				+ ") "
+				+ "where board_no=?";
+		Object[] param = {boardNo, boardNo};
+		jdbcTemplate.update(sql, param);
+	}
 }
 	
 
