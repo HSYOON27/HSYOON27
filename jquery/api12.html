@@ -49,13 +49,23 @@
                         data: {
                             labels: response.label,
                             datasets: [{
-                                label: '과목 수',
-                                data: response.data,
+                                label: '평균 수강료',
+                                data: response.average,
                                 borderWidth: 1,
                                 backgroundColor: ['#ff7675', '#e17055', '#ffeaa7', '#00b894', '#0984e3', '#6c5ce7'],
                                 borderColor: ['#ff7675', '#e17055', '#ffeaa7', '#00b894', '#0984e3', '#6c5ce7'],
-                            }]
+                            },
+                            {
+                                label: '과정 수',
+                                data: response.count,
+                                borderWidth: 1,
+                                backgroundColor: ['#ff7675', '#e17055', '#ffeaa7', '#00b894', '#0984e3', '#6c5ce7'],
+                                borderColor: ['#ff7675', '#e17055', '#ffeaa7', '#00b894', '#0984e3', '#6c5ce7'],
+                            }
+                        ]
                         },
+
+                        
                         options: {
                         scales: {
                             y: {

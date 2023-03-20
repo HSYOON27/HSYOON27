@@ -14,33 +14,27 @@
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
 
     <style>
+        .map{
+			width: 100%;
+			min-height: 300px; /* 50vh */
+		}
+    </style>
 
-        .float-container {
-        
-        width:100%;
-        
-        }
-        
-        .float-left {
-        
-        float:left;
-        
-        }
-        
-        .clear {
-        
-        clear:both;
-        
-        }
-
-    </style>    
     <!--Jquery Cdn-->
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-   
+	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=3162787609cf14044702ed5a7b762301"></script>
+
     <script type="text/javascript">
        
         $(function(){
+			var container = document.querySelector('.map');
+			// var container = $(".map").get(0); jQuery 버전
+			var options = {
+				center: new kakao.maps.LatLng(37.554818,126.872846,17),
+				level: 3 //고도
+			};
 
+			var map = new kakao.maps.Map(container, options);
         });
 
 
@@ -48,16 +42,15 @@
 
 </head>
 <body>
-    <div class="float-container">
-        <div class="float-left">
-        1단 레이아웃
-        
+   <div class="container-600">
+        <div class="row center">
+            <h1>최준영네</h1>
         </div>
-        <div class="float-left">
-        2단 레이아웃
-        
+
+		<div class = "map">
+
         </div>
-        <div class="clear"></div>
-        </div>
+      
+   </div>
 </body>    
 </html>

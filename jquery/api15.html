@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Jquery</title>
+    <link rel="stylesheet" type="text/css" href="css/load.css">
+    <link rel="stylesheet" type="text/css" href="css/reset.css">
+    <link rel="stylesheet" type="text/css" href="css/commons.css">
+    <link rel="stylesheet" type="text/css" href="css/layout.css">
+    <link rel="stylesheet" type="text/css" href="css/test.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+
+    <style>
+        .map{
+			width: 100%;
+			min-height: 300px; /* 50vh */
+		}
+    </style>
+
+    <!--Jquery Cdn-->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=3162787609cf14044702ed5a7b762301"></script>
+
+    <script type="text/javascript">
+       
+        $(function(){
+
+            //최초 지도 생성 
+			var container = document.querySelector('.map');
+			// var container = $(".map").get(0); jQuery 버전
+			var options = {
+				center: new kakao.maps.LatLng(37.554818,126.872846,17),
+				level: 3 //고도
+			};
+
+			var map = new kakao.maps.Map(container, options);
+
+            //이동 버튼
+            $(".move-btn").click(function(){
+                
+                var lat = $("[name=lat]").val();
+                var lng = $("[name=lng]").val();
+                if(!lat || !lng) return;
+                //if(lat.length == 0 || lng.length == 0) return;
+
+                var moveLatLon = new kakao.maps.LatLng(lat, lng);
+                
+                map.panTo(moveLatLon);            
+
+            });
+        });
+
+
+    </script>
+
+</head>
+<body>
+   <div class="container-600">
+        <div class="row center">
+            <h1>지도 예제 </h1>
+        </div>
+
+        <div class="row">
+            <input type="text" class="form-input w-100" name="lat" placeholder="위도">
+        </div>
+
+        <div class="row">
+            <input type="text" class="form-input w-100" name="lng" placeholder="경도">
+        </div>
+
+        <div class="row">
+            <button type="button" class="form-btn positive w-100 move-btn">이동</button>
+        </div>
+
+		<div class = "row">
+            <div class="map"></div>
+        </div>
+      
+   </div>
+</body>    
+</html>
