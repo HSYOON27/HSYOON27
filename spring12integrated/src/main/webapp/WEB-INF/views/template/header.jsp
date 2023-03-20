@@ -54,7 +54,7 @@
 		                	<a>포켓몬관리</a>
 		                	<ul>
 		                		<li><a href="/pocketmon/list">목록보기</a></li>
-		                		<li><a href="/pocketmon/insert">등록하기</a></li>
+		                		<li><a href="/pocketmon/insertInput">등록하기</a></li>
 		                	</ul>
 		                </li>
 		                <li>
