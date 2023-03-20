@@ -61,13 +61,16 @@ public class AdminRestController {
 			//list를 두개로 분리 
 			List<Object> names = new ArrayList<>();
 			List<Object> counts = new ArrayList<>();
+			List<Object> averages = new ArrayList<>();
+
 			for(SubjectStatDto dto : list) {
 				names.add(dto.getType());
 				counts.add(dto.getCnt());
+				averages.add(dto.getAverage());
 			}
 			
 			//추가
-			Map<String, List<Object>> map = Map.of("label", names, "data", counts);
+			Map<String, List<Object>> map = Map.of("label", names, "count", counts, "average", averages);
 			
 			//반환
 			return map;
