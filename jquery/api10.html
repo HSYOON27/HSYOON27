@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Jquery</title>
+    <link rel="stylesheet" type="text/css" href="css/load.css">
+    <link rel="stylesheet" type="text/css" href="css/reset.css">
+    <link rel="stylesheet" type="text/css" href="css/commons.css">
+    <link rel="stylesheet" type="text/css" href="css/layout.css">
+    <link rel="stylesheet" type="text/css" href="css/test.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+
+    <style>
+        
+    </style>
+
+    <!--Jquery Cdn-->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+    <!-- chartjs cdn-->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+   
+    <script type="text/javascript">
+       
+        $(function(){
+            var ctx = document.querySelector('#myChart');
+  
+            //new Chart(캔버스 객체, 옵션)
+  
+            new Chart(ctx, {
+                //type : 차트의 형태 (bar/line/doughnut,pie)
+                type: 'bar',
+
+                //data : 차트 구성 데이터 정보 
+                //- labels : 항목명(x축)
+                //- datasets : 차트 데이터 
+                //  - label : 데이터의 이름 
+                //  - data : 항목별 실제 데이터(labels와 개수가 일치해야 한다)
+
+                data: {
+                labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                datasets: [{
+                    label: '# of Votes',
+                    data: [12, 19, 3, 5, 2, 3],
+                    borderWidth: 10,
+                    backgroundColor : ['#ff7675', '#0984e3','#ffeaa7','#00b894','#6c5ce7','#fdcb6e'],
+                    borderColor : ['#ff7675', '#0984e3','#ffeaa7','#00b894','#6c5ce7','#fdcb6e'],
+
+                }]
+                },
+                //차트의 옵션 
+                options: {
+                scales: {
+                    y: {
+                    beginAtZero: true
+                    }
+                }
+                }
+            });
+                    });
+
+
+    </script>
+
+</head>
+<body>
+   <div class="container-600">
+        <div class="row">
+            <h1>차트 예제</h1>
+        </div>
+      
+        <div class="row">
+            <canvas id="myChart"></canvas>
+        </div>
+   </div>
+</body>    
+</html>
