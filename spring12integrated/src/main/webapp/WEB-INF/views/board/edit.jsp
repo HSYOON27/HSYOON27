@@ -3,6 +3,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
+<!--summernote cdn-->
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+	<script src="/static/js/textarea.js"></script>
 
 <h1>${boardDto.boardNo }번 게시글 수정</h1>
 <form action="edit" method="post">
@@ -77,7 +81,8 @@
    <!-- textarea는 value가 없다 -->
    <textarea name="boardContent" required rows="10" cols="60">${boardDto.boardContent }</textarea>
    <br><br>
-   <button>변경</button>
-</form>
+	<div class="row">
+      <button type="submit" class="form-btn positive w-100">수정</button>
+   </div></form>
 
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>

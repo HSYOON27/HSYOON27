@@ -2,6 +2,24 @@
     pageEncoding="UTF-8"%>
     
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
+<style>
+	.map {
+		width:100%;
+		height:300px;
+	}
+	.info-window {
+		
+	}
+</style>
+<!-- kakao map cdn -->
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=9d49f07bfcf20a8d717a28a819c2892b&libraries=services"></script>
+<script type="text/javascript" src="/static/js/member-join-map.js"></script>
+<script type="text/template" id="info-window-template">
+	<div class="info-window p-10">
+		<span class="text">{{text}}</span>
+		<a class="link" href="{{link}}">{{linkText}}</a>
+	</div>
+</script>    
 <!-- 다음 우편 API 사용을 위한 CDN -->
 <script src="https://cdn.jsdelivr.net/gh/hiphop5782/daum-post-api@latest/find-address.min.js"></script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
@@ -66,6 +84,9 @@
 	<div class="row">
 		<input type="text" name="memberDetailAddr" class="form-input w-100" placeholder="상세주소">
 		<div class="invalid-message">주소는 비워두거나 모두 작성해야 합니다</div>
+	</div>
+	<div class="row">
+		<div class="map"></div>
 	</div>
 	<div class="row">
 		<label class="form-label w-100">프로필 이미지</label>
