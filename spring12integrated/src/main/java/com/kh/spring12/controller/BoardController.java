@@ -172,7 +172,9 @@ public class BoardController {
 //	}
 	//새글과 답글 
 	@PostMapping("/write")
-	public String write(@ModelAttribute BoardDto boardDto, HttpSession session, RedirectAttributes attr) {
+	public String write(@ModelAttribute BoardDto boardDto, 
+			@RequestParam List<Integer> attachmentNo, HttpSession session, RedirectAttributes attr) {
+		
 		
 		//boardDto 경우 정보를 새글과 답글로 구분하려 처리 후 등록
 		
@@ -195,8 +197,8 @@ public class BoardController {
 		String memberId = (String)session.getAttribute("memberId");
 		boardDto.setBoardWriter(memberId);
 		
-		//나머지 일반 프로그래밍 코드는 서비스를 호출하여 처리
-		int boardNo = boardService.write(boardDto);
+		//나머지 일반 프로그래밍 코드는 서비스를 호출하여 처리 2023.03.21
+		int boardNo = boardService.write(boardDto, attachmentNo);
 	
 		//상세 페이지로 이동
 		attr.addAttribute("boardNo", boardNo);

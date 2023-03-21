@@ -1,6 +1,6 @@
 package com.kh.spring12.service;
 
-import javax.servlet.http.HttpSession;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,7 +21,7 @@ public class BoardService {
 	//게시글 등록 서비스
 	//- 컨트롤러에게 게시글 정보를 받는다
 	//- 컨트롤러에게 등록된 게시글 번호를 반환한다
-	public int write(BoardDto boardDto) {
+	public int write(BoardDto boardDto, List<Integer> attachmentNo) {
 		
 		//글 번호와 회원 아이디 구하기 
 				int boardNo = boardDao.sequence();
@@ -44,6 +44,11 @@ public class BoardService {
 				
 				//게시글을 등록 
 				boardDao.insert(boardDto);
+				
+				//글에 사용된 첨부파일 번호와(attachmentNo)와 글번호(boardNo)를 연결
+				for(int no : attachmentNo) {
+					boardDao.connect(boardNo, no);
+				}
 				
 				//상세 페이지로 이동
 				return boardNo;

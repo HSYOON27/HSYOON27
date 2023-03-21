@@ -16,7 +16,7 @@
    <c:if test="${admin}">
       <c:choose>
          <c:when test="${boardDto.boardHead == '정보' }">
-            <select name="boardHead">
+            <select name="boardHead" class=>
                <option value="">없음</option>
                <option>공지</option>
                <option>유머</option>
@@ -76,7 +76,7 @@
       </c:choose>
    </c:if>
    <br><br>
-   제목 : <input type="text" name="boardTitle" value="${boardDto.boardTitle }" required>
+  <label>제목<i class="fa-solid fa-asterisk"></i><input type="text" name="boardTitle" value="${boardDto.boardTitle}" class="form-input w-100"required></label>
    <br><br>
    <!-- textarea는 value가 없다 -->
    <textarea name="boardContent" required rows="10" cols="60">${boardDto.boardContent }</textarea>

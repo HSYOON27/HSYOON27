@@ -196,6 +196,13 @@ public class BoardDao {
 		Object[] param = {boardNo, boardNo};
 		jdbcTemplate.update(sql, param);
 	}
+
+	public void connect(int boardNo, int attachmentNo) {
+		String sql = "insert into board_attachment values(?, ?)";
+		Object[] param = {boardNo, attachmentNo};
+		jdbcTemplate.update(sql, param);
+		
+	}
 }
 	
 

@@ -4,10 +4,14 @@
 
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 
-<!--summernote cdn-->
-    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+<!-- summernote cdn -->
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 	<script src="/static/js/textarea.js"></script>
+
+<script type="text/javascript">
+   
+</script>
 
 <form action="write" method="post" autocomplete="off">
 <%-- 답글일 때는 정보가 한 개 더 전송되어야 한다(boardParent) --%>
