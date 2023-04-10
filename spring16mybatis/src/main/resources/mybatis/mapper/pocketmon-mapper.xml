@@ -11,7 +11,7 @@
 	<!-- 
 		select 구문을 select 태그에 작성
 		- id : 외부에서 부를 이름
-		- resultType : 이 구문을 통해서 만들 결과 형태(자동 변환 결과)
+		- resultType : 이 구문을 통해서 만들 결과 형태(자동 변환 결과) select에서만 필요한 속성
 		- parameterType : 이 구문을 실행하기 위해 필요한 형태 (생략 가능)
 		
 	 -->
@@ -22,5 +22,22 @@
 	<select id="selectOne" resultType="PocketmonDto" parameterType="int">
 		select * from pocketmon where no=#{no}
 	</select>
+	
+	<insert id="add" parameterType="PocketmonDto">
+		insert into pocketmon(no, name, type) 
+		values(#{no}, #{name}, #{type})
+	</insert>
+	
+	<update id="edit" parameterType="PocketmonDto">
+		update pocketmon 
+		set name=#{name}, type=#{type} 
+		where no = #{no}
+	</update>
+	
+	<delete id="remove" parameterType="int" >
+		delete pocketmon where no = #{no}
+	</delete>
+	
+
 
 </mapper>
