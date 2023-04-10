@@ -104,7 +104,6 @@ public class MemberController {
 //      3. 상세조회한 결과를 Model에 첨부 
 //		4. 회원 프로필 이미지가 있다면 첨부해라(2023.02.17)
 	 	
-	 	
 		 @GetMapping("/mypage")
 		 public String mypage(HttpSession session, Model model) {
 			 String memberId = (String) session.getAttribute("memberId"); //1번

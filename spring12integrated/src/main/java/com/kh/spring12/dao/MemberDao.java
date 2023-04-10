@@ -103,7 +103,7 @@ public class MemberDao {
 					+ "where member_nick=? and member_tel=? and member_birth=?";
 			Object[] param = {
 				memberDto.getMemberNick(), memberDto.getMemberTel(),
-				memberDto.getMemberBirth()
+				memberDto.getMemberBirth()    
 			};
 			//String.class는 한글로 "String 자료형"이라는 뜻이다
 			return jdbcTemplate.queryForObject(sql, String.class, param);
@@ -155,7 +155,7 @@ public class MemberDao {
 			return jdbcTemplate.update(sql, param) > 0;
 		}
 
-// 		관리자용 회원 정보 변경
+// 		관리자용 회원 정보 변경 
 		public boolean changeInformationByAdmin(MemberDto memberDto) {
 			String sql = "update member set "
 							+ "member_nick=?, member_tel=?, member_birth=?,"

@@ -97,7 +97,7 @@ public class AttachmentRestController {
 //  						.body(resource);
 //  				
   				
-  				//제공되는 모든 상수와 명령을 동운해서 최대한 편하게 작성해보자 다운로드를 
+  				//제공되는 모든 상수와 명령을 동원해서 최대한 편하게 작성해보자 다운로드를 
   				return ResponseEntity.ok()
 //  						.header(HttpHeaders.CONTENT_TYPE,
 //  								MediaType.APPLICATION_OCTET_STREAM_VALUE)
