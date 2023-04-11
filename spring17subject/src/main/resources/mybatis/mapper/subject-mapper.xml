@@ -51,5 +51,15 @@
 		order by ${column} asc
 		</if>
 	</select>
+	
+	<!-- 일부만 수정 할 때 -->
+	<update id="editAllInOne">
+		update subject
+		<set>
+			<if test="name != null">name=#{name},</if>
+			<if test="price != null">price=#{price},</if>
+		</set>
+		where no=#{no}
+	</update>
 
 </mapper>    
