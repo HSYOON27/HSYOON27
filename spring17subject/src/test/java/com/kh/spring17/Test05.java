@@ -24,6 +24,7 @@ public class Test05 {
 		dto.setNo(101);
 
 		sqlSession.delete("subject.delete", dto);
+		
 	}
 
 }

@@ -16,7 +16,9 @@ public class Test05 {
 	
 	@Test
 	public void test() {
+		
 		int no = 0;
+		
 		int result = sqlSession.delete("pocketmon.remove", no);
 		log.debug("result = {}", result);
 		
