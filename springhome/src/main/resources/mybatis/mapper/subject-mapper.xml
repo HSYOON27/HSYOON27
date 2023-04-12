@@ -14,8 +14,6 @@
 		select * from subject where no = #{no}
 	</select>
 	
-	
-	
 	<select id="listOrFind" resultType="SubjectDto">
 		select * from subject 
 		<if test="no != null">
