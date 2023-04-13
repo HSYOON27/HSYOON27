@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Jquery</title>
+    <link rel="stylesheet" type="text/css" href="css/load.css">
+    <link rel="stylesheet" type="text/css" href="css/reset.css">
+    <link rel="stylesheet" type="text/css" href="css/commons.css">
+    <link rel="stylesheet" type="text/css" href="css/layout.css">
+    <link rel="stylesheet" type="text/css" href="css/test.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+
+    <style>
+        .pwWrap {
+        width: 100%;
+        max-width: 350px;
+        background: #dfe6e9;
+        margin: 0px auto;
+        }
+
+        .form-input{
+            width: 100%;
+        max-width: 350px;
+        }
+
+        .pwWrap .pwSection {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 80px;
+        }
+
+        .pwWrap .pwSection .dot {
+        display: block;
+        width: 10px;
+        height: 10px;
+        background: #dfe6e9(206, 201, 201);
+        margin: 0 5px;
+        }
+       
+        .pwWrap .numberSection .number {
+        float: left;
+        width: 33.33%;
+        padding: 12px 0;
+        cursor: pointer;
+        background: #dfe6e9;
+        border: none;
+        font-size: 19px;
+        
+        }
+
+        .pwWrap .numberSection .number:last-child(11) {
+        margin-left: 33.33%;
+        }
+
+
+    </style>
+
+    <!--Jquery Cdn-->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+   
+    <script type="text/javascript">
+
+        $(document).ready(function() {
+        $('.number').click(function() {
+            var num = $(this).text(); 
+            var currentVal = $('#user-input').val(); 
+            $('#user-input').val(currentVal + num); 
+        });
+        
+        $('input[type="checkbox"]').click(function() {
+            if ($(this).is(':checked')) { 
+            $('#user-input').attr('type', 'text'); 
+            } else { 
+            $('#user-input').attr('type', 'password'); 
+            }
+        });
+        
+        $('#delete').click(function() {
+            var currentVal = $('#user-input').val();
+            $('#user-input').val(currentVal.slice(0, -3)); 
+        });
+        
+        
+        $('#delete-all').click(function() {
+            $('#user-input').val(""); 
+        });
+        
+        });
+
+    </script>
+
+</head>
+<body>
+   <div class="container-300">
+        <div class="row center">
+            <br><br>
+            <h1>비밀번호 입력</h1>
+        </div>
+        
+        <div class="row center">
+            <input type="password" id="user-input" class="form-input" readonly>
+        </div>
+
+        <div class="row left" class="pass" >
+            <input type="checkbox"> 비밀번호 표시
+        </div>
+        <div class="pwWrap">
+           
+            <div class="numberSection">
+                <button class="number">1</button>
+                <button class="number">2</button>
+                <button class="number">3</button>
+                <button class="number">4</button>
+                <button class="number">5</button>
+                <button class="number">6</button>
+                <button class="number">7</button>
+                <button class="number">8</button>
+                <button class="number">9</button>
+                <button class="number" id="delete">삭제</button>
+                <button class="number">0</button>
+                <button class="number" id="delete-all">전체삭제</button>
+            </div>
+        </div>
+      
+   </div>
+</body>    
+</html>
