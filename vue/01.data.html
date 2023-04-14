@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VueJS Data</title>
+</head>
+<body>
+
+    <!--
+        VueJS는 제어 영역을 반드시 설정해야 한다
+    -->
+
+    <div id="app">
+        <!--
+            단방향 연결 : 
+            - 데이터가 변하면 자동으로 바뀌어서 출력
+            - 화면에서 값을 변화시킬 방법은 없음
+        -->
+        <h3>{{student}}</h3>
+        <h3>{{number}}</h3>
+        <h3>{{active}}</h3>
+        <h3>{{list[0]}}</h3>
+        <h3>{{student.name}}</h3>
+        <h3>{{student.score}}</h3>
+        <h3>{{text}}</h3>
+        <h3>{{text.length}}</h3>
+
+
+        <!--
+            양방향 연결 : 
+            - Vue의 데이터를 변화시킬 수 있는 연결
+            - v-model 속성을 사용하여 데이터를 지정
+            - 입력창에만 가능(input, select, textarea) 핵심 
+        -->
+
+        <hr>
+
+        <input type="text" v-model="text"> <br><br>
+        <input type="range" v-model="number" min="0" max="10000"> <!-- range는 기본값이 100이 맥스라 지정 해줘야 함-->
+        <span>{{number}}</span>
+        <br><br>
+        <input type="checkbox" v-model="active"> {{active}}
+
+    </div>
+
+    <!--
+          VueJS는 Lazy loading 방식으로 제어 영역에 대한 프로그래밍 구현  
+    -->
+
+    <script src="https://unpkg.com/vue@3.2.36"></script>
+    <script>
+        Vue.createApp({
+            //데이터 설정 영역 
+            data(){
+                return {
+                    //화면에서 사용할 데이터 선언(자바스크립트 객체 형식)
+                    text : "뷰 백그라운드 데이터",
+                    number : 1000,
+                    active : true, //논리 
+                    list : [30, 50, 20, 10, 40], 
+                    student : {
+                        name:"피카츄",
+                        score:70
+                    },
+                };
+            },
+        }).mount("#app");
+    </script>
+</body>
+</html>
