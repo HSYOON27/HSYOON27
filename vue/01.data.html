@@ -33,16 +33,17 @@
             - Vue의 데이터를 변화시킬 수 있는 연결
             - v-model 속성을 사용하여 데이터를 지정
             - 입력창에만 가능(input, select, textarea) 핵심 
+            - 한글은 IME 방식이라 바로 반영이 안됨.(추가 입력 처리 필요)
         -->
 
         <hr>
 
-        <input type="text" v-model="text"> <br><br>
+        <input type="text" v-model="text" v-on:input="text = $event.target.value"> <br><br>
         <input type="range" v-model="number" min="0" max="10000"> <!-- range는 기본값이 100이 맥스라 지정 해줘야 함-->
         <span>{{number}}</span>
         <br><br>
         <input type="checkbox" v-model="active"> {{active}}
-
+        
     </div>
 
     <!--
