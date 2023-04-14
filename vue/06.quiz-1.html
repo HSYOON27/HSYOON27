@@ -45,11 +45,20 @@
             <input type="password" v-model="memberPwCheck" class="form-input w-100">
             <span>{{memberPwCheckMessage}}</span>
         </div>
+        
 
         <button class="form-btn positive w-100" v-bind:disabled="!allValid">
             회원가입
         </button>
 
+        <div class="row">
+            <button type="submit" class="form-btn w-100 positive" v-show="allValid">회원가입(v-show)</button>            
+        </div>
+
+        <div class="row">
+            <button type="submit" class="form-btn w-100 positive" v-if="allValid">회원가입(v-if)</button>            
+        </div>
+        
     </div>
 
     <!--
