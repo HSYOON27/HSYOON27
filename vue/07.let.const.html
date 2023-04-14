@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>let과 const를 사용하는 이유</title>
+   
+    <script>
+        //ES5 (EcmaScript 5) - 구버전 자바 스크립트(함수만 있음)
+        //ES6 (EcmaScript 6) - 신버전 자바 스크립트(클래스가 등장)
+        //TS (TypeScript) - 문법이 엄격해진 자바스크립트 강화판
+
+        //변수 생성 방식
+
+        //ES5 - var (호이스팅으로 인한 범위 무시 현상)
+        var a = "hello";
+        var a = 10;
+        console.log(a);
+
+        if(a % 2 == 0){
+            var b = "짝수";
+        }
+
+        console.log(b); 
+
+        //ES6 - let(가변), const(불변)
+        let c = "hello";
+        // let d = 10;
+        console.log(c);
+
+        if(c.length > 0) {
+            let d = 10;
+            console.log(d);
+        }
+        // console.log(d);
+
+        const e = "hello";
+        // e = "hi";
+        console.log(e);
+
+    </script>
+</head>
+<style>
+
+
+</style>
+<body>
+
+    <!--
+        VueJS는 제어 영역을 반드시 설정해야 한다
+    -->
+
+    <div id="app" class="container-600">
+
+        
+        
+    </div>
+
+    <!--
+          VueJS는 Lazy loading 방식으로 제어 영역에 대한 프로그래밍 구현  
+    -->
+
+    <script src="https://unpkg.com/vue@3.2.36"></script>
+    <script>
+        
+        Vue.createApp({
+            //데이터 설정 영역 
+            data(){
+                return {
+                    //1. 개별 변수로 선언
+                    memberId:"",
+                    memberPw:"",
+                    memberPwCheck:"",
+                    
+                    // //2. 객체로 구현
+                    // member : {
+                    //     memberId:"",
+                    //     memberPw:"",
+                    //     memberPwCheck:"",
+                    // }
+                };
+              
+            },
+            //데이터 실시간 계산 영역
+            //- 사용하고 싶은 변수명으로 함수를 선언
+            //- 함수 내부에는 보여주고 싶은 값을 코드로 반환하도록 작성 
+            //- Vue에 등록한 값에 접근할 때 반드시 this 를 붙여야 함
+            //- 코드가 길면 안돼 (무리가 많이 감)
+
+            computed:{
+               
+            }
+        }).mount("#app");
+    </script>
+</body>
+</html>
