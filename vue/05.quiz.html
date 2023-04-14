@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VueJS</title>
+</head>
+<style>
+
+
+</style>
+<body>
+
+    <!--
+        VueJS는 제어 영역을 반드시 설정해야 한다
+    -->
+
+    <div id="app">
+        <h3>(Q) 성격의 장단점을 작성해주세요</h3>
+        <textarea v-model="inputText" style="width: 30%; height: 200px;">
+
+        </textarea>
+        <hr>
+        <span>{{textlength}}</span>/100
+        <hr>
+        <div :style="{color:textlength > 100 ? 'red':'blue'}">{{inputAlert}}</div>
+         
+    </div>
+
+    <!--
+          VueJS는 Lazy loading 방식으로 제어 영역에 대한 프로그래밍 구현  
+    -->
+
+    <script src="https://unpkg.com/vue@3.2.36"></script>
+    <script>
+        
+        Vue.createApp({
+            //데이터 설정 영역 
+            data(){
+                return {
+                    inputText:"",
+                };
+            },
+            //데이터 실시간 계산 영역
+            //- 사용하고 싶은 변수명으로 함수를 선언
+            //- 함수 내부에는 보여주고 싶은 값을 코드로 반환하도록 작성 
+            //- Vue에 등록한 값에 접근할 때 반드시 this 를 붙여야 함
+            //- 코드가 길면 안돼 (무리가 많이 감)
+
+            computed:{
+                textlength(){
+                    return this.inputText.length;
+                },
+                inputAlert(){
+                    if(this.textlength>100){
+                       return "100글자 이내로 작성하세요"
+                    }
+                    else {
+                        return "100글자 이내"
+                    }
+                }
+                               
+            }
+        }).mount("#app");
+    </script>
+</body>
+</html>
