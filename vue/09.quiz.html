@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VueJS</title>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="css/load.css">
+    <link rel="stylesheet" type="text/css" href="css/reset.css">
+    <link rel="stylesheet" type="text/css" href="css/commons.css">
+    <link rel="stylesheet" type="text/css" href="css/layout.css">
+    <link rel="stylesheet" type="text/css" href="css/test.css">
+</head>
+<style>
+    .page { 
+        height: 200px; width: 100%; border: 1px solid black;
+        }
+
+    .progress {
+        height: 5px;
+    }    
+
+    .progress > .bar {
+        height: 100%;
+        background-color: dodgerblue;
+        transition: width 0.1s ease-out;
+    }
+</style>
+<body>
+
+    <!--
+        VueJS는 제어 영역을 반드시 설정해야 한다
+    -->
+
+    <div id="app" class="container-500">
+
+        <div class="row center">
+            <h1>멀티페이지 문제</h1>
+        </div>
+
+        <div class="row">총 {{page}} / 5단계</div>
+        <div class="row progress">
+            <div class="bar" v-bind:style="{'width':persent+'%'}"></div>
+        </div>
+        <div class="row page" v-show="page == 1">           
+            1페이지
+        </div>
+
+        <div class="row page" v-show="page == 2">          
+            2페이지 
+        </div>
+       
+        <div class="row page" v-show="page == 3">         
+            3페이지 
+        </div>
+
+        <div class="row page" v-show="page == 4">         
+            4페이지 
+        </div>
+
+        <div class="row page" v-show="page == 5">         
+            5페이지 
+        </div>
+        
+        <div class="row float-box">
+        <button class="form-btn positive float-left" v-on:click="page--" v-if="page > 1"> 
+            이전
+        </button>
+
+        <button class="form-btn positive float-right" v-on:click="page++" v-if="page < 5">
+            다음
+        </button>
+        </div>
+
+
+    </div>
+
+    <!--
+          VueJS는 Lazy loading 방식으로 제어 영역에 대한 프로그래밍 구현  
+    -->
+
+    <script src="https://unpkg.com/vue@3.2.36"></script>
+    <script>
+        
+        Vue.createApp({
+            //데이터 설정 영역 
+            data(){
+                return {
+                    page: 1,
+                };
+              
+            },
+            //데이터 실시간 계산 영역
+            //- 사용하고 싶은 변수명으로 함수를 선언
+            //- 함수 내부에는 보여주고 싶은 값을 코드로 반환하도록 작성 
+            //- Vue에 등록한 값에 접근할 때 반드시 this 를 붙여야 함
+            //- 코드가 길면 안돼 (무리가 많이 감)
+
+            computed:{
+                persent(){
+                    return this.page * 100 / 5;
+                }
+            },
+
+            methods: {
+                
+              
+            },
+
+        }).mount("#app");
+    </script>
+</body>
+</html>
