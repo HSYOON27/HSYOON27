@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.NoHandlerFoundException;
 
-import com.kh.spring19.dto.PocketmonDto;
-import com.kh.spring19.repo.PocketmonRepo;
+import com.kh.spring19.dto.SubjectDto;
+import com.kh.spring19.repo.SubjectRepo;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -27,22 +27,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
-//springdoc 문서를 직접 만든 것이 아니라 설정으로 자동생성했으므로
-//문서에 들어갈 정보도 코드로 작성해야 한다. 
-//@Tag - 컨트롤러의 문서상 표시될 이름을 설정하는 기능
-//@Operation - 작업에 대한 설명 설정 
-
 @CrossOrigin
-@Tag(name = "포켓몬스터 요청처리기")
+@Tag(name = "서브젝트 요청처리기")
 @RestController
-@RequestMapping("/pocketmon")
-public class PocketmonRestController {
+@RequestMapping("/subject")
+public class SubjectRestController {
 
 	@Autowired
-	private PocketmonRepo repo;
-
+	private SubjectRepo repo;
+	
 	@Operation(
-			description = "포켓몬스터 신규 등록",
+			description = "과목 신규 등록",
 			responses = {
 					@ApiResponse(
 							responseCode = "200",
@@ -73,21 +68,20 @@ public class PocketmonRestController {
 // @ParameterObject로 대체하여 사용할 것을 권장	
 	
 	@PostMapping("/")
-	//public void add(@ModelAttribute PocketmonDto dto)
-	public void add(@ParameterObject PocketmonDto dto) {
+	public void add(@ParameterObject SubjectDto dto) {
 		repo.insert(dto);
 	}
 	
 	
 	@Operation(
-		description = "포켓몬 목록 조회",
+		description = "과목 목록 조회",
 		responses = {
 			@ApiResponse(
 					responseCode = "200", description ="조회 성공",
 					content = @Content(
 							mediaType = "application/json",
 							array = @ArraySchema(
-									schema = @Schema(implementation = PocketmonDto.class)
+									schema = @Schema(implementation = SubjectDto.class)
 									)
 							
 							)
@@ -108,24 +102,24 @@ public class PocketmonRestController {
 	)
 	
 	@GetMapping("/")
-	public List<PocketmonDto> list(){
+	public List<SubjectDto> list(){
 		return repo.selectList();
 	}
 	
 	@Operation(
-			summary = "포켓몬스터 상세정보 조회",
+			summary = "과목 상세정보 조회",
 			responses = {
 					@ApiResponse(
 							responseCode = "200",
-							description = "해당 번호의 포켓몬스터를 찾음",
+							description = "해당 번호의 과목을 찾음",
 							content = @Content(
 										mediaType ="application/json",
-										schema =@Schema(implementation = PocketmonDto.class)
+										schema =@Schema(implementation = SubjectDto.class)
 									)
 							),
 					@ApiResponse(
 							responseCode = "404",
-							description = "해당 번호의 포켓몬이 없어요" ,
+							description = "해당 번호의 과목이 없어요" ,
 							content = @Content(
 									mediaType = "text/plain", 
 									schema = @Schema(implementation = String.class),
@@ -149,26 +143,27 @@ public class PocketmonRestController {
 			)
 	
 	@GetMapping("/{no}")
-	   public PocketmonDto find(
-	         @Parameter(description = "포켓몬스터 번호(PK)")
+	   public SubjectDto find(
+	         @Parameter(description = "과목 번호")
 	         @PathVariable int no) throws NoHandlerFoundException {
-	      PocketmonDto dto = repo.selectOne(no);
+		SubjectDto dto = repo.selectOne(no);
 	      if(dto == null) throw new NoHandlerFoundException(null, null, null);
 	      return dto;
 	   }
 	   
 	   @PutMapping("/")
-	   public void edit(@ModelAttribute PocketmonDto dto) throws NoHandlerFoundException {
-	      PocketmonDto find = repo.selectOne(dto.getNo());
+	   public void edit(@ModelAttribute SubjectDto dto) throws NoHandlerFoundException {
+		   SubjectDto find = repo.selectOne(dto.getNo());
 	      if(find == null) throw new NoHandlerFoundException(null, null, null);
 	      repo.update(dto);
 	   }
 	   
 	   @DeleteMapping("/{no}")
 	   public void remove(@PathVariable int no) throws NoHandlerFoundException {
-	      PocketmonDto dto = repo.selectOne(no);
+		   SubjectDto dto = repo.selectOne(no);
 	      if(dto == null) throw new NoHandlerFoundException(null, null, null);
 	      repo.delete(no);
 	
 }
 }
+
