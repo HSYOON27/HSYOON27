@@ -35,7 +35,9 @@
 
         <!-- 목록화면 -->
         <div class="row center" v-for="(pocketmon, index) in pocketmonList" v-bind:key="pocketmon.no">
+            
             <!-- 단순 출력이 목표면 사본, 변경이 목표면 원본을 사용-->
+          
             <!-- 번호 : {{pocketmon.no}},
             이름 : {{pocketmon.name}},
             속성 : {{pocketmon.type}}  -->
@@ -100,7 +102,7 @@
                     this.pocketmonList[index].edit = false;
                 },
                 deleteItem(index) {
-                    this.pocketmonList.splice(index, 1);
+                    this.pocketmonList.splice(index, 1); //첫 번째 매개변수(index)는 삭제를 시작할 위치를 나타냅니다. 두 번째 매개변수(1)는 삭제할 요소의 수
                 },
                 addItem() {
                     //유효성 검사 

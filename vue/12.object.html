@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VueJS</title>
+
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="css/load.css">
+    <link rel="stylesheet" type="text/css" href="css/reset.css">
+    <link rel="stylesheet" type="text/css" href="css/commons.css">
+    <link rel="stylesheet" type="text/css" href="css/layout.css">
+    <link rel="stylesheet" type="text/css" href="css/test.css">
+    <style>
+        .fullscreen-container {
+            background-color: white;
+            padding: 2em;
+        }
+    </style>
+</head>
+<body>
+    <!--
+        VueJS는 제어 영역을 반드시 설정해야 한다
+    -->
+    <div id="app">
+
+        <div class="container-600">
+            <div class="row center">
+                <h1>과목 관리 페이지</h1>
+            </div>            
+
+            <div class="row right">
+                <button class="form-btn positive" v-on:click="modal = true">
+                    <i class="fa-solid fa-plus"></i>
+                    등록
+                </button>
+            </div>
+
+            <!-- 목록 구간 -->
+            <div class="row" v-for="(subject, index) in subjectList" v-bind:key="subject.no">
+
+                <div v-if="subject.edit == true">
+
+                    <!-- 편집 : subject의 edit 속성이 true일 때 -->
+                    번호 : {{subject.no}} <br>
+                    이름 : <input type="text" v-model="subjectList[index].name"> <br>
+                    시간 : <input type="text" v-model.number="subjectList[index].period"> 시간 <br>
+                    가격 : <input type="text" v-model.number="subjectList[index].price"> 원 <br>
+                    유형 : <input type="text" v-model="subjectList[index].type"> <br><br>
+                    <i class="fa-solid fa-save fa-2x" v-on:click="changeToDefault(index)"></i>
+
+                </div>
+                <div v-else>
+
+                    <!-- 출력 : subject의 edit 속성이 없거나 false일 때 -->
+                    번호 : {{subject.no}} <br>
+                    이름 : {{subject.name}} <br>
+                    시간 : {{subject.period}} 시간 <br>
+                    가격 : {{subject.price}} 원 <br>
+                    유형 : {{subject.type}} <br><br>
+                    <i class="fa-solid fa-edit fa-2x" v-on:click="changeToEdit(index)"></i>
+                    <i class="fa-solid fa-trash fa-2x ms-20" v-on:click="deleteItem(index)"></i>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- 등록 화면을 분리 -->
+        <div class="fullscreen" v-if="modal == true">
+            <div class="fullscreen-container">
+                <!-- 등록 구간 -->
+                <div class="row">
+                    <h2>
+                        과목 등록
+                        <i class="fa-solid fa-xmark ms-10" v-on:click="modal=false"></i>
+                    </h2>
+                </div>
+
+                <div class="row">
+                    <label>과목번호</label>
+                    <input type="text" class="form-input w-100" v-model.number="no">
+                </div>
+
+                <div class="row">
+                    <label>과목명</label>
+                    <input type="text" class="form-input w-100" v-model="name">
+                </div>
+
+                <div class="row">
+                    <label>수강시간</label>
+                    <input type="text" class="form-input w-100" v-model.number="period">
+                </div>
+
+                <div class="row">
+                    <label>수강료</label>
+                    <input type="text" class="form-input w-100" v-model.number="price">
+                </div>
+
+                <div class="row">
+                    <label>진행유형</label>
+                    <input type="text" class="form-input w-100" v-model="type">
+                </div>
+
+                <div class="row">
+                    <button type="button" class="form-btn w-100 positive"
+                        v-on:click="addItem">
+                        <i class="fa-solid fa-plus"></i>
+                        등록
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!--
+        VueJS는 Lazy loading 방식으로 제어 영역에 대한 프로그래밍 구현
+        무조건 최신버전
+        <script src="https://unpkg.com/vue@next"></script>
+    -->
+    <script src="https://unpkg.com/vue@3.2.36"></script>
+    <script>
+        Vue.createApp({
+            //데이터 설정 영역
+            data(){
+                return {
+                    //화면에서 사용할 데이터 선언
+                    subjectList:[
+                        {no:1, name:"자바과정", period:30, price:500000, type:"오프라인"},
+                        {no:2, name:"HTML과정", period:30, price:120000, type:"오프라인"},
+                        {no:3, name:"CSS과정", period:30, price:150000, type:"오프라인"}
+                    ],
+
+                    no:"",
+                    name:"",
+                    period:"",
+                    price:"",
+                    type:"",
+
+                    //등록 화면 출력 여부
+                    modal:false,
+                };
+            },
+            //데이터 실시간 계산 영역
+            //- 사용하고 싶은 변수명으로 함수를 선언
+            //- 함수 내부에는 보여주고 싶은 값을 코드로 반환하도록 작성
+            //- Vue에 등록한 값에 접근할 때 반드시 this를 붙여야 함
+            //- 코드가 길면 안됨(무리가 많이 감)
+            computed:{
+
+            },
+            //메소드 영역
+            //- 코드를 저장해두고 필요 시 호출할 수 있다
+            //- 필요하다면 매개변수를 설정할 수 있고, 반환값을 가질 수 있다
+            methods:{
+                addItem(){
+                    const choice = window.confirm("입력한 정보로 등록하시겠어요?");
+                    if(choice == false) return;
+
+                    const data = {
+                        no:this.no, 
+                        name:this.name,
+                        period:this.period, 
+                        price:this.price,
+                        type:this.type,
+                    };
+                    this.subjectList.push(data);
+
+                    //입력값 지우기
+                    this.no = "";
+                    this.name = "";
+                    this.period = "";
+                    this.price = "";
+                    this.type = "";
+
+                    //모달창 닫기
+                    this.modal = false;
+                },
+                changeToEdit(index) {
+                    //자바스크립트는 속성이 없으면 생성할 수 있다
+                    this.subjectList[index].edit = true;
+                },
+                changeToDefault(index) {
+                    this.subjectList[index].edit = false;
+                },
+                deleteItem(index) {
+                    const choice = window.confirm("정말 삭제하실꺼에요?");
+                    if(choice == false) return;
+
+                    this.subjectList.splice(index, 1);
+                },
+            }
+        }).mount("#app");
+    </script>
+</body>
+</html>

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VueJS</title>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="css/load.css">
+    <link rel="stylesheet" type="text/css" href="css/reset.css">
+    <link rel="stylesheet" type="text/css" href="css/commons.css">
+    <link rel="stylesheet" type="text/css" href="css/layout.css">
+    <link rel="stylesheet" type="text/css" href="css/test.css">
+</head>
+<body>
+
+    <!--
+        VueJS는 제어 영역을 반드시 설정해야 한다
+    -->
+
+    <div id="app" class="container-800">
+       
+        <div class="row center">
+            <h1>학생 목록</h1>
+        </div>
+        
+        <!-- 등록화면 -->
+        <div class="row center">
+           <input type="text" v-model.number="no" placeholder="번호"><br>
+           <input type="text" v-model="name" placeholder="이름"><br>
+           <input type="text" v-model="korean" placeholder="국어"><br>
+           <input type="text" v-model="english" placeholder="영어"><br>
+           <input type="text" v-model="math" placeholder="수학"><br>
+           <button v-on:click="addItem">등록</button>
+        </div>
+
+
+        <!-- 목록화면 -->
+        <div class="row center" v-for="(student, index) in studentList" v-bind:key="student.no">
+
+            <!-- 원본 출력 -->
+            <div v-if="studentList[index].edit == false">
+
+                번호 : {{studentList[index].no}},
+                이름 : {{studentList[index].name}},
+                국어 : {{studentList[index].korean}},
+                영어 : {{studentList[index].english}},
+                수학 : {{studentList[index].math}},
+
+                <i class="fa-solid fa-edit ms-10" v-on:click="changeToEdit(index)"></i>
+                <i class="fa-solid fa-trash ms-10" v-on:click="deleteItem(index)"></i>
+                
+            </div>
+
+
+            <div v-if="studentList[index].edit == true">
+                번호 : <input type="text" v-model="studentList[index].no">, 
+                이름 : <input type="text" v-model="studentList[index].name">,
+                국어 : <input type="text" v-model="studentList[index].korean">,
+                영어 : <input type="text" v-model="studentList[index].english">,
+                수학 : <input type="text" v-model="studentList[index].math">,
+                <i class="fa-solid fa-xmark ms-10" v-on:click="changeToDefault(index)"></i>
+            </div>
+        </div>
+
+    </div>
+
+    <!--
+          VueJS는 Lazy loading 방식으로 제어 영역에 대한 프로그래밍 구현  
+    -->
+
+    <script src="https://unpkg.com/vue@3.2.36"></script>
+    <script>
+        Vue.createApp({
+            //데이터 설정 영역 
+            data(){
+                return {
+                    //화면에서 사용할 데이터 선언 
+                   
+                    studentList:[
+                        {no:1, name:"윤형석", korean:100, english:100, math:100, edit:false},
+                        {no:2, name:"이성현", korean:100, english:100, math:100, edit:false},
+                        {no:3, name:"김훈", korean:100, english:100, math:100, edit:false},
+                        {no:4, name:"임가영", korean:100, english:100, math:100, edit:false},
+                    ],
+
+                    no:"",
+                    name:"",
+                    korean:"",
+                    english:"",
+                    math:"",
+
+                };
+            },
+            computed : {
+
+            },
+
+            methods:{
+
+              
+                changeToEdit(index){
+                    this.studentList[index].edit = true;
+                },
+
+                changeToDefault(index){
+                    this.studentList[index].edit = false;
+                },
+
+                deleteItem(index) {
+                    this.studentList.splice(index, 1); //첫 번째 매개변수(index)는 삭제를 시작할 위치를 나타냅니다. 두 번째 매개변수(1)는 삭제할 요소의 수
+                },
+                
+
+                addItem() {
+                    var data = {
+                        no:this.no,
+                        name:this.name,
+                        korean:this.korean,
+                        english:this.english,
+                        math:this.math,
+                        edit:false,
+                    }
+                    this.studentList.push(data);
+
+                    //초기화
+                    this.no="";
+                    this.name="";
+                    this.korean="";
+                    this.english="";
+                    this.math="";
+
+                }
+
+            }
+        }).mount("#app");
+    </script>
+</body>
+</html>
