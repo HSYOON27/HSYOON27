@@ -18,8 +18,27 @@
         VueJS는 제어 영역을 반드시 설정해야 한다
     -->
 
-    <div id="app">
+    <div id="app" class="container-500">
        
+        <div class="row center">
+            <h1>포켓몬스터 목록</h1>
+        </div>
+
+        <div class="row" v-for="(pocketmon, index) in pocketmonList" v-bind:key="pocketmon.no">
+            <!-- 단순 출력이 목표면 사본, 변경이 목표면 원본을 사용-->
+
+            <!-- 사본 출력 -->
+            <!-- 번호 : {{pocketmon.no}},
+            이름 : {{pocketmon.name}},
+            속성 : {{pocketmon.type}} -->
+
+            <!-- 원본 출력 -->
+            번호 : {{pocketmonList[index].no}},
+            이름 : {{pocketmonList[index].name}},
+            속성 : {{pocketmonList[index].type}}
+            
+        </div>
+
     </div>
 
     <!--
@@ -33,17 +52,19 @@
             data(){
                 return {
                     //화면에서 사용할 데이터 선언 
-                    title : "Hello VueJS",
+                   
+                    //포켓몬스터 정보 배열
+                    pocketmonList:[
+                        {no:1, name:"이상해씨", type:"풀"},
+                        {no:2, name:"파이리", type:"불꽃"},
+                        {no:3, name:"피카츄", type:"전기"},
+                        {no:4, name:"라이츄", type:"전기"},
+                        {no:5, name:"꼬부기", type:"물"},
+                    ],  
                 };
             },
             computed : {
 
-            },
-            //메소드 영역 
-            //- 코드를 저장해두고 필요 시 호출할 수 있다.
-            //- 필요하다면 매개변수를 설정할 수 있고, 반환값을 가질 수 있다. 
-            methods:{
-               
             },
         }).mount("#app");
     </script>
