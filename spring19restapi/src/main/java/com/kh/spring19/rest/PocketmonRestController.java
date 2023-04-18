@@ -169,6 +169,29 @@ public class PocketmonRestController {
 	      PocketmonDto dto = repo.selectOne(no);
 	      if(dto == null) throw new NoHandlerFoundException(null, null, null);
 	      repo.delete(no);
-	
-}
+	   }
+	   
+	   //검색을 구현한다면..?
+	   //[1] 검색이 하나밖에 없는 경우(상세와 중복 가능) 
+	   //  	  [GET] /pocketmon/{no}
+	   //  	  [GET] /pocketmon/{name}
+	   
+	   //[2] 여러 종류라면 항목을 앞에 추가하여 작성
+	   // 	  [GET] /pocketmon/name/{name}
+	   // 	  [GET] /pocketmon/no/{no}
+	   // 	  [GET] /pocketmon/no/{no}/name/{name}
+	   // 	  [GET] /pocketmon/name/{name}/no/{no}/
+	   @GetMapping("/name/{name}")
+	   public List<PocketmonDto> searchName(@PathVariable String name){
+		   	return repo.selectListByName(name);
+	   }
+	   
+	   // 무한 스크롤 구현을 위한 백엔드 페이징 목록 구현 (2023.04.18)
+	   //- 페이지 번호를 알려준다면 10개를 기준으로 해당 페이지 번호의 데이터를 반환 
+	   @GetMapping("/page/{page}")
+	   public List<PocketmonDto> paging(@PathVariable int page) {
+		   return repo.selectListByPaging(page);
+	   }
+	   
+	   
 }

@@ -17,7 +17,6 @@ public class SubjectRepoImpl implements SubjectRepo{
 	@Override
 	public void insert(SubjectDto dto) {
 		sqlSession.insert("subject.add", dto);
-
 	}
 
 	@Override

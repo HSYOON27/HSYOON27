@@ -17,6 +17,4 @@ public class SubjectDto {
 	@Parameter(description = "유형", example="온라인", required=true)
 	private String type;
 	
-	
-	
 }
