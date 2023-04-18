@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VueJS</title>
+
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="css/load.css">
+    <link rel="stylesheet" type="text/css" href="css/reset.css">
+    <link rel="stylesheet" type="text/css" href="css/commons.css">
+    <link rel="stylesheet" type="text/css" href="css/layout.css">
+    <link rel="stylesheet" type="text/css" href="css/test.css">
+    <style>
+        .autocomplete-item {
+            font-size: 20px;
+            padding:0.5em;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+        }
+        .highlight {
+            font-weight: bold;
+            color: firebrick;
+        }
+    </style>
+</head>
+<body>
+    <!--
+        VueJS는 제어 영역을 반드시 설정해야 한다
+    -->
+    <div id="app">
+        
+        <div class="container-500">
+            <div class="row center"><h1>자동완성 예제</h1></div>
+            <div class="row" style="margin-bottom: 0px;">
+                <input class="form-input w-100" type="text" v-model="keyword" v-on:input="keyword = $event.target.value">
+            </div>
+            <div class="flex-box flex-vertical">
+                <div class="autocomplete-item" v-for="(pocketmon, index) in result" :key="pocketmon.no">
+                    <span v-html="getHighlightText(pocketmon)"></span>
+                    <!-- {{getHighlightText(pocketmon)}} -->
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+    <!--
+        VueJS는 Lazy loading 방식으로 제어 영역에 대한 프로그래밍 구현
+        무조건 최신버전
+        <script src="https://unpkg.com/vue@next"></script>
+    -->
+    <script src="https://unpkg.com/vue@3.2.36"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
+    <script>
+        Vue.createApp({
+            //데이터 설정 영역
+            data(){
+                return {
+                    //화면에서 사용할 데이터 선언
+                    
+                    //검색어 입력창과 연결할 데이터
+                    keyword:"",
+
+                    //검색 결과 데이터
+                    result:[],
+
+                };
+            },
+            //데이터 실시간 계산 영역
+            //- 사용하고 싶은 변수명으로 함수를 선언
+            //- 함수 내부에는 보여주고 싶은 값을 코드로 반환하도록 작성
+            //- Vue에 등록한 값에 접근할 때 반드시 this를 붙여야 함
+            //- 코드가 길면 안됨(무리가 많이 감)
+            computed:{
+
+            },
+            //메소드 영역
+            //- 코드를 저장해두고 필요 시 호출할 수 있다
+            //- 필요하다면 매개변수를 설정할 수 있고, 반환값을 가질 수 있다
+            methods:{
+                async loadResult(){
+                    if(this.keyword.length == 0) return;
+
+                    const resp = await axios.get("http://localhost:8080/pocketmon/name/"+this.keyword);
+                    //this.result = resp.data;//안됨
+                    this.result.splice(0);//전체삭제
+                    this.result.push(...resp.data);//전개연산자로 추가
+
+                    console.log("loadResult 실행 완료");
+                },
+                getHighlightText(monster) {
+                    const keyword = this.keyword;
+                    return monster.name.replace(keyword, '<span class="highlight">'+keyword+'</span>');
+                },
+            },
+            //감시 영역(watch)
+            //- data의 변동사항이 생기면 자동으로 실행되는 영역
+            //- computed와 유사한 역할을 수행하지만 다름
+            //- computed는 새로운 값을 계산하는 용도
+            //- watch는 데이터가 변했을 때 특정 코드를 실행하는 용도
+            watch:{
+                
+                //[1] 성능같은건 신경쓰지 않고 구현만 한 경우
+                //- 입력 빈도가 늘어날 수록 서버에 부하가 심해짐
+                // keyword:function(){},
+                // keyword(cur, old){
+                //     this.loadResult();
+                // }
+
+                //[2] 쓰로틀링 적용(lodash)
+                //- 쓰로틀링은 설정한 시간 주기 이하의 이벤트는 무시
+                //- 적용방법 : _.throttle(함수, 시간주기) => 새로운 함수
+                //- 이상적인 시간은 약 250ms 정도
+                //keyword:_.throttle(function(){코드}, 250ms),
+                
+                keyword:_.throttle(function(){
+                    //this == 뷰 인스턴스
+                    this.loadResult();
+                }, 250),
+
+                //[3] 디바운스 적용(lodash)
+                //- 디바운스는 설정한 주기만큼의 시간이 지난 뒤 실행
+                //- (ex) 주기가 1000ms라면 마지막 이벤트 발생 후 1000ms 뒤 실행
+                //- 적용방법 : _.debounce(함수, 시간주기) => 새로운 함수
+                //keyword:_.debounce(function(){코드}, 250ms),
+
+                // keyword:_.debounce(function(){
+                //     this.loadResult();
+                // }, 250),
+            },
+        }).mount("#app");
+    </script>
+</body>
+</html>

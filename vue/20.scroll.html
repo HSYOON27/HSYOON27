@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VueJS</title>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="css/load.css">
+    <link rel="stylesheet" type="text/css" href="css/reset.css">
+    <link rel="stylesheet" type="text/css" href="css/commons.css">
+    <link rel="stylesheet" type="text/css" href="css/layout.css">
+    <link rel="stylesheet" type="text/css" href="css/test.css">
+    <style>
+    
+    </style>
+</head>
+<body>
+
+    <!--
+        VueJS는 제어 영역을 반드시 설정해야 한다
+    -->
+
+    <div id="app">
+        <div class="container-500">
+            <div class="row center">
+                   <h1>포켓몬스터 무한 스크롤(page : {{page}})</h1>
+            </div>
+
+            <div class="row" v-for="(pocketmon, index) in pocketmonList" v-bind:key="pocketmon.no">
+                
+                <h2>번호 : {{pocketmon.no}}</h2>
+                <h2>이름 : {{pocketmon.name}}</h2>
+                <h2>속성 : {{pocketmon.type}}</h2>
+                <hr>
+
+            </div>
+        </div>
+
+    </div>
+
+    <!--
+          VueJS는 Lazy loading 방식으로 제어 영역에 대한 프로그래밍 구현  
+    -->
+
+    <script src="https://unpkg.com/vue@3.2.36"></script>
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
+
+    <script>
+        Vue.createApp({
+            //데이터 설정 영역 
+            data(){
+                return {
+                    //화면에서 사용할 데이터 선언 
+                    percent:0,
+
+                    //목록을 위한 데이터 
+                    page:1,
+                    pocketmonList:[],
+                    finish:false,
+
+                    //안전장치
+                    loading:false,
+
+                    
+                };
+            },
+            computed : {
+
+            },
+            //메소드 영역 
+            //- 코드를 저장해두고 필요 시 호출할 수 있다.
+            //- 필요하다면 매개변수를 설정할 수 있고, 반환값을 가질 수 있다. 
+            methods:{
+               async loadList(){
+                    if(this.loading == true) return;    
+                    if(this.finish == true) return;
+                    
+                    this.loading = true;
+
+                    const resp = await axios.get("http://localhost:8080/pocketmon/page/"+this.page);
+                    // const resp = await axios.get(`http://localhost:8080/pocketmon/page/${this.page}`);
+
+                    this.pocketmonList.push(...resp.data);
+                    this.page++;
+
+
+                    this.loading = false;
+
+                    if(resp.data.length < 10){
+                        this.finish = true;
+                    }
+               },
+            },
+
+            // 감시 영역(watch) :  특정 영역이 변했는지 안변했는지 보는 역할 
+            //- data의 변동사항이 생기면 자동으로 실행되는 영역 
+            //- computed와 유사한 역할을 수행하지만 다름    
+
+            //- watch와 computed의 차이 - 
+            //- computed는 새로운 값을 계산하는 용도 (비동기 통신은 절대 computed에 ㄴㄴ watch에)
+            //- watch는 데이터가 변했을 때 특정 코드를 실행하는 용도 
+            watch:{
+                //percent가 변하면 percent의 값을 읽어와서 80% 이상인지 판정하면 된다. 무한 스크롤 구현을 위해 
+                percent(){
+                    if(this.percent >= 80){
+                        // console.log("데이터를 불러와 보자");
+                        this.loadList();
+                    }
+                }
+            },
+
+            mounted(){
+                //윈도우 전체 스크롤 이벤트를 설정(Vue가 아닌 자바스크립트 사용)
+                //- 주의 : 스크롤 이벤트는 발생 빈도가 엄청 많음.
+                //- 일반적으론 쓰로틀링이나, 디바운스로 억제 시킬 필요가 있음. 
+                //- this를 통일 시키기 위해 람다 사용 애로우 펑션 => 화살표 함수(arrow function)를 사용 
+
+                // window.addEventListener("scroll", function(){
+                //     console.log("스크롤 이벤트");
+                // });
+                // const app = this;   
+
+                window.addEventListener("scroll", _.throttle(()=>{
+                    // console.log("스크롤 이벤트");
+                    // console.log(this);
+                    // 스크롤은 몇 % 위치에 있는가? 를 알고 싶다면 
+                   
+                    // // - 전체 문서의 높이 
+                    // console.log(document.body.clientHeight);
+
+                    // // - 현재 스크롤의 위치                    
+                    // console.log(window.scrollY);
+
+                    // // - 브라우저의 높이 
+                    // console.log(window.innerHeight);
+                    
+                    // ScreenFull.js나 Rallax.js 등 라이브러리 사용 가능 
+
+                    const height = document.body.clientHeight - window.innerHeight;
+                    const current = window.scrollY;
+                    const percent = (current/height) * 100;
+                    // console.log("percent = " + Math.round(percent));
+
+                    //data의 percent를 계산된 값으로 갱신
+                    this.percent = percent;
+
+                }, 250));
+            },
+
+            created(){
+                this.loadList();
+            },
+
+        }).mount("#app");
+    </script>
+</body>
+</html>
