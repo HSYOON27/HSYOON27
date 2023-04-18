@@ -22,8 +22,16 @@
        
         <h1>자동완성 예제(검색)</h1>
 
-        <input type="text" v-model="keyword" v-on:input="loadResult">
+        <!-- 
+            한글 등 IME 입력 이슈에 대응하기 위한 방법
+            - v-model만으로는 어려우므로 v-on:input을 같이 사용
+            - v-on:input으로 입력 발생 시 수동으로 데이터를 갱신하도록 작성
+            - 그게 -> v-on:input = "데이터 =$event.target.value"
+            - $event는 Vue에서 관리하는 이벤트 정보 객체 
 
+        -->
+        <input type="text" v-model="keyword" v-on:input="keyword = $event.target.value">
+                                                                <!-- Vue에서 제공하는 이벤트 정보 객체-->
 
         <div v-for="(pocketmon, index) in result" v-bind:key="pocketmon.no">
             {{pocketmon}}
@@ -62,16 +70,7 @@
             //- 필요하다면 매개변수를 설정할 수 있고, 반환값을 가질 수 있다. 
             methods:{
                async loadResult(e){
-                    
-                    // v-model로는 한글과 같은 IME 방식의 입력이 제대로 처리되지 않는다.
-                    // 입력 발생 시 수동으로 값을 갱신해야 정상적인 처리가 가능.
-                    // 태그를 읽는 방법은 2가지가 있다. 
-                    // [1] document.querySelector 사용
-                    // this.keyword = document.querySelector("").value;
-                    // [2] event.target 사용  
-                    this.keyword = e.target.value;
-                    
-
+                                        
                     if(this.keyword.length == 0) return;
 
                     const resp = await axios.get("http://localhost:8080/pocketmon/name/"+this.keyword);
@@ -87,7 +86,25 @@
                 
 
             },
-            
+            // 감시 영역(watch) :  특정 영역이 변했는지 안변했는지 보는 역할 
+            //- data의 변동사항이 생기면 자동으로 실행되는 영역 
+            //- computed와 유사한 역할을 수행하지만 다름    
+
+            //- watch와 computed의 차이 - 
+            //- computed는 새로운 값을 계산하는 용도 (비동기 통신은 절대 computed에 ㄴㄴ watch에)
+            //- watch는 데이터가 변했을 때 특정 코드를 실행하는 용도 
+
+            watch:{
+                //data에 있는 keyword가 변하면 실행할 영역 
+                //keyword:function(){},
+                keyword(cur, old){
+                   
+                    // console.log("우리 keyword가 달라졌어요");
+                    // console.log("before = ", old, "after = ", cur);
+                    this.loadResult();
+                }
+            },
+
 
         }).mount("#app");
     </script>
