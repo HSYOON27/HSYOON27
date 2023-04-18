@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VueJS</title>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="css/load.css">
+    <link rel="stylesheet" type="text/css" href="css/reset.css">
+    <link rel="stylesheet" type="text/css" href="css/commons.css">
+    <link rel="stylesheet" type="text/css" href="css/layout.css">
+    <link rel="stylesheet" type="text/css" href="css/test.css">
+</head>
+<body>
+
+    <!--
+        VueJS는 제어 영역을 반드시 설정해야 한다
+    -->
+
+    <div id="app">
+       
+        <h1>자동완성 예제(검색)</h1>
+
+        <!-- 
+            한글 등 IME 입력 이슈에 대응하기 위한 방법
+            - v-model만으로는 어려우므로 v-on:input을 같이 사용
+            - v-on:input으로 입력 발생 시 수동으로 데이터를 갱신하도록 작성
+            - 그게 -> v-on:input = "데이터 =$event.target.value"
+            - $event는 Vue에서 관리하는 이벤트 정보 객체 
+
+        -->
+        <input type="text" v-model="keyword" v-on:input="keyword = $event.target.value">
+                                                                <!-- Vue에서 제공하는 이벤트 정보 객체-->
+
+        <div v-for="(pocketmon, index) in result" v-bind:key="pocketmon.no">
+            {{pocketmon}}
+        </div>
+
+    </div>
+
+    <!--    
+          VueJS는 Lazy loading 방식으로 제어 영역에 대한 프로그래밍 구현  
+    -->
+
+    <script src="https://unpkg.com/vue@3.2.36"></script>
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
+    
+    <script>
+        Vue.createApp({
+            //데이터 설정 영역 
+            data(){
+                return {
+                    //화면에서 사용할 데이터 선언 
+
+                    //검색어 입력창과 연결할 데이터
+                    keyword:"",
+
+                    //검색 결과 데이터 
+                    result:[],
+
+                };
+            },
+            computed : {
+
+            },
+            //메소드 영역 
+            //- 코드를 저장해두고 필요 시 호출할 수 있다.
+            //- 필요하다면 매개변수를 설정할 수 있고, 반환값을 가질 수 있다. 
+            methods:{
+               async loadResult(e){
+                                        
+                    if(this.keyword.length == 0) return;
+
+                    const resp = await axios.get("http://localhost:8080/pocketmon/name/"+this.keyword);
+                    //this.result = resp.data;//안됨
+                    this.result.splice(0); //배열 전체 삭제
+                    this.result.push(...resp.data); //전개 연산자로 추가 
+
+                    console.log("loadResult 실행 완료");
+                },
+
+            },
+
+            created(){
+                
+
+            },
+            // 감시 영역(watch) :  특정 영역이 변했는지 안변했는지 보는 역할 
+            //- data의 변동사항이 생기면 자동으로 실행되는 영역 
+            //- computed와 유사한 역할을 수행하지만 다름    
+
+            //- watch와 computed의 차이 - 
+            //- computed는 새로운 값을 계산하는 용도 (비동기 통신은 절대 computed에 ㄴㄴ watch에)
+            //- watch는 데이터가 변했을 때 특정 코드를 실행하는 용도 
+
+            watch:{
+                
+                //[1] 성능같은건 신경쓰지 않고 구현만 한 경우
+                //- 입력 빈도가 늘어날수록 서버에 부하가 심해짐 
+                // keyword:function(){}, 
+                // keyword(cur, old){
+                //     this.loadResult();
+                // }
+
+                //[2] 쓰로틀링 적용(lodash로)
+                //- 쓰로틀링은 설정한 시간 주기 이하의 이벤트는 무시 
+                //- 적용방법 : _.throttle(function(){코드}, 1000(단위 ms)) ==> 새로운 함수 
+                //- 이상적인 시간은 약 250ms 정도 
+                
+                keyword:_.throttle(function(){
+                    //this == 뷰 인스턴스
+                    // console.log("실행");
+                    this.loadResult();
+                }, 250), 
+
+                //[3] 디바운스 적용(lodash)    
+                //- 디바운스는 설정한 주기 만큼의 시간이 지난 뒤 실행 
+                //- ex) 주기가 1000ms라면 마지막 이벤트 발생 후 1000ms 뒤 실행 
+                //- 적용방법 : _.debounce(함수, 시간주기) => 새로운 함수
+                //keyword:_.debounce(function(){this.loadResult();}, 250),    
+                
+                // keyword:_.debounce(function(){
+                //     this.loadResult();
+                // }, 250),
+            },
+
+
+        }).mount("#app");
+    </script>
+</body>
+</html>
