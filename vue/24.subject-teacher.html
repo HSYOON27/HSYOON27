@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VueJS</title>
+
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="css/load.css">
+    <link rel="stylesheet" type="text/css" href="css/reset.css">
+    <link rel="stylesheet" type="text/css" href="css/commons.css">
+    <link rel="stylesheet" type="text/css" href="css/layout.css">
+    <link rel="stylesheet" type="text/css" href="css/test.css">
+
+    <!-- tostify cdn -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+
+    <style>
+        .title > small {
+            color: #bdc3c7;
+        }
+        .title > small.online {
+            color: #2980b9;
+        }
+        .title > small.offline {
+            color: #c0392b;
+        }
+        .fa-solid {
+            cursor: pointer;
+        }
+        .fa-solid:hover {
+            color: #c0392b;
+        }
+        .form-input.dotted {
+            padding:0 !important;
+            border:1px dashed lightgray !important;
+            height:auto !important;
+        }
+        .table tr {
+            height: 3em;
+        }
+        .fullscreen-container {
+            background-color: white;
+            padding: 2em;
+            border:5px solid black;
+        }
+    </style>
+</head>
+<body>
+    <!--
+        VueJS는 제어 영역을 반드시 설정해야 한다
+    -->
+    <div id="app">
+        <div class="container-600">
+            <div class="row center">
+                <h1>과목 관리</h1>
+            </div>
+
+            <div class="row right">
+                <button class="form-btn positive" v-on:click="openModal">
+                    <i class="fa-solid fa-plus"></i>
+                    추가
+                </button>
+            </div>
+
+            <!-- 목록 출력 영역 -->
+            <div class="row">
+                <div class="flex-box p-10" v-for="(subject, index) in subjectList" :key="subject.no">
+                    <div class="w-100 flex-box flex-vertical">
+                        <div class="row">
+                            <h2 class="title" v-if="subject.edit">
+                                <input v-model="subjectList[index].name" class="form-input dotted">
+                                <select v-model="subjectList[index].type" class="form-input dotted">
+                                    <option>오프라인</option>
+                                    <option>온라인</option>
+                                    <option>혼합</option>
+                                </select>
+                            </h2>
+                            <h2 class="title" v-else>
+                                <span v-text="subject.name"></span>
+                                <small class="ms-10"
+                                    v-bind:class="{online:subject.type == '온라인', offline:subject.type == '오프라인'}">
+                                    (<span v-text="subject.type"></span>)
+                                </small>
+                            </h2>
+                        </div>
+                        <div class="row">
+                            <table class="table table-border">
+                                <tr>
+                                    <th width="100">과목번호</th>
+                                    <td v-text="subject.no"></td>
+                                </tr>
+                                <tr>
+                                    <th>수강료</th>
+                                    <td v-if="subject.edit">
+                                        <input v-model="subjectList[index].price" class="form-input dotted" size="10">원
+                                    </td>
+                                    <td v-else>
+                                        <span v-text="subject.price"></span>원
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>강의시간</th>
+                                    <td v-if="subject.edit">
+                                        <input v-model="subjectList[index].period" class="form-input dotted" size="5">시간
+                                    </td>
+                                    <td v-else>
+                                        <span v-text="subject.period"></span>시간
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="row right" v-if="subject.edit == true">
+                            <i class="fa-solid fa-xmark fa-2x" v-on:click="cancelEdit(index)"></i>
+                            <i class="fa-solid fa-save fa-2x ms-20" v-on:click="saveEdit(index)"></i>
+                        </div>
+                        <div class="row right" v-else>
+                            <i class="fa-solid fa-edit fa-2x" v-on:click="changeEdit(index)"></i>
+                            <i class="fa-solid fa-trash fa-2x ms-20" v-on:click="deleteItem(index)"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 등록 모달 -->
+        <div class="fullscreen" v-show="modal">
+            <div class="fullscreen-container container-500">
+                <div class="row center">
+                    <h1>신규 과정 등록</h1>
+                </div>
+                <div class="row">
+                    <label>과목명</label>
+                    <input type="text" class="form-input w-100" v-model="subject.name">
+                    <span v-if="subject.name > 0">{{subject.nameMessage}}</span>
+                </div>
+                <div class="row">
+                    <label>수강시간</label>
+                    <select class="form-input w-100" v-model="subject.period">
+                        <option value="">선택하세요</option>
+                        <option>30</option>
+                        <option>60</option>
+                        <option>90</option>
+                        <option>120</option>
+                        <option>150</option>
+                    </select>
+                </div>
+                <div class="row">
+                    <label>수강료</label>
+                    <input type="text" class="form-input w-100" v-model="subject.price">
+                    <span v-if="subject.price.length > 0">{{subject.priceMessage}}</span>
+                </div>
+                <div class="row">
+                    <label>수강유형</label>
+                    <select class="form-input w-100" v-model="subject.type">
+                        <option value="">선택하세요</option>
+                        <option>오프라인</option>
+                        <option>온라인</option>
+                        <option>혼합</option>
+                    </select>
+                </div>
+                <div class="row right">
+                    <button type="button" class="form-btn negative ms-20" v-on:click="closeModal">
+                        <i class="fa fa-xmark"></i>
+                        닫기
+                    </button>
+                    <button type="button" class="form-btn positive ms-20" v-on:click="saveItem">
+                        <i class="fa-solid fa-plus"></i>
+                        등록
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--
+        VueJS는 Lazy loading 방식으로 제어 영역에 대한 프로그래밍 구현
+        무조건 최신버전
+        <script src="https://unpkg.com/vue@next"></script>
+    -->
+    <script src="https://unpkg.com/vue@3.2.36"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
+    <script>
+        Vue.createApp({
+            //데이터 설정 영역
+            data(){
+                return {
+                    //화면에서 사용할 데이터 선언
+                    subjectList:[],
+                    subjectListBackup:[],
+
+                    modal:false,
+                    subject:{
+                        name:"",
+                        period:"",
+                        price:"",
+                        type:"오프라인",
+
+                        get nameIsValid(){
+                            return this.name.length > 0 && this.name.length <= 60;
+                        },
+                        get periodIsValid(){
+                            const value = parseInt(this.period);
+                            return value > 0 && value % 30 == 0;
+                        },
+                        get priceIsValid(){
+                            const value = parseInt(this.price);
+                            return value >= 0;
+                        },
+                        get typeIsValid(){
+                            switch(this.type) {
+                                case "온라인":
+                                case "오프라인":
+                                case "혼합":
+                                    return true;
+                            }
+                            return false;
+                        },
+                        get allValid(){
+                            return this.nameIsValid
+                                    && this.periodIsValid
+                                    && this.priceIsValid
+                                    && this.typeIsValid;
+                        },
+                        clear(){
+                            this.name="";
+                            this.period="";
+                            this.price="";
+                            this.type="";
+                        },
+
+                        get nameMessage() {
+                            if(this.nameIsValid) {
+                                return "올바른 과목명입니다";
+                            }
+                            else {
+                                return "과목명은 60자 이내로 작성하세요";
+                            }
+                        },
+                        get priceMessage() {
+                            if(this.priceIsValid) {
+                                return "가격 설정이 완료되었습니다";
+                            }
+                            else {
+                                return "가격은 0원 이상이어야 합니다";
+                            }
+                        }
+                    },
+                };
+            },
+            //데이터 실시간 계산 영역
+            //- 사용하고 싶은 변수명으로 함수를 선언
+            //- 함수 내부에는 보여주고 싶은 값을 코드로 반환하도록 작성
+            //- Vue에 등록한 값에 접근할 때 반드시 this를 붙여야 함
+            //- 코드가 길면 안됨(무리가 많이 감)
+            computed:{
+
+            },
+            //메소드 영역
+            //- 코드를 저장해두고 필요 시 호출할 수 있다
+            //- 필요하다면 매개변수를 설정할 수 있고, 반환값을 가질 수 있다
+            methods:{
+                openModal(){
+                    this.modal = true;
+                },
+                closeModal(){
+                    this.modal = false;
+                },
+                clearList() {
+                    this.subjectList.splice(0);
+                    this.subjectListBackup.splice(0);
+                },
+                async loadList() {
+                    const url = "http://localhost:8080/subject/";
+                    const resp = await axios.get(url);
+
+                    this.clearList();
+                    this.subjectList.push(...resp.data);
+                },
+                changeEdit(index) {
+                    //변경을 누르면 백업본을 저장
+                    this.subjectListBackup[index] = _.cloneDeep(this.subjectList[index]);
+                    this.subjectList[index].edit = true;
+                },
+                cancelEdit(index) {
+                    this.subjectList[index] = _.cloneDeep(this.subjectListBackup[index]);
+                    this.subjectList[index].edit = false;
+                },
+                async saveEdit(index) {
+                    const url = "http://localhost:8080/subject/";
+                    const data = this.subjectList[index];
+                    const resp = await axios.put(url, data);
+
+                    this.editAlert();
+                    this.loadList();
+                },
+                async deleteItem(index) {
+                    if(!window.confirm("정말 삭제하시겠습니까?")) 
+                        return;
+
+                    const no = this.subjectList[index].no;
+                    const url = "http://localhost:8080/subject/"+no;
+                    const resp = await axios.delete(url);
+
+                    this.deleteAlert();
+                    this.loadList();
+                },
+                async saveItem(){
+                    if(this.subject.allValid == false) return;
+
+                    const url = "http://localhost:8080/subject/";
+                    const data = this.subject;
+                    const resp = await axios.post(url, data);
+
+                    this.saveAlert();
+                    this.loadList();
+                    this.closeModal();
+                },
+                saveAlert(){
+                    Toastify({
+                        text: "과목이 등록되었습니다",
+                        duration: 2000,
+                        newWindow: false,
+                        close: true,
+                        gravity: "top", // `top` or `bottom`
+                        position: "right", // `left`, `center` or `right`
+                        style: {
+                            background: "#0984e3",
+                        },
+                    }).showToast();
+                },
+                editAlert(){
+                    Toastify({
+                        text: "과목 정보가 변경되었습니다",
+                        duration: 2000,
+                        newWindow: false,
+                        close: true,
+                        gravity: "top", // `top` or `bottom`
+                        position: "right", // `left`, `center` or `right`
+                        style: {
+                            background: "#e17055",
+                        },
+                    }).showToast();
+                },
+                deleteAlert(){
+                    Toastify({
+                        text: "과목이 삭제되었습니다",
+                        duration: 2000,
+                        newWindow: false,
+                        close: true,
+                        gravity: "top", // `top` or `bottom`
+                        position: "right", // `left`, `center` or `right`
+                        style: {
+                            background: "#d63031",
+                        },
+                    }).showToast();
+                },
+            },
+            //감시 영역(watch)
+            //- data의 변동사항이 생기면 자동으로 실행되는 영역
+            //- computed와 유사한 역할을 수행하지만 다름
+            //- computed는 새로운 값을 계산하는 용도
+            //- watch는 데이터가 변했을 때 특정 코드를 실행하는 용도
+            watch:{
+
+            },
+            created(){
+                this.loadList();
+            },
+        }).mount("#app");
+    </script>
+</body>
+</html>
