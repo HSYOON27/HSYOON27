@@ -11,6 +11,8 @@
     <link rel="stylesheet" type="text/css" href="css/commons.css">
     <link rel="stylesheet" type="text/css" href="css/layout.css">
     <link rel="stylesheet" type="text/css" href="css/test.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+
 </head>
 <body>
 
@@ -50,7 +52,7 @@
             </div>
 
             <div class="row">
-                <button type="button" class="form-btn positive w-100" v-bind:disabled="pocketmon.isAllValid == false">
+                <button type="button" class="form-btn positive w-100" v-bind:disabled="pocketmon.isAllValid == false" v-on:click="sendItem">
                     <i class="fa-solid fa-plus"></i>등록
                 </button>
             </div>
@@ -66,6 +68,7 @@
     <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 
 
     <script>
@@ -104,7 +107,13 @@
 
                         get isAllValid() {
                             return this.isNoValid && this.isNameVaild && this.isTypeVaild;
-                        }
+                        },
+
+                        clear() {
+                            this.no = "";
+                            this.name = "";
+                            this.type = "";
+                        },
 
                     },
                 };
@@ -123,7 +132,34 @@
             //- 코드를 저장해두고 필요 시 호출할 수 있다.
             //- 필요하다면 매개변수를 설정할 수 있고, 반환값을 가질 수 있다. 
             methods:{
-               
+               //데이터 중 pocketmon을 서버로 전송 
+               async sendItem(){
+                    if(this.pocketmon.isAllValid == false) return;
+
+
+                    // const resp = await axios.post("주소", {데이터});
+                    const url = "http://localhost:8080/pocketmon/";
+                    const resp = await axios.post(url, this.pocketmon);
+                    // console.log(resp);
+
+                    this.pocketmon.clear();
+                    
+                    Toastify({
+                    text: "등록이 완료되었습니다.",
+                    duration: 3000,
+                    // destination: "https://github.com/apvarun/toastify-js",
+                    newWindow: false,
+                    close: true,
+                    gravity: "top", // `top` or `bottom`
+                    position: "center", // `left`, `center` or `right`
+                    stopOnFocus: true, // Prevents dismissing of toast on hover
+                    style: {
+                        background: "linear-gradient(to right, #00b09b, #96c93d)",
+                    },
+                    onClick: function(){} // Callback after click
+                    }).showToast();
+                                },
+
             },
 
             watch:{
