@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        
+        //  얕은복사(shallow copy)와 깊은복사(deep copy)
+        //- 참조형 데이터에서 참조만 복사하면 얕은 복사
+        //- 데이터까지 완벽하게 복사하면 깊은 복사
+        //- 대다수의 객체지향 프로그래밍은 얕은 복사가 기본 값 
+
+        // 이게 얕은 복사, 리모콘만 만든거, 빨대만 꽂은거 
+        const a = {no:1, name:"피카추", type:"전기"};
+        const b = a;
+        const c = a;
+        
+        b.no = 25;
+
+        console.log(a);
+        console.log(b);
+        console.log(c);
+
+        //전개 연산자도 대로는 얕은 복사를 한당
+        //- 원시형 데이터 배열은 깊은 복사를 한다
+        //- 객체 데이터 배열은 얕은 복사를 한다. 
+
+        //[1] 전개 연산자가 깊은 복사를 하는 경우 . 
+        const d = [10, 20, 30, 40, 50];
+        const e = [];
+        const f = [];
+
+        e.push(...d);
+        f.push(...d);
+
+        e[2] = 9999;
+
+        console.log(d);
+        console.log(e);
+        console.log(f);
+
+        //[2] 전개 연산자가 얕은 복사를 하는 경우 
+        const g = [
+            {no:1, name:"이상해씨", type:"풀"},
+            {no:4, name:"파이리", type:"불꽃"},
+            {no:7, name:"꼬부기", type:"물"},
+        ];
+
+        const h = [];
+        const i = [];
+
+        h.push(...g);
+        i.push(...g);
+
+        h[2].no = 999; 
+
+        console.log(g);
+        console.log(h);
+        console.log(i);
+
+    </script>
+</head>
+<body>
+    
+</body>
+</html>
