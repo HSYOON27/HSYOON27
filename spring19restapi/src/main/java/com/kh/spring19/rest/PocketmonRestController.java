@@ -7,10 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.NoHandlerFoundException;
@@ -74,7 +74,9 @@ public class PocketmonRestController {
 	
 	@PostMapping("/")
 	//public void add(@ModelAttribute PocketmonDto dto)
-	public void add(@ParameterObject PocketmonDto dto) {
+	public void add(@RequestBody //JSON 형태의 전송을 수신할 수 있음.
+						 @ParameterObject //얘는 문서의 형태를 표시하기 위한 Annotation
+							PocketmonDto dto) {
 		repo.insert(dto);
 	}
 	
@@ -158,10 +160,11 @@ public class PocketmonRestController {
 	   }
 	   
 	   @PutMapping("/")
-	   public void edit(@ModelAttribute PocketmonDto dto) throws NoHandlerFoundException {
-	      PocketmonDto find = repo.selectOne(dto.getNo());
-	      if(find == null) throw new NoHandlerFoundException(null, null, null);
-	      repo.update(dto);
+	//   public void edit(@ModelAttribute PocketmonDto dto) throws NoHandlerFoundException {
+	      public void edit(@ParameterObject @RequestBody PocketmonDto dto) throws NoHandlerFoundException {
+		      PocketmonDto find = repo.selectOne(dto.getNo());
+		      if(find == null) throw new NoHandlerFoundException(null, null, null);
+		      repo.update(dto);
 	   }
 	   
 	   @DeleteMapping("/{no}")

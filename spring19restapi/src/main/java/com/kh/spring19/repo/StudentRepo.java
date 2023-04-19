@@ -5,10 +5,9 @@ import java.util.List;
 import com.kh.spring19.dto.StudentDto;
 
 public interface StudentRepo {
-
-	void insert(StudentDto dto);
 	List<StudentDto> selectList();
 	StudentDto selectOne(int no);
-	boolean update(StudentDto dto);
+	void insert(StudentDto studentDto);
+	boolean update(StudentDto studentDto);
 	boolean delete(int no);
 }

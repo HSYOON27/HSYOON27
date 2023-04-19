@@ -7,13 +7,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.NoHandlerFoundException;
+
 
 import com.kh.spring19.dto.SubjectDto;
 import com.kh.spring19.repo.SubjectRepo;
@@ -67,11 +68,11 @@ public class SubjectRestController {
 // @ModelAttribute는 springdoc에서 인식 X
 // @ParameterObject로 대체하여 사용할 것을 권장	
 	
-	@PostMapping("/")
-	public void add(@ParameterObject SubjectDto dto) {
-		repo.insert(dto);
-	}
 	
+	@PostMapping("/")
+	public void insert(@ParameterObject @RequestBody SubjectDto subjectDto) {
+		repo.insert(subjectDto);
+	}
 	
 	@Operation(
 		description = "과목 목록 조회",
@@ -102,9 +103,10 @@ public class SubjectRestController {
 	)
 	
 	@GetMapping("/")
-	public List<SubjectDto> list(){
+	public List<SubjectDto> list() {
 		return repo.selectList();
 	}
+	
 	
 	@Operation(
 			summary = "과목 상세정보 조회",
@@ -152,10 +154,10 @@ public class SubjectRestController {
 	   }
 	   
 	   @PutMapping("/")
-	   public void edit(@ModelAttribute SubjectDto dto) throws NoHandlerFoundException {
-		   SubjectDto find = repo.selectOne(dto.getNo());
-	      if(find == null) throw new NoHandlerFoundException(null, null, null);
-	      repo.update(dto);
+	   public void edit(@ParameterObject @RequestBody SubjectDto dto) throws NoHandlerFoundException {
+		      SubjectDto find = repo.selectOne(dto.getNo());
+		      if(find == null) throw new NoHandlerFoundException(null, null, null);
+		      repo.update(dto);
 	   }
 	   
 	   @DeleteMapping("/{no}")

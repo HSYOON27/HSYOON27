@@ -11,5 +11,7 @@ public interface SubjectRepo {
 	SubjectDto selectOne(int no);
 	boolean update(SubjectDto dto);
 	boolean delete(int no);
+	List<SubjectDto> selectListByName(String name);
 	
+	List<SubjectDto> selectListByPaging(int page);
 }

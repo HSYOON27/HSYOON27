@@ -45,6 +45,7 @@ public class PocketmonRepoImpl implements PocketmonRepo {
 		return sqlSession.selectList("pocketmon.searchName", name);
 	}
 
+	//무한 스크롤 2023.04.18 구현
 	@Override
 	 public List<PocketmonDto> selectListByPaging(int page) {
 	      int end = page * 10;
