@@ -49,7 +49,6 @@
 
                     <!-- <button type="button" v-on:click="pocketmon.edit = false">취소 사본</button> -->
                     <button type="button" v-on:click="cancelEdit(index)">취소</button>
-
                     <button type="button" v-on:click="sendEdit(index)">저장</button>
                 </div>
 
@@ -60,6 +59,7 @@
                     <div>속성 : {{pocketmon.type}} </div>
                     <!-- <button type="button" v-on:click="pocketmon.edit = true">수정 사본</button> -->
                     <button type="button" v-on:click="changeEdit(index)">수정</button>
+                    <button type="button" v-on:click="deleteItem(index)">삭제</button>
                 </div>
 
             </div>
@@ -157,6 +157,17 @@
                     onClick: function(){} // Callback after click
                     }).showToast();
                 },
+                    async deleteItem(index){
+                        const choice = window.confirm("정말?");
+                        if(choice == false) return;
+    
+                        const no = this.pocketmonList[index].no;
+                        const url = "http://localhost:8080/pocketmon/"+no;
+                        const resp = await axios.delete(url);
+                        console.log(resp);
+    
+                        this.loadList();
+                    },
 
             },
 
@@ -168,6 +179,9 @@
             created(){//hook : 특정 시점에 자동 실행되는 코드 
                 this.loadList();
             },
+
+
+
         }).mount("#app");
     </script>
 </body>
