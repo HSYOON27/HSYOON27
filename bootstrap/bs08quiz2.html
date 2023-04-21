@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap demo</title>
+    <!-- <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"> -->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/5.2.3/cosmo/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+  </head>
+  <body>
+
+    <!--
+        container - 화면이 배치될 기본 위치
+        1. container : 기본 컨테이너이며 폭에 반응하여 자동 조정(뚝뚝끊김)
+        2. container-fluid : 폭의 변화에 부드럽게 반응하는 컨테이너(100%)
+        row - 한 줄 영역 , col - 한 칸 영역
+        사이즈 - sm, md, lg, xl
+    -->
+    <div class="container-fluid mt-4" id="app">
+
+        <div class="row">
+            <div class="offset-md-2 col-md-8">
+
+                <!-- 문서 제목 (Jumbotron) -->
+                <div class="row text-center">
+                    <div class="col bg-dark text-light p-4 rounded">
+                        <h1>제목</h1>
+                        <p>부제목 또는 설명</p>
+                    </div>
+                </div>
+
+                <!-- 포켓몬스터 등록을 위한 화면 -->
+                <form action="insertProcess" method="post" 
+                                v-on:submit.prevent="sendData"
+                                autocomplete="off">
+                    
+                <!-- 번호 입력창 -->
+                <div class="row mt-4">
+                    <label class="col-sm-3 col-form-label">번호</label>
+                    <div class="col-sm-9">
+                        <input type="text" name="no" v-model="pocketmon.no" class="form-control rounded"
+                                :class="pocketmonClass.no"
+                                v-on:blur="checkNo">
+
+                        <!-- 피드백 설정 -->
+                        <div class="valid-feedback">사용할 수 있는 번호입니다</div>
+                        <div class="invalid-feedback">{{noErrorFeedback}}</div>
+                    </div>
+                </div>
+
+                <!-- 이름 입력창 -->
+                <div class="row mt-4">
+                    <label class="col-sm-3 col-form-label">이름</label>
+                    <div class="col-sm-9">
+                        <input type="text" name="name" v-model="pocketmon.name" class="form-control rounded" v-on:input="pocketmon.name = $event.target.value"
+                                :class="pocketmonClass.name"
+                                v-on:blur="checkName">
+                        <!-- 피드백 설정 -->
+                        <div class="valid-feedback">멋진 이름이네요!</div>
+                        <div class="invalid-feedback">이름은 한글 7자 이내로 작성하세요</div>
+                    </div>
+                </div>
+
+                <!-- 속성 입력창 -->
+                <div class="row mt-4">
+                    <label class="col-sm-3 col-form-label">속성</label>
+                    <div class="col-sm-9">
+                        <input type="text" name="type" v-model="pocketmon.type" class="form-control rounded" v-on:input="pocketmon.type = $event.target.value"
+                                :class="pocketmonClass.type"
+                                v-on:blur="checkType">
+                        <!-- 피드백 설정 -->
+                        <div class="invalid-feedback">"풀","물","불","전기","땅","바람" 중에서만 가능합니다</div>
+                    </div>
+                </div>
+
+                <!-- 전송 버튼 -->
+                <div class="row mt-4">
+                    <div class="col">
+                        <a type="button" href="#" class="btn btn-secondary me-1">
+                            <i class="fa-solid fa-list"></i>
+                            목록
+                        </a>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fa-solid fa-plus"></i>
+                            등록
+                        </button>
+                    </div>
+                </div>
+
+                </form>
+
+
+            </div>
+        </div>
+
+
+        
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!--
+        VueJS는 Lazy loading 방식으로 제어 영역에 대한 프로그래밍 구현
+        무조건 최신버전
+        <script src="https://unpkg.com/vue@next"></script>
+    -->
+    <script src="https://unpkg.com/vue@3.2.36"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
+    <script>
+        Vue.createApp({
+            //데이터 설정 영역
+            data(){
+                return {
+                    //화면에서 사용할 데이터 선언
+                    pocketmon:{
+                        no:"",
+                        noCheck:false,
+                        name:"",
+                        type:"",
+                        //잘못된 형식
+                        get noValid(){
+                            const value = parseInt(this.no);
+                            return value > 0;
+                        },
+                        get nameValid(){
+                            const regex = /^[가-힣]{1,7}$/;
+                            return regex.test(this.name);
+                        },
+                        get typeValid(){
+                            const list = ["풀","물","불","전기","땅","바람"];
+                            return list.includes(this.type);
+                        },
+                        get allValid(){
+                            return this.noValid && this.noCheck
+                                    && this.nameValid && this.typeValid;
+                        },
+                    },
+
+                    //입력창에 is-valid 또는 is-invalid를 붙이면 판정 효과가 발생
+                    //- v-bind:class로 작성하기에는 너무 코드가 길고 복잡함
+                    //- 객체로 만들어서 입력창에 연결시키면 좋겠다
+                    pocketmonClass : {
+                        no : {
+                            "is-valid" : false,
+                            "is-invalid" : false,
+                        },
+                        name : {
+                            "is-valid" : false,
+                            "is-invalid" : false,
+                        },
+                        type : {
+                            "is-valid" : false,
+                            "is-invalid" : false,
+                        }
+                    },
+
+                    //상태에 따른 피드백 메세지를 준비
+                    // pocketmonFeedback:{
+                    //     no:{
+                    //         valid:"",
+                    //         invalid:"",
+                    //     }
+                    // },
+                    noErrorFeedback:"",
+                };
+            },
+            //데이터 실시간 계산 영역
+            //- 사용하고 싶은 변수명으로 함수를 선언
+            //- 함수 내부에는 보여주고 싶은 값을 코드로 반환하도록 작성
+            //- Vue에 등록한 값에 접근할 때 반드시 this를 붙여야 함
+            //- 코드가 길면 안됨(무리가 많이 감)
+            computed:{
+
+            },
+            //메소드 영역
+            //- 코드를 저장해두고 필요 시 호출할 수 있다
+            //- 필요하다면 매개변수를 설정할 수 있고, 반환값을 가질 수 있다
+            methods:{
+                //이벤트 설정시 함수를 이름만 적어서 Vue가 부르도록 하면
+                //이벤트 객체를 1번 매개변수에 자동으로 설정해준다
+                sendData(e){
+                    //유효성 검사
+                    if(this.pocketmon.allValid == false) return;
+
+                    //e.target이 form이므로 submit()으로 전송을 지시
+                    e.target.submit();
+                },
+                checkNo(){
+                    this.pocketmonClass.no["is-valid"] = false;
+                    this.pocketmonClass.no["is-invalid"] = false;
+
+                    //완전한 성공 (아이디 중복검사 통과 및 형식검사 통과)
+                    if(this.pocketmon.noCheck && this.pocketmon.noValid) {
+                        //this.pocketmonClass.no.is-valid = true;
+                        this.pocketmonClass.no["is-valid"] = true;
+                    }
+                    else if(this.pocketmon.noValid) {//형식검사만 통과
+                        this.pocketmonClass.no["is-invalid"] = true;
+                        this.noErrorFeedback = "이미 사용중인 번호입니다";
+                    }
+                    else {//형식검사도 통과하지 못한 것
+                        this.pocketmonClass.no["is-invalid"] = true;
+                        this.noErrorFeedback = "잘못된 형식의 번호입니다";
+                    }
+                },
+                checkName(){
+                    this.pocketmonClass.name["is-valid"] = false;
+                    this.pocketmonClass.name["is-invalid"] = false;
+
+                    if(this.pocketmon.nameValid) {
+                        this.pocketmonClass.name["is-valid"] = true;
+                    }
+                    else {
+                        this.pocketmonClass.name["is-invalid"] = true;
+                    }
+                },
+                checkType() {
+                    this.pocketmonClass.type["is-valid"] = false;
+                    this.pocketmonClass.type["is-invalid"] = false;
+
+                    if(this.pocketmon.typeValid) {
+                        this.pocketmonClass.type["is-valid"] = true;
+                    }
+                    else {
+                        this.pocketmonClass.type["is-invalid"] = true;
+                    }
+                },
+                async checkNoConflict() {
+                    if(this.pocketmon.noValid == false) return;
+
+                    const url = "http://localhost:7070/rest/pocketmon/"+this.pocketmon.no;
+                    const resp = await axios.get(url);
+                    //this.pocketmon.noCheck = (resp.data == "NNNNY");
+                    if(resp.data == "NNNNY") {
+                        this.pocketmon.noCheck = true;
+                    }
+                    else {
+                        this.pocketmon.noCheck = false;
+                    }
+                }
+            },
+            //감시 영역(watch)
+            //- data의 변동사항이 생기면 자동으로 실행되는 영역
+            //- computed와 유사한 역할을 수행하지만 다름
+            //- computed는 새로운 값을 계산하는 용도
+            //- watch는 데이터가 변했을 때 특정 코드를 실행하는 용도
+            watch:{
+                //no에 대한 중복검사를 실시
+                //- debounce 500ms 시점에
+                
+                //"pocketmon.no":function(){},
+                //pocketmon:{deep:true, handler:function(){}},
+
+                "pocketmon.no":_.debounce(function(value){
+                    //console.log(value, this.pocketmon.no);
+                    this.checkNoConflict();
+                }, 500),
+            },
+        }).mount("#app");
+    </script>
+  </body>
+</html>
