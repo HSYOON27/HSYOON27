@@ -1,6 +1,6 @@
 <template>
     
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-5">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-2">
 <div class="container-fluid">
 <RouterLink class="navbar-brand" to="/">KH Academy</RouterLink>
 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">

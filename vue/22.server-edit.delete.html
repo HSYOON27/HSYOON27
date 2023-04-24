@@ -102,7 +102,7 @@
                //데이터 중 pocketmon을 서버로 전송 
              
                async loadList(){
-                    const resp = await axios.get("http://localhost:8080/pocketmon/");
+                    const resp = await axios.get("http://localhost:8083/pocketmon/");
                     
                     //싱글 페이지 문제점들의 보완을 위해.. 
                     this.pocketmonList.splice(0);
