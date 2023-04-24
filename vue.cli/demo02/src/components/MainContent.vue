@@ -1,6 +1,6 @@
 <template>
     <div>
-            <img src="https://via.placeholder.com/200x200?text=IMG">   
+            <img src="https://via.placeholder.com/400x400?text=IMG">   
     </div>
 </template>
 
