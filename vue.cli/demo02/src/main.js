@@ -22,7 +22,13 @@ import {axios} from "./utils/axios";
 app.config.globalProperties.$http = axios;
 
 //라우터를 사용하도록 설정해야함(use 함수 사용)
-app.use(router).mount("#app");
+app.use(router);
 
+//vuex를 사용하도록 설정해야함 
+import { storage } from './utils/vuex';
+app.use(storage);
+
+//생성된 app을 id=app 영역을 제어할 수 있도록 설정
+app.mount("#app");
 
 // createApp(App).use(router).mount('#app')
