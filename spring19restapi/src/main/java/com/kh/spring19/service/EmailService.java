@@ -9,5 +9,4 @@ public interface EmailService {
 	//인증메일 보내기
 	void sendCert(String email) throws MessagingException, FileNotFoundException, IOException;
 	
-	
 }

@@ -16,5 +16,21 @@ public class CertRepoImpl implements CertRepo{
 	public void insert(CertDto certDto) {
 		sqlSession.insert("cert.add", certDto);
 	}
+
+	@Override
+	public boolean exist(CertDto certDto) {
+		CertDto findDto = sqlSession.selectOne("cert.checkSecretWithTime", certDto);
+		return findDto != null;
+	}
+
+	@Override
+	public void delete(CertDto certDto) {
+		sqlSession.delete("cert.delete", certDto);
+	}
+
+	@Override
+	public void clean() {
+		sqlSession.delete("cert.clean");
+	}
 	
 }
