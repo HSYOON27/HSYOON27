@@ -17,7 +17,7 @@ public class SchedulerServiceImpl implements SchedulerService {
 
 	//이 기능이 언제 실행하면 좋은지 설정
 	//@Scheduled(fixedRate = 1000L)//1초
-//	@Scheduled(cron = "* * * * * *")//1초(매초 매분 매시 매일 매월 매요일)
+    //@Scheduled(cron = "* * * * * *")//1초(매초 매분 매시 매일 매월 매요일)
 	//@Scheduled(cron = "0 * * * * *")//0초 매분 매시 매일 매월 매요일 => 즉 1분마다 
 	//@Scheduled(cron = "0 0 * * * *")//0초 0분 매시 매일 매월 매요일 => 즉 매시 정각 마다 
 	//@Scheduled(cron = "0 0 0 * * *")//매일 자정

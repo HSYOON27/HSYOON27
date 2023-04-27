@@ -15,6 +15,7 @@
 		이메일과 인증번호가 주어졌을 때 존재하는지 확인하는 기능 
 	 	(시간 고려 여부에 따라 코드가 달라짐) 
 	 -->
+	 
 	<select id="checkSecret" resultType="CertDto">
 		select * from cert where email = #{email} and secret = #{secret}
 	</select>
