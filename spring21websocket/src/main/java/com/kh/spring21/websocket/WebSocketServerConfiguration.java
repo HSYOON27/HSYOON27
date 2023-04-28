@@ -4,6 +4,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.socket.config.annotation.EnableWebSocket;
 import org.springframework.web.socket.config.annotation.WebSocketConfigurer;
 import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry;
+import org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor;
 //웹소켓 사용 설정 파일
 @Configuration
 @EnableWebSocket//웹소켓 사용 설정 활성화
@@ -20,6 +21,12 @@ public class WebSocketServerConfiguration implements WebSocketConfigurer {
 
 	@Autowired
 	private JsonWebSocketServer jsonWebSocketServer;
+	
+	@Autowired
+	private MemberWebSocketServer memberWebSocketServer;
+	
+	@Autowired
+	private VueMemberWebSocketServer vueMemberWebSocketServer;
 	
 	@Override
 	public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
@@ -38,6 +45,16 @@ public class WebSocketServerConfiguration implements WebSocketConfigurer {
 		
 		registry.addHandler(jsonWebSocketServer, "/ws/json")
 		.withSockJS();
+		
+		//HttpSessionHandshakeInterceptor를 추가하면 이를 통해 HttpSession의 정보를 
+		//WebSocketSession으로 전달하도록 설정한다. 
+		registry.addHandler(memberWebSocketServer, "/ws/member")
+		.addInterceptors(new HttpSessionHandshakeInterceptor())
+		.withSockJS();
+		
+		//vue로 만들기
+		registry.addHandler(vueMemberWebSocketServer, "/ws/vuemember")
+		.addInterceptors(new HttpSessionHandshakeInterceptor()).withSockJS();
 		
 	}
 
