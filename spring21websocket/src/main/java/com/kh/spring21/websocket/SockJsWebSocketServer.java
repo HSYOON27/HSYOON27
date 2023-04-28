@@ -15,7 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 public class SockJsWebSocketServer extends TextWebSocketHandler {
 
-	private Set<WebSocketSession> users = new CopyOnWriteArraySet<>();
+	private Set<WebSocketSession> users = new CopyOnWriteArraySet<>();	
 
 	@Override
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
@@ -26,7 +26,7 @@ public class SockJsWebSocketServer extends TextWebSocketHandler {
 	public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
 		users.remove(session);
 	}
-
+	
 	@Override
 	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
 		//전달받은 메세지를 전체 사용자에게 뿌린다(broadcast)
