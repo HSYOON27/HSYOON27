@@ -8,7 +8,7 @@
    }
 </style>
 
-<h1>채널예제 1번 (사용자 변환)</h1>
+<h1>웹소켓 회원전용 채팅 예제(채널 3)</h1>
 <h2>${sessionScope.memberId}, ${sessionScope.memberLevel}</h2>
 
 <hr>
@@ -48,7 +48,7 @@
       //시작하자마자 연결
          
       //SockJS를 사용하여 달라지는 부분(주소, 연결생성)
-      const url = "${pageContext.request.contextPath}/ws/channel1";
+      const url = "${pageContext.request.contextPath}/ws/channel3";
       window.socket = new SockJS(url);
       
       //실제로 연결이 됐는지, 끊어졌는지 알 방법이 없다

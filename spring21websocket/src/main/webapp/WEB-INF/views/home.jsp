@@ -28,7 +28,9 @@
 <h2><a href="chat">채팅</a></h2>
 <h2><a href="sockjs">SocjJs채팅</a></h2>
 <h2><a href="json">JSON채팅</a></h2>
-<h2><a href="channel1">Channel1 채팅</a></h2>
+<h2><a href="channel1">채널예제 1번 (사용자 클래스화)</a></h2>
+<h2><a href="channel2">채널예제 2번 (채팅창 클래스화)</a></h2>
+<h2><a href="channel3">채널예제 3번 (채널 클래스화)</a></h2>
 
 
 <h2><a href="member">회원 전용 채팅(jQuery)</a></h2>

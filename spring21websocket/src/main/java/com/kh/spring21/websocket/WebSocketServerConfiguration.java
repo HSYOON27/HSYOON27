@@ -31,6 +31,12 @@ public class WebSocketServerConfiguration implements WebSocketConfigurer {
 	@Autowired
 	private ChannelWebSocketServer1 channelWebSocketServer1;
 	
+	@Autowired
+	private ChannelWebSocketServer2 channelWebSocketServer2;
+	
+	@Autowired
+	private ChannelWebSocketServer3 channelWebSocketServer3;
+
 	@Override
 	public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
 		//만들어둔 웹소켓 서버를 등록하는 코드를 작성
@@ -60,10 +66,13 @@ public class WebSocketServerConfiguration implements WebSocketConfigurer {
 		.addInterceptors(new HttpSessionHandshakeInterceptor()).withSockJS();
 		
 		
-		//클래
+		//클래스 이용
 		registry.addHandler(channelWebSocketServer1, "/ws/channel1")
+				 .addHandler(channelWebSocketServer2, "/ws/channel2")
+				 .addHandler(channelWebSocketServer3, "/ws/channel3")
 				 .addInterceptors(new HttpSessionHandshakeInterceptor())
 				 .withSockJS();
+		
 		
 	}
 
