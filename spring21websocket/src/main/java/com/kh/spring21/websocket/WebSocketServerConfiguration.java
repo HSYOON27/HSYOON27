@@ -36,6 +36,15 @@ public class WebSocketServerConfiguration implements WebSocketConfigurer {
 	
 	@Autowired
 	private ChannelWebSocketServer3 channelWebSocketServer3;
+	
+	@Autowired
+	private ChannelWebSocketServer4 channelWebSocketServer4;
+	
+	@Autowired
+	private ChannelWebSocketServer5 channelWebSocketServer5;
+
+	@Autowired
+	private ChannelWebSocketServer6 channelWebSocketServer6;
 
 	@Override
 	public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
@@ -70,6 +79,9 @@ public class WebSocketServerConfiguration implements WebSocketConfigurer {
 		registry.addHandler(channelWebSocketServer1, "/ws/channel1")
 				 .addHandler(channelWebSocketServer2, "/ws/channel2")
 				 .addHandler(channelWebSocketServer3, "/ws/channel3")
+				 .addHandler(channelWebSocketServer4, "/ws/channel4")
+				 .addHandler(channelWebSocketServer5, "/ws/channel5")
+				 .addHandler(channelWebSocketServer6, "/ws/channel6")
 				 .addInterceptors(new HttpSessionHandshakeInterceptor())
 				 .withSockJS();
 		

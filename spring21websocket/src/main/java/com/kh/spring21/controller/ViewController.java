@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.kh.spring21.dto.MemberDto;
 import com.kh.spring21.repo.MemberRepo;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Controller
 @RequestMapping("/view")
 public class ViewController {
@@ -24,6 +27,7 @@ public class ViewController {
 	
 	@GetMapping("/chat")
 	public String chat() {
+		//return "/WEB-INF/views/chat.jsp";
 		return "chat";
 	}
 	
@@ -35,7 +39,7 @@ public class ViewController {
 	
 	@GetMapping("/json")
 	public String json() {
-		//return "WEB-INF/views/json.jsp";
+		//return "/WEB-INF/views/json.jsp";
 		return "json";
 	}
 	
@@ -44,10 +48,10 @@ public class ViewController {
 		//return "/WEB-INF/views/home.jsp";
 		return "home";
 	}
-
+	
 	@Autowired
 	private MemberRepo memberRepo;
-
+	
 	@PostMapping("/login")
 	public String login(
 				@ModelAttribute MemberDto memberDto,//사용자가 입력한 정보
@@ -60,7 +64,7 @@ public class ViewController {
 		}
 		return "redirect:/view/";
 	}
-
+	
 	@GetMapping("/logout")
 	public String logout(HttpSession session) {
 		session.removeAttribute("memberId");
@@ -76,26 +80,44 @@ public class ViewController {
 	
 	@GetMapping("/vuemember")
 	public String vuemember() {
-		//return "/WEB-INF/views/member.jsp";
 		return "vuemember";
 	}
 	
 	@GetMapping("/channel1")
 	public String channel1() {
-		//return "/WEB-INF/views/member.jsp";
+		//return "/WEB-INF/views/channel1.jsp";
 		return "channel1";
 	}
 	
 	@GetMapping("/channel2")
 	public String channel2() {
-		//return "/WEB-INF/views/member.jsp";
+		//return "/WEB-INF/views/channel2.jsp";
 		return "channel2";
 	}
 	
 	@GetMapping("/channel3")
 	public String channel3() {
-		//return "/WEB-INF/views/member.jsp";
+		//return "/WEB-INF/views/channel3.jsp";
 		return "channel3";
 	}
 	
+	@GetMapping("/channel4")
+	public String channel4() {
+		//return "/WEB-INF/views/channel4.jsp";
+		return "channel4";
+	}
+	
+	@GetMapping("/channel5")
+	public String channel5() {
+		//return "/WEB-INF/views/channel5.jsp";
+		return "channel5";
+	}
+	
+	@GetMapping("/channel6")
+	public String channel6() {
+		//return "/WEB-INF/views/channel6.jsp";
+		return "channel6";
+	}
+	
 }
+

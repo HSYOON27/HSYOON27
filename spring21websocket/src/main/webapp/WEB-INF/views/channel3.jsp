@@ -8,7 +8,7 @@
    }
 </style>
 
-<h1>웹소켓 회원전용 채팅 예제(채널 3)</h1>
+<h1>웹소켓 회원전용 채팅 예제(채널 3) 단일채널</h1>
 <h2>${sessionScope.memberId}, ${sessionScope.memberLevel}</h2>
 
 <hr>

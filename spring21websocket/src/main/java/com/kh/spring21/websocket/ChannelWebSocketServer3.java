@@ -33,7 +33,6 @@ public class ChannelWebSocketServer3 extends TextWebSocketHandler {
       // 사용자 정보를 객체로 변환하여 저장
       // -> 세션을 조사하여 회원 정보까지 추가로 설정하도록 구현
    
-      
       UserVO user = new UserVO(session);
       String roomName = "1";
       channel.join(user, roomName);
