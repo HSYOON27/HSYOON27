@@ -28,6 +28,9 @@ public class WebSocketServerConfiguration implements WebSocketConfigurer {
 	@Autowired
 	private VueMemberWebSocketServer vueMemberWebSocketServer;
 	
+	@Autowired
+	private ChannelWebSocketServer1 channelWebSocketServer1;
+	
 	@Override
 	public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
 		//만들어둔 웹소켓 서버를 등록하는 코드를 작성
@@ -55,6 +58,12 @@ public class WebSocketServerConfiguration implements WebSocketConfigurer {
 		//vue로 만들기
 		registry.addHandler(vueMemberWebSocketServer, "/ws/vuemember")
 		.addInterceptors(new HttpSessionHandshakeInterceptor()).withSockJS();
+		
+		
+		//클래
+		registry.addHandler(channelWebSocketServer1, "/ws/channel1")
+				 .addInterceptors(new HttpSessionHandshakeInterceptor())
+				 .withSockJS();
 		
 	}
 

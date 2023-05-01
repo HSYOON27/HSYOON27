@@ -80,4 +80,10 @@ public class ViewController {
 		return "vuemember";
 	}
 	
+	@GetMapping("/channel1")
+	public String channel1() {
+		//return "/WEB-INF/views/member.jsp";
+		return "channel1";
+	}
+	
 }
