@@ -43,109 +43,144 @@
 <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
 <script>
 	$(function(){
-		changeToDisconnect();
+		//시작하자마자 채팅방 메세지를 불러온다
+		loadMessage();
 		
-		//시작하자마자 연결
-			
-		//SockJS를 사용하여 달라지는 부분(주소, 연결생성)
-		const url = "${pageContext.request.contextPath}/ws/channel6";
-		window.socket = new SockJS(url);
 		
-		//실제로 연결이 됐는지, 끊어졌는지 알 방법이 없다
-		//- 웹소켓에서 이벤트 형태로 제공한다(callback)
-		//- 지금 현재 서버의 대기실에 위치하고 있으므로 방 번호를 알려줘서 이동 처리
-		window.socket.onopen = function(){
-			//파라미터 중에서 room이라는 항목을 읽어서 첨부하여 전송
-			//const data = {type : 2, room : "${param.room}"};
-			
-			const room = new URLSearchParams(location.search).get("room");
-			const data = {type : 2, room : room};
-			window.socket.send(JSON.stringify(data));
-			
-			changeToConnect();
-			$("<p>").text("서버에 연결되었습니다")
-						.appendTo(".message-wrapper");
-		};
-		window.socket.onclose = function(){
+		
+		function loadMessage() {
+			const roomName = new URLSearchParams(location.search).get("room");
+			$.ajax({
+				url:"${pageContext.request.contextPath}/rest/message/"+roomName,
+				method:"get",
+				success:function(resp){
+					//resp에 있는 목록의 모든 메세지를 화면에 추가
+					displayMessageList(resp);
+					//웹소켓 연결
+					connectWebSocket();
+				},
+			});
+		}
+		
+		function displayMessageList(resp){
+			for(let i=0; i < resp.length; i++) {
+				//수신한 데이터(e.data)가 JSON 문자열 형태이므로 해석 후 처리
+				const data = JSON.parse(resp[i].messageBody);
+				const time = moment(data.time).format("HH:mm");
+				//const time = moment(data.time).fromNow();
+				
+				var template = $("#message-template").html();
+				var html = $.parseHTML(template);
+				$(html).find(".memberId").text(data.memberId);
+				$(html).find(".content").text(data.content);
+				$(html).find(".time").text(time);
+				
+				switch(data.memberLevel) {
+				case "우수회원": 
+					$(html).find(".memberId").css("color", "dodgerblue"); 
+					break;
+				case "관리자":
+					$(html).find(".memberId").css("color", "firebrick");
+					break;
+				}
+				
+				$(".message-wrapper").append(html);
+			}
+		}
+		
+		function connectWebSocket(){
 			changeToDisconnect();
-			$("<p>").text("서버와의 연결이 종료되었습니다")
-						.appendTo(".message-wrapper");
-		};
-		window.socket.onerror = function(){
-			changeToDisconnect();
-			$("<p>").text("서버와의 연결 오류가 발생했습니다")
-						.appendTo(".message-wrapper");
-		};
-		//메세지를 수신하면 수신된 메세지로 태그를 만들어서 추가
-		window.socket.onmessage = function(e){
-			//수신한 데이터(e.data)가 JSON 문자열 형태이므로 해석 후 처리
-			const data = JSON.parse(e.data);
-			const time = moment(data.time).format("HH:mm");
-			//const time = moment(data.time).fromNow();
 			
-			var template = $("#message-template").html();
-			var html = $.parseHTML(template);
-			$(html).find(".memberId").text(data.memberId);
-			$(html).find(".content").text(data.content);
-			$(html).find(".time").text(time);
+			//시작하자마자 연결
+				
+			//SockJS를 사용하여 달라지는 부분(주소, 연결생성)
+			const url = "${pageContext.request.contextPath}/ws/channel6";
+			window.socket = new SockJS(url);
 			
-			switch(data.memberLevel) {
-			case "우수회원": 
-				$(html).find(".memberId").css("color", "dodgerblue"); 
-				break;
-			case "관리자":
-				$(html).find(".memberId").css("color", "firebrick");
-				break;
+			//실제로 연결이 됐는지, 끊어졌는지 알 방법이 없다
+			//- 웹소켓에서 이벤트 형태로 제공한다(callback)
+			//- 지금 현재 서버의 대기실에 위치하고 있으므로 방 번호를 알려줘서 이동 처리
+			window.socket.onopen = function(){
+				//파라미터 중에서 room이라는 항목을 읽어서 첨부하여 전송
+				//const data = {type : 2, room : "${param.room}"};
+				
+				const room = new URLSearchParams(location.search).get("room");
+				const data = {type : 2, room : room};
+				window.socket.send(JSON.stringify(data));
+				
+				changeToConnect();
+				$("<p>").text("서버에 연결되었습니다")
+							.appendTo(".message-wrapper");
+			};
+			window.socket.onclose = function(){
+				changeToDisconnect();
+				$("<p>").text("서버와의 연결이 종료되었습니다")
+							.appendTo(".message-wrapper");
+			};
+			window.socket.onerror = function(){
+				changeToDisconnect();
+				$("<p>").text("서버와의 연결 오류가 발생했습니다")
+							.appendTo(".message-wrapper");
+			};
+			//메세지를 수신하면 수신된 메세지로 태그를 만들어서 추가
+			window.socket.onmessage = function(e){
+				//수신한 데이터(e.data)가 JSON 문자열 형태이므로 해석 후 처리
+				const data = JSON.parse(e.data);
+				const time = moment(data.time).format("HH:mm");
+				//const time = moment(data.time).fromNow();
+				
+				var template = $("#message-template").html();
+				var html = $.parseHTML(template);
+				$(html).find(".memberId").text(data.memberId);
+				$(html).find(".content").text(data.content);
+				$(html).find(".time").text(time);
+				
+				switch(data.memberLevel) {
+				case "우수회원": 
+					$(html).find(".memberId").css("color", "dodgerblue"); 
+					break;
+				case "관리자":
+					$(html).find(".memberId").css("color", "firebrick");
+					break;
+				}
+				
+				$(".message-wrapper").append(html);
+			};
+				
+			
+			//페이지 나가면 종료이므로 처리하지 않음
+			
+			//전송 버튼을 누르면 서버에게 메세지를 전송하도록 구현
+			$(".btn-send").click(function(){
+				const text = $(".user-input").val();
+				if(text.length == 0) return;
+				
+				//window.socket.send(text); //일반 텍스트
+				
+				//<자바스크립트에서 JSON을 처리하는 명령>
+				//JSON.stringify(객체) ---> 객체를 JSON 문자열로 변환
+				//JSON.parse(JSON문자열) ---> JSON 문자열을 객체로 변환
+				const data = {type:1, content:text};
+				window.socket.send(JSON.stringify(data));
+				
+				$(".user-input").val("");//입력창 초기화
+			});
+			
+			//연결 상태일 때의 화면을 만드는 함수
+			function changeToConnect(){
+				$(".user-input").prop("disabled", false);
+				$(".btn-send").prop("disabled", false);
 			}
 			
-			$(".message-wrapper").append(html);
-		};
-			
-		
-		//페이지 나가면 종료이므로 처리하지 않음
-		
-		//전송 버튼을 누르면 서버에게 메세지를 전송하도록 구현
-		$(".btn-send").click(function(){
-			const text = $(".user-input").val();
-			if(text.length == 0) return;
-			
-			//window.socket.send(text); //일반 텍스트
-			
-			//<자바스크립트에서 JSON을 처리하는 명령>
-			//JSON.stringify(객체) ---> 객체를 JSON 문자열로 변환
-			//JSON.parse(JSON문자열) ---> JSON 문자열을 객체로 변환
-			const data = {type:1, content:text};
-			window.socket.send(JSON.stringify(data));
-			
-			$(".user-input").val("");//입력창 초기화
-		});
-		
-		//연결 상태일 때의 화면을 만드는 함수
-		function changeToConnect(){
-			$(".user-input").prop("disabled", false);
-			$(".btn-send").prop("disabled", false);
+			//종료 상태일 때의 화면을 만드는 함수
+			function changeToDisconnect(){
+				$(".user-input").prop("disabled", true);
+				$(".btn-send").prop("disabled", true);
+			}
 		}
 		
-		//종료 상태일 때의 화면을 만드는 함수
-		function changeToDisconnect(){
-			$(".user-input").prop("disabled", true);
-			$(".btn-send").prop("disabled", true);
-		}
 		
-		//버튼을 누르면 채널 이동 메세지를 전송
-		//(형태) {type : 2 , room : "방이름"}
-		$("#channel-1").click(function(){
-			const data = {type:2, room:"1"};
-			window.socket.send(JSON.stringify(data));
-		});
-		$("#channel-2").click(function(){
-			const data = {type:2, room:"2"};
-			window.socket.send(JSON.stringify(data));
-		});
-		$("#channel-3").click(function(){
-			const data = {type:2, room:"3"};
-			window.socket.send(JSON.stringify(data));
-		});
+		
+		
 	});
 </script>
-

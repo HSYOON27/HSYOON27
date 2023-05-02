@@ -22,8 +22,7 @@ public class UserVO {
 		this.session = session;
 		Map<String, Object> attr = session.getAttributes();
 		this.memberId = (String)attr.get("memberId");
-		this.memberId = (String)attr.get("memberLevel");
-
+		this.memberLevel = (String)attr.get("memberLevel");
 	}
 	
 	public boolean isMember() {

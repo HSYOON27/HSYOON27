@@ -1,24 +1,26 @@
 package com.kh.spring21.websocket;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.socket.config.annotation.EnableWebSocket;
 import org.springframework.web.socket.config.annotation.WebSocketConfigurer;
 import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry;
 import org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor;
+
 //웹소켓 사용 설정 파일
 @Configuration
 @EnableWebSocket//웹소켓 사용 설정 활성화
 public class WebSocketServerConfiguration implements WebSocketConfigurer {
 	
 	@Autowired
-	private SockJsWebSocketServer sockJsWebSocketServer;
+	private BasicWebsocketServer basicWebsocketServer;
 	
 	@Autowired
-	private BasicWebsocketServer basicWebsocketServer;
-
-	@Autowired
 	private ChatWebSocketServer chatWebSocketServer;
-
+	
+	@Autowired
+	private SockJsWebSocketServer sockJsWebSocketServer;
+	
 	@Autowired
 	private JsonWebSocketServer jsonWebSocketServer;
 	
@@ -42,10 +44,10 @@ public class WebSocketServerConfiguration implements WebSocketConfigurer {
 	
 	@Autowired
 	private ChannelWebSocketServer5 channelWebSocketServer5;
-
+	
 	@Autowired
 	private ChannelWebSocketServer6 channelWebSocketServer6;
-
+	
 	@Override
 	public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
 		//만들어둔 웹소켓 서버를 등록하는 코드를 작성
@@ -54,38 +56,35 @@ public class WebSocketServerConfiguration implements WebSocketConfigurer {
 		//BasicWebsocketServer를 
 		//ws://localhost:8080/ws/basic 주소에서 사용하겠습니다
 		registry.addHandler(basicWebsocketServer, "/ws/basic");
-
+		
 		registry.addHandler(chatWebSocketServer, "/ws/chat");
 		
 		//SockJS를 사용하도록 웹소켓 서버를 등록
 		registry.addHandler(sockJsWebSocketServer, "/ws/sockjs")
-		.withSockJS();
+					.withSockJS();
 		
 		registry.addHandler(jsonWebSocketServer, "/ws/json")
-		.withSockJS();
+					.withSockJS();
 		
-		//HttpSessionHandshakeInterceptor를 추가하면 이를 통해 HttpSession의 정보를 
-		//WebSocketSession으로 전달하도록 설정한다. 
+		//HttpSessionHandshakeInterceptor를 통해 
+		//HttpSession의 정보를 WebSocketSession으로 전달하도록 설정한다 
 		registry.addHandler(memberWebSocketServer, "/ws/member")
-		.addInterceptors(new HttpSessionHandshakeInterceptor())
-		.withSockJS();
+					.addInterceptors(new HttpSessionHandshakeInterceptor())
+					.withSockJS();
 		
-		//vue로 만들기
 		registry.addHandler(vueMemberWebSocketServer, "/ws/vuemember")
-		.addInterceptors(new HttpSessionHandshakeInterceptor()).withSockJS();
+					.addInterceptors(new HttpSessionHandshakeInterceptor())
+					.withSockJS();
 		
-		
-		//클래스 이용
 		registry.addHandler(channelWebSocketServer1, "/ws/channel1")
-				 .addHandler(channelWebSocketServer2, "/ws/channel2")
-				 .addHandler(channelWebSocketServer3, "/ws/channel3")
-				 .addHandler(channelWebSocketServer4, "/ws/channel4")
-				 .addHandler(channelWebSocketServer5, "/ws/channel5")
-				 .addHandler(channelWebSocketServer6, "/ws/channel6")
-				 .addInterceptors(new HttpSessionHandshakeInterceptor())
-				 .withSockJS();
-		
+					.addHandler(channelWebSocketServer2, "/ws/channel2")
+					.addHandler(channelWebSocketServer3, "/ws/channel3")
+					.addHandler(channelWebSocketServer4, "/ws/channel4")
+					.addHandler(channelWebSocketServer5, "/ws/channel5")
+					.addHandler(channelWebSocketServer6, "/ws/channel6")
+					.addInterceptors(new HttpSessionHandshakeInterceptor())
+					.withSockJS();
 		
 	}
-
+	
 }

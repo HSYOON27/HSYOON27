@@ -16,7 +16,8 @@
 	</select>
 	
 	<select id="check" resultType="ChatUserDto">
-		select * from chat_user where member_id = #{memberId} and room_name = #{roomName}
+		select * from chat_user 
+		where member_id = #{memberId} and room_name = #{roomName}
 	</select>
 	
 </mapper>

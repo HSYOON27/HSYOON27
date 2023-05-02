@@ -20,7 +20,7 @@
 	</select>
 	
 	<select id="list" resultType="ChatRoomDto">
-		select * from chat_room order by room_no asc
+		select * from chat_room order by room_name asc
 	</select>
 	
 </mapper>

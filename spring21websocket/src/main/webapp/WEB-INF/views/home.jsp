@@ -43,8 +43,20 @@
 	<button type="submit">입장</button>
 </form>
 
-<h2>채널 6번 예제(방 선택하여 입장+서비스화)</h2>
+<h2>채널 6번 예제(방 선택하여 입장+서비스화) - 로그인 필요</h2>
 <form action="channel6">
 	<input type="text" name="room" placeholder="채널명 입력" required>
 	<button type="submit">입장</button>
 </form>
+
+<hr>
+
+<h1>채팅방 목록</h1>
+
+<c:forEach var="chatRoom" items="${chatRoomList}">
+	<h3>
+	<a href="channel6?room=${chatRoom.roomName}">
+	${chatRoom.roomName}
+	</a>
+	</h3>
+</c:forEach>
