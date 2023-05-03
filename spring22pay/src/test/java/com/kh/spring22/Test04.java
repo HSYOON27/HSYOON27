@@ -36,9 +36,15 @@ public class Test04 {
 		KakaoPayReadyResponseVO response = kakaoPayService.ready(vo);
 		
 		//출력 
-		log.debug("request = {}", vo);
-		log.debug("response = {}", response);
+	
+		//log.debug("request = {}", vo);
+		//log.debug("response = {}", response);
+		log.debug("partner_order_id = {}", vo.getPartner_order_id());
+		log.debug("partner_user_id = {}", vo.getPartner_user_id());
+		log.debug("tid = {}", response.getTid());
+		log.debug("url = {}", response.getNext_redirect_pc_url());
 
+		
 	
 	}
 }
