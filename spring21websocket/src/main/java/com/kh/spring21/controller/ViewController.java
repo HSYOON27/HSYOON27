@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.kh.spring21.dto.MemberDto;
 import com.kh.spring21.repo.ChatRoomRepo;
 import com.kh.spring21.repo.MemberRepo;
+import com.kh.spring22.ProductDto;
 
 import lombok.extern.slf4j.Slf4j;
 

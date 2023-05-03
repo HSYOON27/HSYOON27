@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- mapper에는 SQL 구문을 작성하고 namespace는 구분을 위한 별칭 -->    
+<mapper namespace="product">
+    
+	<select id="list" resultType="ProductDto">
+		select * from product order by no asc
+	</select>
+	
+	<select id="find" resultType="ProductDto">
+		select * from product where no = #{no}
+	</select>
+	
+	<insert id="add">
+		insert into product(no, name, type, price) 
+		values(#{no}, #{name}, #{type}, #{price})
+	</insert>
+	
+	<update id="edit">
+		<bind name="noIsValid" value="no != null and !no.equals('')"/>
+		<bind name="nameIsValid" value="name != null and !name.equals('')"/>
+		<bind name="typeIsValid" value="type != null and !type.equals('') "/>
+		<bind name="priceIsValid" value="price != null and !price.equals('')"/>
+	
+		update product 
+		<set>
+			<if test="nameIsValid">name = #{name},</if>
+			<if test="typeIsValid">type = #{type},</if>
+			<if test="priceIsValid">price = #{price},</if>
+		</set>
+		<where>
+			<if test="noIsValid">no = #{no}</if>
+		</where>
+	</update>
+	
+	<delete id="delete">
+		delete product where no = #{no}
+	</delete>
+	
+</mapper>

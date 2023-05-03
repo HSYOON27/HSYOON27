@@ -39,6 +39,6 @@ public class Test04 {
 		log.debug("request = {}", vo);
 		log.debug("response = {}", response);
 
-		
+	
 	}
 }
