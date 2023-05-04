@@ -23,7 +23,9 @@
             <td>${paymentDto.paymentTotal}</td>
             <td>${paymentDto.paymentStatus}</td>
             <td>${paymentDto.paymentTime}</td>
-             <td>더보기</td>
+            <td>
+            <a href="detail?paymentNo=${paymentDto.paymentNo}">더보기</a>
+            </td>
             
          </tr>
       </c:forEach>

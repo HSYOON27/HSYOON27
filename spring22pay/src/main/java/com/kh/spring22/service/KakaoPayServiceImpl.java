@@ -18,6 +18,8 @@ import com.kh.spring22.dto.PaymentDto;
 import com.kh.spring22.repo.PaymentRepo;
 import com.kh.spring22.vo.KakaoPayApproveRequestVO;
 import com.kh.spring22.vo.KakaoPayApproveResponseVO;
+import com.kh.spring22.vo.KakaoPayOrderRequestVO;
+import com.kh.spring22.vo.KakaoPayOrderResponseVO;
 import com.kh.spring22.vo.KakaoPayReadyRequestVO;
 import com.kh.spring22.vo.KakaoPayReadyResponseVO;
 
@@ -117,5 +119,25 @@ public class KakaoPayServiceImpl implements KakaoPayService{
 
     		return response;
    }
-   
+
+		@Override
+		public KakaoPayOrderResponseVO order(KakaoPayOrderRequestVO vo) throws URISyntaxException {
+			//주소 생성
+			URI uri = new URI("https://kapi.kakao.com/v1/payment/order");
+			
+			//바디 생성
+			MultiValueMap<String, String> body = new LinkedMultiValueMap<>();
+			body.add("cid", properties.getCid());
+			body.add("tid", vo.getTid());
+
+			//헤더+바디
+			HttpEntity entity = new HttpEntity(body, headers);
+			
+			//전송
+			KakaoPayOrderResponseVO response = 
+					template.postForObject(uri, entity, KakaoPayOrderResponseVO.class);
+			//반환
+			return response;
+		}
+		   
 }

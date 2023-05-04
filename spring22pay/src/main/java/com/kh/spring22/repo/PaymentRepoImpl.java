@@ -35,4 +35,9 @@ public class PaymentRepoImpl implements PaymentRepo {
 		return sqlSession.selectList("payment.selectByMember", memberId);
 	}
 
+	@Override
+	public PaymentDto find(int paymentNo) {
+		return sqlSession.selectOne("payment.find", paymentNo);
+	}
+
 }
