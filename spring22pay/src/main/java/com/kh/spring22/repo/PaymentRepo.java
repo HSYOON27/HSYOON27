@@ -11,6 +11,6 @@ public interface PaymentRepo {
 	List<PaymentDto> selectAll();
 	List<PaymentDto> selectByMember(String memberId);
 	PaymentDto find(int paymentNo);
-	
+	void cancelRemain(int paymentNo);
 	
 }

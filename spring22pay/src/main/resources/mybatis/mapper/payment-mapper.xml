@@ -32,5 +32,9 @@
 		select * from payment where payment_no = #{paymentNo}
 	</select>
 
+	<update id="cancelRemain">
+		update payment set payment_remain = 0 where payment_no = #{paymentNo}
+	</update>
+	
 
 </mapper>

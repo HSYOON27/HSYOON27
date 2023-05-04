@@ -13,6 +13,10 @@
 <h2>잔여금액 : ${paymentDto.paymentRemain}원</h2>
 <h2>현재상태 : ${paymentDto.paymentStatus}</h2>
 
+<!-- 결제 취소 버튼 : 잔여 금액이 존재한다면 -->
+<c:if test="${paymentDto.paymentRemain > 0}">
+	<a href="cancel?paymentNo=${paymentDto.paymentNo}">결제 취소</a>
+</c:if>
 <hr>
 
 <h2>결제 상태 : ${response.status}</h2>
