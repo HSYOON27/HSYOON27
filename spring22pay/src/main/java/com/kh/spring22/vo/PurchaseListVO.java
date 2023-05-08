@@ -7,6 +7,4 @@ import lombok.Data;
 @Data
 public class PurchaseListVO {
 	private List<PurchaseVO> data;
-	
-	
 }
