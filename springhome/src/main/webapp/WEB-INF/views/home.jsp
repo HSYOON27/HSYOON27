@@ -1,10 +1,55 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<%-- JSP가 제공하는 설정 중 include 라는 설정이 있음. --%>
+<%-- 
+	jsp가 제공하는 설정 중에 include라는 설정이 있다
+	이를 사용하여 상단, 하단 템플릿 페이지를 불러온다. 
+--%>
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 
-	 <!-- 중단 -->	  
-	<h1>환영합니다!</h1>
-	
+<!-- 중단 -->
+<h1>CI/CD 사용을 환영합니다!</h1>
+
+<c:if test="${cookie.noad == null}">
+	<!-- 광고 화면 모달 -->
+	<style>
+		.ad-modal {
+			position: fixed;
+			top:50%;
+			left:50%;
+			transform:translate(-50%, -50%);
+			padding:30px;
+			border:3px solid black;
+			background-color: white;
+		}
+	</style>
+	<div class="ad-modal">
+		<img src="https://via.placeholder.com/400x400?text=AD">
+		<br>
+		<a class="close-no-ad" href="#">오늘 하루 안 보기</a>
+		<a class="close-no-action" href="#">닫기</a>
+	</div>
+	<script>
+		$(function(){
+			//닫기를 누르면 광고창을 숨김
+			$(".close-no-action").click(function(e){
+				e.preventDefault();
+				$(".ad-modal").hide();
+			});
+			//오늘 하루 안 보기를 누르면 OOO을 하고 광고창을 숨김
+			$(".close-no-ad").click(function(e){
+				e.preventDefault();
+				//서버에 쿠키 생성 요청
+				$.ajax({
+					async:false,//비동기 처리를 해제	
+					url:"${pageContext.request.contextPath}/noad",
+				});
+				
+				$(".ad-modal").hide();						
+			});
+		});
+	</script>
+</c:if>
+
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>

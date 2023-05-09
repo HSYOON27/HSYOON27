@@ -2,6 +2,8 @@ package com.kh.springhome.controller;
 
 import java.io.IOException;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,7 +64,10 @@ public class MemberController {
 	 }
 
 	 @PostMapping("/login")
-	 public String login(@ModelAttribute MemberDto userDto,
+	 public String login(@ModelAttribute MemberDto userDto, 
+			 @RequestParam(required = false)
+	 		 String remember, 
+			 HttpServletResponse response, 
 			 RedirectAttributes attr, HttpSession session) {
 		 //로그인 검사 : 단일 조회 후 비밀번호 일치 비교
 		 MemberDto findDto = memberDao.selectOne(userDto.getMemberId());
@@ -87,6 +92,20 @@ public class MemberController {
 		 
 		 //(+추가) 최종 로그인 시각을 갱신해야 한다.
 		 memberDao.updateMemberLogin(findDto.getMemberId());
+		 
+		 //(+추가) 체크 여부에 따라 쿠키를 발행/제거한다
+		 if(remember != null) {//아디 저장하기 체크
+			 Cookie cookie = new Cookie("saveId", findDto.getMemberId());
+			 //cookie.setMaxAge(4*7*24*60*60); //4주
+			 cookie.setMaxAge(Integer.MAX_VALUE); // 가능한 최대로 길게 
+			 response.addCookie(cookie);
+		 }
+		 
+		 else {//아이디 저장하기 미체크
+			 Cookie cookie = new Cookie("saveId", findDto.getMemberId());
+			 cookie.setMaxAge(0);
+			 response.addCookie(cookie);
+		 }
 		 
 		 //모두 통과한 경우만 남음
 		 return "redirect:/";//메인페이지
